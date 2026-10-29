@@ -62,80 +62,94 @@
   }
   if (decadas.length > 1){
     botaoFiltro('todas', '');
-    decadas.forEach(function(d){ botaoFiltro('anos ' + String(d).slice(2), d); });
+    decadas.forEach(function(d){ botaoFiltro(d < 2000 ? 'anos ' + String(d).slice(2) : 'anos ' + d, d); });
   }
 
-  // Acervo fotográfico: um letreiro de cinema para cada edição; escolher um ano mostra a cena dela
+  // Acervo fotográfico: um letreiro de cinema para cada década. Escolher uma década acende o letreiro,
+  // mostra a cena da edição e puxa o rolo de fotos dela, ano a ano; a régua dos anos troca a cena e leva o rolo até a foto.
   var cenas = [].slice.call(document.querySelectorAll('#cenas .cena'));
   var letreiros = document.getElementById('letreiros');
+  var rolo = document.getElementById('rolo');
+  function periodo(cena){
+    var t = (cena.querySelector('.ano') || {}).textContent || '';
+    var m = t.match(/^(\d{4})$/);
+    if (m) return { de: +m[1], ate: +m[1] };
+    m = t.match(/anos (\d)0/);
+    if (m){ var d = 1900 + (+m[1]) * 10; if (d < 1970) d += 100; return { de: d, ate: d + 9 }; }
+    return null;
+  }
   if (cenas.length && letreiros){
     document.getElementById('cenas').classList.add('uma-cena');
-    var cartelas = cenas.map(function(cena, i){
-      var ano = cena.querySelector('.ano'), num = cena.querySelector('.numero');
-      var b = el('button', 'letreiro' + (cena.classList.contains('marco-maior') ? ' marco' : ''));
+    var porCena = cenas.map(function(c){ var p = periodo(c) || { de: 0, ate: 0 }; p.cena = c; p.decada = decada(p.de); return p; });
+    var decs = [];
+    porCena.forEach(function(p){ if (p.decada && decs.indexOf(p.decada) < 0) decs.push(p.decada); });
+    fotos.forEach(function(f){ var d = decada(f.ano); if (d && decs.indexOf(d) < 0) decs.push(d); });
+    decs.sort();
+    function nomeDecada(d){ return d < 2000 ? 'anos ' + String(d).slice(2) : 'anos ' + d; }
+    var cartelas = decs.map(function(d, i){
+      var b = el('button', 'letreiro');
       b.type = 'button';
-      b.appendChild(el('b', '', ano ? ano.textContent : '?'));
-      b.appendChild(el('span', '', num ? num.textContent : 'festival'));
-      b.addEventListener('click', function(){ verCena(i, true); });
+      b.appendChild(el('b', '', nomeDecada(d)));
+      var n = fotos.filter(function(f){ return f.foto && decada(f.ano) === d; }).length;
+      b.appendChild(el('span', '', n ? n + (n > 1 ? ' fotos' : ' foto') : 'fotos a encontrar'));
+      b.addEventListener('click', function(){ verDecada(i, true); });
       letreiros.appendChild(b);
       return b;
     });
-    function verCena(i, comSom){
-      cenas.forEach(function(c, n){ c.hidden = n !== i; });
-      cartelas.forEach(function(b, n){ b.setAttribute('aria-pressed', n === i ? 'true' : 'false'); });
-      if (!reduzir){ cenas[i].classList.remove('corte'); void cenas[i].offsetWidth; cenas[i].classList.add('corte'); }
-      if (comSom && window.SOM) SOM.tocar([0, 2, 4, 5, 7, 9, 11, 7, 4, 9, 12][i % 11], { duracao: 1.6, volume: 0.14 });
-      montarRolo(cenas[i]);
+
+    function mostrarCena(c){
+      cenas.forEach(function(x){ x.hidden = x !== c; });
+      if (c && !reduzir){ c.classList.remove('corte'); void c.offsetWidth; c.classList.add('corte'); }
     }
 
-    // o rolo de filme: as fotos do período escolhido, em ordem, com a régua dos anos por cima
-    var rolo = document.getElementById('rolo');
-    function periodo(cena){
-      var t = (cena.querySelector('.ano') || {}).textContent || '';
-      var m = t.match(/^(\d{4})$/);
-      if (m) return { de: +m[1], ate: +m[1], nome: m[1] };
-      m = t.match(/anos (\d)0/);
-      if (m){ var d = 1900 + (+m[1]) * 10; if (d < 1970) d += 100; return { de: d, ate: d + 9, nome: t }; }
-      return null;
+    function verDecada(i, comSom){
+      var d = decs[i];
+      cartelas.forEach(function(b, n){ b.setAttribute('aria-pressed', n === i ? 'true' : 'false'); });
+      var daqui = porCena.filter(function(p){ return p.decada === d; });
+      mostrarCena(daqui.length ? daqui[0].cena : null);
+      if (comSom && window.SOM) SOM.frase([0, 4, 7].map(function(g){ return g + i; }), 0.1);
+      montarRolo(d, daqui);
     }
-    function montarRolo(cena){
+
+    // o rolo de filme: as fotos da década, em ordem de ano, com a régua dos anos por cima
+    function montarRolo(d, daqui){
       if (!rolo) return;
       rolo.textContent = '';
-      var p = periodo(cena);
-      if (!p) return;
-      var lista = fotos.filter(function(f){ return f.ano >= p.de && f.ano <= p.ate; });
+      var lista = fotos.filter(function(f){ return decada(f.ano) === d; });
       var topo = el('div', 'rolo-topo');
-      topo.appendChild(el('p', 'rotulo', 'linha do tempo das fotos · ' + p.nome));
+      topo.appendChild(el('p', 'rotulo', 'linha do tempo das fotos · ' + nomeDecada(d)));
       var regua = el('div', 'regua');
       var quadros = [];
-      for (var a = p.de; a <= p.ate; a++) (function(a){
+      var faixa = el('div', 'filme');
+      for (var a = d; a <= d + 9; a++) (function(a){
         var tem = lista.some(function(f){ return f.ano === a; });
-        var b = el('button', 'regua-ano' + (tem ? ' tem' : ''), p.de === p.ate ? String(a) : "'" + String(a).slice(2));
+        var cena = daqui.filter(function(p){ return p.de === a; })[0];
+        var b = el('button', 'regua-ano' + (tem || cena ? ' tem' : ''), "'" + String(a).slice(2));
         b.type = 'button';
-        b.disabled = !tem;
-        b.setAttribute('aria-label', tem ? 'Fotos de ' + a : a + ': sem fotos ainda');
+        b.disabled = !(tem || cena);
+        b.setAttribute('aria-label', tem || cena ? String(a) : a + ': sem fotos ainda');
         b.addEventListener('click', function(){
+          [].forEach.call(regua.children, function(r){ r.setAttribute('aria-pressed', r === b ? 'true' : 'false'); });
+          if (cena) mostrarCena(cena.cena);
           var q = quadros.filter(function(x){ return x.ano === a; });
           quadros.forEach(function(x){ x.el.classList.toggle('aceso', x.ano === a); });
-          [].forEach.call(regua.children, function(r){ r.setAttribute('aria-pressed', r === b ? 'true' : 'false'); });
-          if (q[0]) faixa.scrollTo({ left: q[0].el.offsetLeft - 20, behavior: reduzir ? 'auto' : 'smooth' });
-          if (window.SOM) SOM.tocar((a - p.de) % 12, { duracao: 1.2, volume: 0.12 });
+          if (q[0]) faixa.scrollTo({ left: q[0].el.offsetLeft - faixa.offsetLeft - 20, behavior: reduzir ? 'auto' : 'smooth' });
+          if (window.SOM) SOM.tocar((a - d) % 12, { duracao: 1.2, volume: 0.12 });
         });
         regua.appendChild(b);
       })(a);
       topo.appendChild(regua);
       rolo.appendChild(topo);
 
-      var faixa = el('div', 'filme');
       if (!lista.length){
         var vazio = el('div', 'quadro vazio-rolo');
-        vazio.appendChild(el('b', '', p.nome));
-        vazio.appendChild(document.createTextNode('Ainda não há fotos deste período no acervo. '));
+        vazio.appendChild(el('b', '', nomeDecada(d)));
+        vazio.appendChild(document.createTextNode('Ainda não há fotos desta década no acervo. '));
         var a2 = el('a', '', 'Você tem alguma?'); a2.href = '#contribua';
         vazio.appendChild(a2);
         faixa.appendChild(vazio);
       }
-      lista.forEach(function(f, n){
+      lista.slice().sort(function(x, y){ return x.ano - y.ano; }).forEach(function(f, n){
         var q = el('figure', 'quadro');
         q.style.setProperty('--n', n);
         if (f.foto){
@@ -166,7 +180,7 @@
       rolo.appendChild(faixa);
       if (!reduzir){ rolo.classList.remove('puxando'); void rolo.offsetWidth; rolo.classList.add('puxando'); }
     }
-    verCena(0, false);
+    verDecada(0, false);
   }
 
   // 2. Telas do YouTube: o vídeo só carrega quando a pessoa clica

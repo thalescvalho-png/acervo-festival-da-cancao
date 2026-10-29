@@ -518,3 +518,5 @@ img{ max-width:100%; height:auto; display:block; }
 .a-conferir::before{ content:"a conferir: "; font-weight:700; color:var(--ouro); }
 .quadro .a-conferir{ border-color:#6B5A3A; color:#D9CFBD; }
 .quadro .a-conferir::before{ color:#E3B76A; }
+.letreiros{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); }
+.letreiro b{ font-size:clamp(24px, 2.8vw, 32px); }
