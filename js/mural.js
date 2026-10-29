@@ -44,6 +44,7 @@
       bt.setAttribute('aria-label', 'Ver de perto: ' + c.titulo);
       var img = el('img');
       img.src = c.imagem; img.alt = c.titulo + (c.ano ? ' (' + c.ano + ')' : ''); img.loading = 'lazy';
+      if (c.w){ img.width = c.w; img.height = c.h; }
       bt.appendChild(img);
       bt.addEventListener('click', function(){ abrir(c, bt); });
       fig.appendChild(bt);
