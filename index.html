@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=11">
+<link rel="stylesheet" href="css/estilo.css?v=12">
 </head>
 <body>
 
@@ -25,14 +25,15 @@
 <div class="topo-in miolo">
 <a class="marca" href="#inicio">Festival da Canção <em>de Alvinópolis</em></a>
 <nav class="menu" aria-label="Seções">
-<a href="#historia">História</a>
-<a href="#causos">Causos</a>
-<a href="#campeoes">Campeões</a>
-<a href="#galeria">Fotos</a>
-<a href="#videos-arquivo">Vídeos</a>
-<a href="#documentario">Documentário</a>
-<a href="#contribua">Contribua</a>
+<a href="#historia"><i>A1</i>História</a>
+<a href="#causos"><i>A2</i>Causos</a>
+<a href="#campeoes"><i>A3</i>Campeões</a>
+<a href="#galeria"><i>B1</i>Fotos</a>
+<a href="#videos-arquivo"><i>B2</i>Vídeos</a>
+<a href="#documentario"><i>B3</i>Documentário</a>
+<a href="#contribua"><i>bônus</i>Contribua</a>
 </nav>
+<button type="button" class="som-topo" id="somTopo" aria-pressed="false" aria-label="Ligar ou desligar o som do site"><span class="som-disco" aria-hidden="true"></span><span class="som-texto">som</span></button>
 </div>
 </header>
 
@@ -86,6 +87,7 @@
 <div class="miolo">
 <div class="cabeca">
 <div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
+<p class="rotulo faixa">lado A · faixa 1</p>
 <h2>A história, edição por edição</h2>
 <p>Dos primeiros palcos dos anos 1970 à quadragésima edição, em 2026.</p>
 </div>
@@ -199,7 +201,7 @@
 <div class="miolo">
 <div class="cabeca">
 <div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo">recortes</p>
+<p class="rotulo faixa">lado A · faixa 2 · recortes</p>
 <h2>Causos do festival</h2>
 <p>Histórias registradas por quem acompanhou o festival de perto, resumidas para o site sem mudar o que foi contado.</p>
 </div>
@@ -332,7 +334,7 @@
 <div class="miolo">
 <div class="cabeca">
 <div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo">1976 – 2026</p>
+<p class="rotulo faixa">lado A · faixa 3 · 1976 – 2026</p>
 <h2>Os campeões</h2>
 <p>Os campeões passam no disco, um ano de cada vez, de 1976 até hoje. Os anos sem festival também estão lá.</p>
 </div>
@@ -373,6 +375,7 @@
 <div class="miolo">
 <div class="cabeca">
 <div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
+<p class="rotulo faixa">lado B · faixa 1</p>
 <h2>Fotografias</h2>
 <p>Toque numa foto para ampliar. As molduras vazias são épocas de que ainda não temos imagem.</p>
 </div>
@@ -387,6 +390,7 @@
 <div class="miolo">
 <div class="cabeca">
 <div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
+<p class="rotulo faixa">lado B · faixa 2</p>
 <h2>Vídeos de arquivo</h2>
 <p>Gravações antigas, reportagens e apresentações, à medida que forem digitalizadas.</p>
 </div>
@@ -401,7 +405,7 @@
 <div class="miolo">
 <div class="cabeca">
 <div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo">documentário</p>
+<p class="rotulo faixa">lado B · faixa 3 · documentário</p>
 <h2>Festival da Canção de Alvinópolis – Histórias</h2>
 <p>Entrevistas com quem fez o festival, fotografias e vídeos de arquivo, histórias engraçadas e personagens que a cidade não esquece.</p>
 </div>
@@ -419,6 +423,7 @@
 <div class="miolo">
 <div class="contribua-in">
 <div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
+<p class="rotulo faixa">lado B · faixa bônus · a sua história</p>
 <h2>Você tem uma foto do festival?</h2>
 <p>Fotos de família, recortes de jornal, cartazes, fitas VHS ou gravações em celular, de qualquer época. Nós digitalizamos e devolvemos o original, e a imagem entra no acervo com o seu nome no crédito.</p>
 <!-- troque o href pelo endereço do formulário de envio -->
@@ -452,9 +457,10 @@
 </dialog>
 
 <script src="js/acervo.js?v=1"></script>
-<script src="js/principal.js?v=3"></script>
+<script src="js/som.js?v=1"></script>
+<script src="js/principal.js?v=4"></script>
 <script src="js/campeoes.js?v=2"></script>
-<script src="js/toca-discos.js?v=1"></script>
+<script src="js/toca-discos.js?v=2"></script>
 <script src="js/rolagem.js?v=1"></script>
 </body>
 </html>

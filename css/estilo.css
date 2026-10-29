@@ -57,8 +57,8 @@ img{ max-width:100%; height:auto; display:block; }
 .provisorio{ display:inline-block; font-family:var(--rotulo); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-suave); border:1px dashed var(--fio); padding:0 8px; vertical-align:middle; }
 
 /* ornamento: fio — clave de sol — fio */
-.ornamento{ display:flex; align-items:center; gap:14px; color:var(--ouro); margin:0 auto; max-width:320px; }
-.ornamento::before,.ornamento::after{ content:""; flex:1; height:1px; background:var(--fio); }
+.ornamento{ display:flex; align-items:center; gap:14px; color:var(--ouro); margin:0 auto; width:min(360px, 100%); }
+.ornamento::before,.ornamento::after{ content:""; flex:1; height:17px; background:repeating-linear-gradient(to bottom, var(--fio) 0 1px, transparent 1px 4px); }
 .ornamento span{ font-size:28px; line-height:1; font-family:Georgia, serif; }
 
 /* ===== TOPO ===== */
@@ -66,11 +66,13 @@ img{ max-width:100%; height:auto; display:block; }
 .topo-in{ height:64px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .marca{ font-family:var(--titulo); font-size:19px; text-decoration:none; white-space:nowrap; }
 .marca{ text-transform:uppercase; }
-.marca em{ font-family:var(--maquina); font-style:normal; text-transform:none; color:var(--ouro); }
-.menu{ display:flex; gap:20px; font-size:15px; }
+.marca{ line-height:1.05; }
+.marca em{ display:block; font-family:var(--maquina); font-size:13px; font-weight:700; letter-spacing:.06em; font-style:normal; text-transform:none; color:var(--ouro); }
+.menu{ display:flex; gap:14px; font-size:14.5px; margin-left:auto; }
 .menu a{ text-decoration:none; color:var(--tinta-suave); white-space:nowrap; }
 .menu a:hover{ color:var(--vinho); }
-@media (max-width:1080px){ .menu{ display:none; } }
+@media (max-width:1180px){ .menu{ display:none; } }
+@media (max-width:600px){ .marca{ white-space:normal; line-height:1.15; min-width:0; } }
 @media (max-width:440px){ .marca{ font-size:16px; } }
 .rodape .marca{ white-space:normal; }
 
@@ -128,7 +130,9 @@ img{ max-width:100%; height:auto; display:block; }
 .tempo{ position:relative; display:grid; gap:64px; }
 .tempo::before{ content:""; position:absolute; top:0; bottom:0; left:50%; width:5px; margin-left:-2px; border-inline:1px solid var(--tinta); }
 .edicao{ position:relative; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
-.edicao::before{ content:""; position:absolute; left:50%; top:50%; width:13px; height:13px; margin:-6px 0 0 -6px; background:var(--tinta); }
+.edicao::before{ content:""; position:absolute; left:50%; top:50%; width:17px; height:12px; margin:-6px 0 0 -8px; background:var(--tinta); border-radius:50%; transform:rotate(-22deg); z-index:1; }
+.edicao::after{ content:""; position:absolute; left:50%; top:50%; width:1.5px; height:30px; margin:-30px 0 0 6px; background:var(--tinta); }
+.edicao.marco-maior::before, .edicao.marco-maior::after{ background:var(--ouro); }
 .edicao > *{ min-width:0; }
 .edicao .relato{ display:grid; gap:8px; text-align:right; }
 .edicao:nth-child(even) .relato{ order:2; text-align:left; }
@@ -144,7 +148,8 @@ img{ max-width:100%; height:auto; display:block; }
   .tempo{ gap:52px; padding-left:28px; }
   .tempo::before{ left:6px; margin-left:0; }
   .edicao{ grid-template-columns:1fr; gap:22px; }
-  .edicao::before{ left:-22px; top:28px; margin:0 0 0 -6px; }
+  .edicao::before{ left:-22px; top:28px; margin:0 0 0 -8px; }
+  .edicao::after{ left:-22px; top:28px; margin:-24px 0 0 6px; }
   .edicao .relato, .edicao:nth-child(even) .relato{ order:0; text-align:left; }
   .edicao:nth-child(even) .retrato{ justify-self:start; }
 }
@@ -154,8 +159,8 @@ img{ max-width:100%; height:auto; display:block; }
 .sem-foto b{ display:block; background:var(--vazio); padding:0 10px; font-family:var(--titulo); font-style:normal; font-weight:400; font-size:30px; color:var(--tinta-suave); opacity:.7; }
 
 /* ===== CAUSOS: recortes de jornal em colunas com fio ===== */
-.causos{ columns:3 300px; column-gap:44px; column-rule:1px solid var(--fio); }
-.causo{ break-inside:avoid; display:grid; gap:10px; margin-bottom:40px; padding-bottom:28px; border-bottom:1px solid var(--tinta); }
+.causos{ counter-reset:faixa; columns:3 300px; column-gap:44px; column-rule:1px solid var(--fio); }
+.causo{ counter-increment:faixa; position:relative; break-inside:avoid; display:grid; gap:10px; margin-bottom:40px; padding-bottom:28px; border-bottom:1px solid var(--tinta); }
 .causo h3{ font-family:var(--titulo); font-weight:400; text-transform:uppercase; font-size:24px; line-height:1.1; }
 .causo p, .causo li{ font-size:15.5px; line-height:1.7; }
 .causo.destaque h3{ font-size:30px; }
@@ -299,7 +304,7 @@ img{ max-width:100%; height:auto; display:block; }
 .documentario{ background:var(--sala); color:var(--sala-texto); padding-block:96px; }
 .documentario .cabeca p{ color:var(--sala-suave); }
 .documentario .rotulo{ color:#C9A962; }
-.documentario .ornamento::before,.documentario .ornamento::after{ background:#4A3F36; }
+.documentario .ornamento::before,.documentario .ornamento::after{ background:repeating-linear-gradient(to bottom, #4A3F36 0 1px, transparent 1px 4px); }
 .documentario .tela{ max-width:960px; margin:0 auto; box-shadow:0 0 0 1px #3A312A, 0 30px 80px -30px #000; }
 .documentario .tela .aguardando{ background:#26201C; color:var(--sala-suave); }
 .documentario .tela .aguardando b{ color:var(--sala-texto); font-size:clamp(24px, 3.4vw, 38px); }
@@ -319,6 +324,29 @@ img{ max-width:100%; height:auto; display:block; }
 .rodape .marca{ color:var(--tinta); }
 .apoio{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
 .apoio span{ border:1px dashed var(--fio); padding:8px 14px; font-size:13px; font-style:italic; }
+
+/* ===== CARA DE DISCO: menu como lista de faixas, som do site, causos como faixas ===== */
+.menu a i{ font-style:normal; font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--ouro); margin-right:5px; vertical-align:2px; }
+.som-topo{ display:inline-flex; align-items:center; gap:8px; flex:none; min-height:40px; padding:0 12px 0 6px; font-family:var(--maquina); font-size:14px; color:var(--tinta-suave); background:transparent; border:1px solid var(--fio); border-radius:999px; cursor:pointer; }
+.som-topo:hover{ color:var(--vinho); border-color:var(--vinho); }
+.som-disco{ width:28px; height:28px; border-radius:50%; background:radial-gradient(circle, var(--ouro) 0 3px, var(--vinho) 3.5px 8px, #1C1715 8.5px 100%); box-shadow:inset 0 0 0 4px #2A2420, inset 0 0 0 5px #3A322C, inset 0 0 0 7px #1C1715, inset 0 0 0 8px #3A322C; position:relative; }
+.som-disco::after{ content:"✕"; position:absolute; inset:0; display:grid; place-items:center; font-size:12px; color:var(--folha); background:rgba(28,23,21,.55); border-radius:50%; }
+.som-topo[aria-pressed="true"]{ color:var(--vinho); border-color:var(--vinho); }
+.som-topo[aria-pressed="true"] .som-disco::after{ content:none; }
+.som-topo[aria-pressed="true"] .som-texto::after{ content:" ♪"; }
+.causo > .rotulo:first-child::before, .causo .vt-texto > .rotulo:first-child::before{ content:"faixa " counter(faixa, decimal-leading-zero) " · "; color:var(--vinho); }
+.causo h3::after{ content:"♪"; position:absolute; right:0; top:-6px; font-family:Georgia, serif; font-size:22px; color:var(--ouro); opacity:0; pointer-events:none; }
+.causo.verde-terra h3::after{ content:none; }
+@media (max-width:440px){ .som-texto{ display:none; } .som-topo{ padding:0 5px; } }
+@media (prefers-reduced-motion: no-preference){
+  .som-topo[aria-pressed="true"] .som-disco{ animation:girar 2.4s linear infinite; }
+  .causo:not(.verde-terra){ transition:transform .35s cubic-bezier(.2,.7,.2,1); }
+  .causo:not(.verde-terra):hover{ transform:rotate(-.6deg) translateY(-3px); }
+  .causo:hover h3::after{ animation:nota-sobe 1.4s ease-out; }
+  @keyframes nota-sobe{ 0%{ opacity:0; transform:translateY(8px) rotate(-10deg); } 25%{ opacity:1; } 100%{ opacity:0; transform:translateY(-34px) rotate(12deg); } }
+  .mov .edicao.revela::before{ transition:transform .6s cubic-bezier(.3,1.6,.5,1) .25s; transform:rotate(-22deg) scale(.2); }
+  .mov .edicao.revela.visto::before{ transform:rotate(-22deg) scale(1); }
+}
 
 /* ===== MOVIMENTO (só para quem não pediu menos movimento) ===== */
 @media (prefers-reduced-motion: no-preference){

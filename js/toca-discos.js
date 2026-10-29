@@ -8,7 +8,6 @@
 
   // Cada campeão toca uma nota desta melodia (graus da escala de dó maior; 0 = dó central).
   var MELODIA = [2, 4, 5, 4, 7, 5, 4, 2, 1, 2, 4, 5, 7, 8, 7, 5, 4, 5, 7, 9, 8, 7, 5, 4];
-  var HZ = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99];
 
   // edição e nota de cada ano
   var edicao = 0, n = 0;
@@ -17,28 +16,8 @@
     if (d.tipo !== 'pausa'){ d.grau = MELODIA[n % MELODIA.length]; n++; }
   });
 
-  // som: caixinha de música feita no próprio navegador (desligado até a pessoa ligar)
-  var audio = null, somLigado = false;
-  function tocar(grau){
-    if (!somLigado) return;
-    var AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return;
-    if (!audio) audio = new AC();
-    if (audio.state === 'suspended') audio.resume();
-    var agora = audio.currentTime, dur = 2.2;
-    var saida = audio.createGain();
-    saida.gain.setValueAtTime(0.0001, agora);
-    saida.gain.exponentialRampToValueAtTime(0.2, agora + 0.015);
-    saida.gain.exponentialRampToValueAtTime(0.0001, agora + dur);
-    saida.connect(audio.destination);
-    [[1, 'triangle', 1], [2, 'sine', 0.35], [4.01, 'sine', 0.08]].forEach(function(p){
-      var o = audio.createOscillator(), g = audio.createGain();
-      o.type = p[1]; o.frequency.value = HZ[grau] * p[0];
-      g.gain.value = p[2];
-      o.connect(g); g.connect(saida);
-      o.start(agora); o.stop(agora + dur + 0.05);
-    });
-  }
+  // som: a caixinha de música do site (js/som.js), desligada até a pessoa ligar
+  function tocar(grau){ if (window.SOM) SOM.tocar(grau); }
 
   // o toca-discos
   var ficha = document.getElementById('fichaDisco');
@@ -99,14 +78,6 @@
     new IntersectionObserver(function(e){ visivel = e[0].isIntersecting; estado(); }, { threshold: 0.35 })
       .observe(document.getElementById('campeoes'));
   } else { visivel = true; }
-
-  var btSom = document.getElementById('somPartitura');
-  btSom.addEventListener('click', function(){
-    somLigado = !somLigado;
-    btSom.setAttribute('aria-pressed', somLigado ? 'true' : 'false');
-    btSom.textContent = somLigado ? '♪ Desligar o som' : '♪ Ligar o som';
-    if (somLigado && dados[atual].tipo !== 'pausa') tocar(dados[atual].grau);
-  });
 
   // setas do teclado, com o foco no toca-discos
   document.getElementById('vitrola').addEventListener('keydown', function(e){

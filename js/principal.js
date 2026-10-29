@@ -161,11 +161,15 @@
   grupo('.mosaico figure', 3);
   grupo('.videos figure', 3);
   grupo('.sobre-in > div', 3);
+  var edicoes = [].slice.call(document.querySelectorAll('.edicao'));
   var olho = new IntersectionObserver(function(entradas){
     entradas.forEach(function(e){
       if (!e.isIntersecting) return;
       e.target.classList.add('visto');
       olho.unobserve(e.target);
+      // na linha do tempo, cada edição que aparece é uma nota da melodia
+      var n = edicoes.indexOf(e.target);
+      if (n >= 0 && window.SOM) SOM.tocar([0, 2, 4, 5, 7, 5, 4, 2, 4, 7, 9, 7][n % 12], { duracao: 1.6, volume: 0.13 });
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
   [].forEach.call(document.querySelectorAll('.revela'), function(e){ olho.observe(e); });
