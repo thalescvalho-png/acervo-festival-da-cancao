@@ -1,6 +1,6 @@
-/* Conceito: um álbum de retratos aberto, com capa de cartaz de cinema dos anos 70
-   (letras douradas em letreiro sobre a foto em sépia) e fichas datilografadas de acervo nos detalhes.
-   Fotos presas por cantoneiras, a linha do tempo como lombada, o documentário numa sala de projeção. */
+/* Conceito: vintage moderno. Capa de cartaz de cinema (letras douradas sobre a foto em sépia),
+   miolo de jornal antigo: fios duplos, colunas separadas por fios, fotos com moldura de clichê
+   e legenda, e o texto todo datilografado. O documentário fica numa sala de projeção. */
 
 /* ===== CORES (troque aqui para mudar a paleta do site inteiro) ===== */
 :root{
@@ -18,8 +18,8 @@
   --vazio:#D9D2C3;          /* moldura de foto que ainda não chegou */
 
   --titulo:'Alfa Slab One', 'Rockwell', Georgia, serif;             /* letreiro de cartaz: tipo de madeira, sem ornamentos */
-  --maquina:'Special Elite', 'Courier New', Courier, monospace;      /* máquina de escrever */
-  --texto:'Spectral', Georgia, 'Times New Roman', serif;
+  --maquina:'Courier Prime', 'Courier New', Courier, monospace;      /* máquina de escrever, feita para leitura */
+  --texto:var(--maquina);
   --rotulo:var(--maquina);
   color-scheme:light;
 }
@@ -43,23 +43,23 @@
 :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
 html{ scroll-padding-top:calc(64px + env(safe-area-inset-top,0px)); }
 *,*::before,*::after{ box-sizing:inherit; }
-body{ margin:0; background:var(--papel); color:var(--tinta); font-family:var(--texto); font-size:18px; line-height:1.65; -webkit-font-smoothing:antialiased; }
+body{ margin:0; background:var(--papel); color:var(--tinta); font-family:var(--texto); font-size:17px; line-height:1.7; -webkit-font-smoothing:antialiased; }
 body::before{ content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:30; background:var(--papel); }
 h1,h2,h3,p,figure,dl,dd{ margin:0; }
 h1,h2,h3{ font-family:var(--titulo); font-weight:400; line-height:1.12; text-wrap:balance; }
 h2{ text-transform:uppercase; letter-spacing:.02em; }
-h3{ font-family:var(--maquina); line-height:1.25; }
+h3{ font-family:var(--maquina); font-weight:700; line-height:1.3; }
 a{ color:inherit; }
 img{ max-width:100%; height:auto; display:block; }
 :focus-visible{ outline:2px solid var(--vinho); outline-offset:3px; }
 .miolo{ max-width:1120px; margin:0 auto; padding-left:max(20px, env(safe-area-inset-left,0px)); padding-right:max(20px, env(safe-area-inset-right,0px)); }
-.rotulo{ font-family:var(--rotulo); font-size:15px; letter-spacing:.12em; text-transform:lowercase; color:var(--ouro); }
-.provisorio{ display:inline-block; font-family:var(--rotulo); font-size:12px; letter-spacing:.1em; text-transform:lowercase; color:var(--tinta-suave); border:1px dashed var(--fio); padding:0 8px; border-radius:2px; vertical-align:middle; }
+.rotulo{ font-family:var(--rotulo); font-size:13px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ouro); }
+.provisorio{ display:inline-block; font-family:var(--rotulo); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-suave); border:1px dashed var(--fio); padding:0 8px; vertical-align:middle; }
 
 /* ornamento: fio — clave de sol — fio */
 .ornamento{ display:flex; align-items:center; gap:14px; color:var(--ouro); margin:0 auto; max-width:320px; }
 .ornamento::before,.ornamento::after{ content:""; flex:1; height:1px; background:var(--fio); }
-.ornamento span{ font-size:28px; line-height:1; font-family:var(--texto); }
+.ornamento span{ font-size:28px; line-height:1; font-family:Georgia, serif; }
 
 /* ===== TOPO ===== */
 .topo{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--papel); border-bottom:1px solid var(--fio); }
@@ -102,50 +102,47 @@ img{ max-width:100%; height:auto; display:block; }
 .botao.contorno{ background:transparent; color:var(--vinho); }
 .botao:hover{ filter:brightness(1.08); }
 
-/* ===== RETRATO: foto com moldura branca e cantoneiras ===== */
-.retrato{ position:relative; background:var(--folha); padding:12px 12px 14px; box-shadow:0 1px 2px rgba(43,36,32,.14), 0 10px 28px -14px rgba(43,36,32,.35); }
-.retrato img{ width:100%; height:100%; object-fit:cover; }
-.retrato::before,.retrato::after,.retrato .cant::before,.retrato .cant::after{ content:""; position:absolute; width:22px; height:22px; background:var(--tinta); opacity:.82; }
-.retrato::before{ top:-3px; left:-3px; clip-path:polygon(0 0,100% 0,0 100%); }
-.retrato::after{ top:-3px; right:-3px; clip-path:polygon(0 0,100% 0,100% 100%); }
-.retrato .cant::before{ bottom:-3px; left:-3px; clip-path:polygon(0 0,100% 100%,0 100%); }
-.retrato .cant::after{ bottom:-3px; right:-3px; clip-path:polygon(100% 0,100% 100%,0 100%); }
-
+/* ===== RETRATO: foto de jornal antigo, com fio duplo em volta (clichê) ===== */
+.retrato{ position:relative; background:var(--papel); padding:5px; border:1px solid var(--tinta); outline:1px solid var(--tinta); outline-offset:3px; margin:4px; }
+.retrato img{ width:100%; height:100%; object-fit:cover; filter:sepia(.22) saturate(.8) contrast(1.06); transition:filter .5s ease; }
+.retrato:hover img{ filter:none; }
 /* ===== SEÇÕES ===== */
 .secao{ padding-block:88px; }
 .secao.alterna{ background:var(--papel-fundo); border-block:1px solid var(--fio); }
-.cabeca{ text-align:center; max-width:40em; margin:0 auto 56px; display:grid; gap:14px; }
+.cabeca{ text-align:center; margin:0 auto 56px; display:grid; gap:14px; justify-items:center; border-top:4px double var(--tinta); border-bottom:1px solid var(--tinta); padding-block:26px 24px; }
+.cabeca p{ max-width:40em; }
 .cabeca h2{ font-size:clamp(34px, 4.4vw, 54px); }
 .cabeca p{ color:var(--tinta-suave); }
 @media (max-width:600px){ .secao{ padding-block:60px; } .cabeca{ margin-bottom:40px; } }
 
 /* ===== SOBRE ===== */
-.sobre-in{ display:grid; grid-template-columns:repeat(3, 1fr); gap:40px; }
-.sobre-in > div{ display:grid; gap:10px; align-content:start; min-width:0; }
-.sobre-in h3{ font-size:24px; }
-.sobre-in p{ color:var(--tinta-suave); font-size:17px; }
-@media (max-width:860px){ .sobre-in{ grid-template-columns:1fr; gap:28px; } }
+.sobre-in{ display:grid; grid-template-columns:repeat(3, 1fr); gap:0; border-top:4px double var(--tinta); border-bottom:1px solid var(--tinta); padding-block:28px; }
+.sobre-in > div{ display:grid; gap:10px; align-content:start; min-width:0; padding-inline:28px; }
+.sobre-in > div + div{ border-left:1px solid var(--fio); }
+.sobre-in > div:first-child{ padding-left:0; } .sobre-in > div:last-child{ padding-right:0; }
+.sobre-in h3{ font-size:21px; }
+.sobre-in p{ color:var(--tinta-suave); font-size:16px; }
+@media (max-width:860px){ .sobre-in{ grid-template-columns:1fr; } .sobre-in > div{ padding:20px 0; } .sobre-in > div + div{ border-left:0; border-top:1px solid var(--fio); } }
 
 /* ===== LINHA DO TEMPO (a lombada do álbum) ===== */
 .tempo{ position:relative; display:grid; gap:64px; }
-.tempo::before{ content:""; position:absolute; top:0; bottom:0; left:50%; width:1px; background:var(--fio); }
+.tempo::before{ content:""; position:absolute; top:0; bottom:0; left:50%; width:5px; margin-left:-2px; border-inline:1px solid var(--tinta); }
 .edicao{ position:relative; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
-.edicao::before{ content:""; position:absolute; left:50%; top:50%; width:13px; height:13px; margin:-6px 0 0 -6px; transform:rotate(45deg); background:var(--papel); border:1px solid var(--ouro); }
+.edicao::before{ content:""; position:absolute; left:50%; top:50%; width:13px; height:13px; margin:-6px 0 0 -6px; background:var(--tinta); }
 .edicao > *{ min-width:0; }
 .edicao .relato{ display:grid; gap:8px; text-align:right; }
 .edicao:nth-child(even) .relato{ order:2; text-align:left; }
 .edicao .ano{ font-family:var(--titulo); font-size:clamp(48px, 5.2vw, 68px); line-height:1; color:var(--vinho); font-variant-numeric:lining-nums; }
-.edicao .numero{ font-family:var(--rotulo); font-size:16px; letter-spacing:.1em; color:var(--ouro); text-transform:lowercase; }
-.edicao h3{ font-size:23px; }
-.edicao p{ font-size:17px; color:var(--tinta-suave); }
+.edicao .numero{ font-family:var(--rotulo); font-size:13px; font-weight:700; letter-spacing:.18em; color:var(--ouro); text-transform:uppercase; }
+.edicao h3{ font-size:20px; }
+.edicao p{ font-size:16px; color:var(--tinta-suave); }
 .edicao .retrato{ width:100%; max-width:420px; }
-.edicao:nth-child(odd) .retrato{ transform:rotate(-1.2deg); }
-.edicao:nth-child(even) .retrato{ transform:rotate(1deg); justify-self:end; }
+.edicao:nth-child(even) .retrato{ justify-self:end; }
 .edicao .retrato img{ aspect-ratio:4/3; }
 .edicao.marco-maior .ano{ color:var(--ouro); }
 @media (max-width:860px){
   .tempo{ gap:52px; padding-left:28px; }
-  .tempo::before{ left:6px; }
+  .tempo::before{ left:6px; margin-left:0; }
   .edicao{ grid-template-columns:1fr; gap:22px; }
   .edicao::before{ left:-22px; top:28px; margin:0 0 0 -6px; }
   .edicao .relato, .edicao:nth-child(even) .relato{ order:0; text-align:left; }
@@ -153,20 +150,20 @@ img{ max-width:100%; height:auto; display:block; }
 }
 
 /* moldura vazia: foto que ainda não foi encontrada */
-.sem-foto{ display:grid; place-items:center; aspect-ratio:4/3; background:var(--vazio); color:var(--tinta-suave); text-align:center; padding:20px; font-style:italic; font-size:16px; border:1px dashed var(--fio); }
-.sem-foto b{ display:block; font-family:var(--titulo); font-style:normal; font-weight:400; font-size:30px; color:var(--tinta-suave); opacity:.7; }
+.sem-foto{ display:grid; place-items:center; aspect-ratio:4/3; background:var(--vazio) radial-gradient(var(--fio) 1px, transparent 1.4px) 0 0/6px 6px; color:var(--tinta-suave); text-align:center; padding:20px; font-size:14px; letter-spacing:.06em; text-transform:uppercase; }
+.sem-foto b{ display:block; background:var(--vazio); padding:0 10px; font-family:var(--titulo); font-style:normal; font-weight:400; font-size:30px; color:var(--tinta-suave); opacity:.7; }
 
 /* ===== GALERIA ===== */
 .filtros{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:40px; }
-.filtros button{ font-family:var(--rotulo); font-size:16px; letter-spacing:.06em; text-transform:lowercase; color:var(--tinta-suave); background:transparent; border:1px solid var(--fio); border-radius:2px; min-height:40px; padding:0 16px; cursor:pointer; }
+.filtros button{ font-family:var(--rotulo); font-size:14px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--tinta-suave); background:transparent; border:1px solid var(--fio); border-radius:0; min-height:40px; padding:0 16px; cursor:pointer; }
 .filtros button[aria-pressed="true"]{ background:var(--tinta); border-color:var(--tinta); color:var(--papel); }
 .mosaico{ columns:3 280px; column-gap:32px; }
 .mosaico figure{ break-inside:avoid; margin-bottom:36px; }
-.mosaico .retrato{ padding:10px 10px 12px; }
+.mosaico .retrato{ padding:5px; }
 .mosaico button{ display:block; width:100%; padding:0; border:0; background:none; cursor:zoom-in; }
-.mosaico figcaption{ font-size:15.5px; line-height:1.5; color:var(--tinta-suave); margin-top:12px; }
-.mosaico figcaption b{ font-family:var(--rotulo); font-weight:500; letter-spacing:.06em; color:var(--vinho); }
-.mosaico figcaption .credito{ display:block; font-size:13.5px; font-style:italic; margin-top:2px; }
+.mosaico figcaption{ font-size:14.5px; line-height:1.5; color:var(--tinta-suave); margin-top:14px; padding-top:8px; border-top:1px solid var(--tinta); }
+.mosaico figcaption b{ font-family:var(--rotulo); font-weight:700; letter-spacing:.06em; color:var(--vinho); }
+.mosaico figcaption .credito{ display:block; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; margin-top:4px; }
 .galeria-vazia{ text-align:center; font-style:italic; color:var(--tinta-suave); }
 
 /* foto ampliada */
@@ -184,8 +181,8 @@ img{ max-width:100%; height:auto; display:block; }
 /* ===== VÍDEOS ===== */
 .videos{ display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; }
 .videos > figure{ min-width:0; display:grid; gap:12px; align-content:start; }
-.videos figcaption{ font-size:15.5px; color:var(--tinta-suave); }
-.videos figcaption b{ font-family:var(--rotulo); font-weight:500; letter-spacing:.06em; color:var(--vinho); }
+.videos figcaption{ font-size:14.5px; color:var(--tinta-suave); padding-top:8px; border-top:1px solid var(--tinta); }
+.videos figcaption b{ font-family:var(--rotulo); font-weight:700; letter-spacing:.06em; color:var(--vinho); }
 @media (max-width:860px){ .videos{ grid-template-columns:1fr; } }
 
 /* tela do YouTube: só carrega o vídeo quando a pessoa clica (mais leve e sem rastreio antes do clique) */
@@ -206,7 +203,7 @@ img{ max-width:100%; height:auto; display:block; }
 .documentario .tela .aguardando b{ color:var(--sala-texto); font-size:clamp(24px, 3.4vw, 38px); }
 .ficha{ max-width:960px; margin:40px auto 0; display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; border-top:1px solid #4A3F36; padding-top:28px; }
 .ficha > div{ min-width:0; }
-.ficha dt{ font-family:var(--rotulo); font-size:14px; letter-spacing:.1em; text-transform:lowercase; color:#C9A962; }
+.ficha dt{ font-family:var(--rotulo); font-size:12.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#C9A962; }
 .ficha dd{ font-size:17px; }
 @media (max-width:700px){ .ficha{ grid-template-columns:1fr 1fr; } }
 
@@ -225,8 +222,6 @@ img{ max-width:100%; height:auto; display:block; }
 @media (prefers-reduced-motion: no-preference){
   .mov .revela{ opacity:.001; transform:translateY(18px); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); transition-delay:calc(var(--i, 0) * 90ms); }
   .mov .revela.visto{ opacity:1; transform:none; }
-  .mov .edicao.revela .retrato{ transition:transform 1.1s cubic-bezier(.2,.7,.2,1); }
-  .mov .edicao.revela:not(.visto) .retrato{ transform:rotate(0) translateY(10px); }
   .chegando{ animation:chegar .7s cubic-bezier(.2,.7,.2,1); }
   @keyframes chegar{ from{ opacity:.3; transform:translateY(14px); } to{ opacity:1; transform:none; } }
 }

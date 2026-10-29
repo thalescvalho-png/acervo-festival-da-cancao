@@ -20,7 +20,6 @@
     var fig = el('figure');
     fig.dataset.decada = decada(f.ano) || '';
     var moldura = el('div', 'retrato');
-    moldura.appendChild(el('span', 'cant'));
     if (f.foto){
       var bt = el('button');
       bt.type = 'button';
