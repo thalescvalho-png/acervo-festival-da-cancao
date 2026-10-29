@@ -1,64 +1,20 @@
-// Partitura dos campeões: cada festival é uma nota num pentagrama que vai de 1976 até hoje.
-// Tocar uma nota mostra a canção vencedora no disco; os anos sem festival são pausas.
+// Toca-discos dos campeões: os anos passam sozinhos no disco, de 1976 até hoje.
+// Clicar no disco pausa; os botões e as setas do teclado voltam e avançam.
 (function(){
   var dados = window.ACERVO_CAMPEOES || [];
-  var pauta = document.getElementById('pauta');
-  if (!pauta || !dados.length) return;
+  var disco = document.getElementById('disco');
+  if (!disco || !dados.length) return;
   var reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Melodia: graus da escala de dó maior (0 = dó central). Repete-se ao longo das edições.
+  // Cada campeão toca uma nota desta melodia (graus da escala de dó maior; 0 = dó central).
   var MELODIA = [2, 4, 5, 4, 7, 5, 4, 2, 1, 2, 4, 5, 7, 8, 7, 5, 4, 5, 7, 9, 8, 7, 5, 4];
   var HZ = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99];
-  var PASSO = 7;          // meia distância entre linhas da pauta, em px
-  var BASE = 88;          // altura (y) do dó central
-  var LARGURA = 46;       // espaço de cada ano na pauta
 
   // edição e nota de cada ano
   var edicao = 0, n = 0;
   dados.forEach(function(d){
     if (d.tipo === 'festival'){ edicao++; d.edicao = edicao; }
     if (d.tipo !== 'pausa'){ d.grau = MELODIA[n % MELODIA.length]; n++; }
-  });
-
-  var trilho = document.createElement('div');
-  trilho.className = 'pauta-trilho';
-  trilho.style.width = (dados.length * LARGURA + 40) + 'px';
-  pauta.appendChild(trilho);
-
-  var botoes = dados.map(function(d, i){
-    var x = 20 + i * LARGURA;
-    if (d.ano % 10 === 0){
-      var barra = document.createElement('span');
-      barra.className = 'compasso';
-      barra.style.left = (x - 4) + 'px';
-      trilho.appendChild(barra);
-    }
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'nota ' + d.tipo + (d.tipo !== 'pausa' && !d.musica && !d.semVencedor ? ' incerta' : '');
-    b.style.left = x + 'px';
-    var rotulo = d.ano + ': ';
-    if (d.tipo === 'pausa') rotulo += 'sem festival';
-    else rotulo += (d.musica ? '“' + d.musica + '”, ' + d.autor : (d.autor || 'vencedor a confirmar'));
-    b.setAttribute('aria-label', rotulo);
-    if (d.tipo !== 'pausa'){
-      var y = BASE - d.grau * PASSO;
-      var cabeca = document.createElement('span');
-      cabeca.className = 'cabeca-nota' + (d.grau >= 6 ? ' haste-baixo' : '');
-      cabeca.style.top = (y - 6) + 'px';
-      if (d.grau === 0) cabeca.classList.add('suplementar');
-      b.appendChild(cabeca);
-    } else {
-      var pausa = document.createElement('span');
-      pausa.className = 'pausa-sinal';
-      b.appendChild(pausa);
-    }
-    var ano = document.createElement('span');
-    ano.className = 'nota-ano';
-    ano.textContent = "'" + String(d.ano).slice(2);
-    b.appendChild(ano);
-    trilho.appendChild(b);
-    return b;
   });
 
   // som: caixinha de música feita no próprio navegador (desligado até a pessoa ligar)
@@ -85,7 +41,6 @@
   }
 
   // o toca-discos
-  var disco = document.getElementById('disco');
   var ficha = document.getElementById('fichaDisco');
   var campos = {
     rotuloAno: document.getElementById('discoRotuloAno'),
@@ -100,7 +55,6 @@
   function escolher(i){
     atual = (i + dados.length) % dados.length;
     var d = dados[atual];
-    botoes.forEach(function(b, j){ b.setAttribute('aria-pressed', j === atual ? 'true' : 'false'); });
     campos.rotuloAno.textContent = d.ano;
     campos.edicao.textContent = d.ano + ' · ' + (d.tipo === 'festival' ? d.edicao + 'º festival'
       : d.tipo === 'fase-local' ? 'fase local' : 'sem festival');
@@ -121,9 +75,6 @@
     campos.obs.textContent = d.obs || '';
     disco.classList.toggle('silencio', d.tipo === 'pausa');
     if (!reduzir){ ficha.classList.remove('surgindo'); void ficha.offsetWidth; ficha.classList.add('surgindo'); }
-    // mantém a nota visível dentro da pauta, sem mexer na página
-    var b = botoes[atual], meio = b.offsetLeft - pauta.clientWidth / 2;
-    pauta.scrollTo({ left: Math.max(0, meio), behavior: reduzir ? 'auto' : 'smooth' });
     if (d.tipo !== 'pausa') tocar(d.grau);
   }
 
@@ -143,7 +94,6 @@
   disco.addEventListener('click', function(){ tocando = !tocando; estado(); });
   document.getElementById('discoAnterior').addEventListener('click', function(){ escolher(atual - 1); agendar(); });
   document.getElementById('discoProximo').addEventListener('click', function(){ escolher(atual + 1); agendar(); });
-  botoes.forEach(function(b, i){ b.addEventListener('click', function(){ escolher(i); agendar(); }); });
 
   if ('IntersectionObserver' in window){
     new IntersectionObserver(function(e){ visivel = e[0].isIntersecting; estado(); }, { threshold: 0.35 })
@@ -158,12 +108,19 @@
     if (somLigado && dados[atual].tipo !== 'pausa') tocar(dados[atual].grau);
   });
 
-  // setas do teclado andam pela pauta
-  pauta.addEventListener('keydown', function(e){
+  // setas do teclado, com o foco no toca-discos
+  document.getElementById('vitrola').addEventListener('keydown', function(e){
     if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
     e.preventDefault();
     escolher(atual + (e.key === 'ArrowRight' ? 1 : -1)); agendar();
-    botoes[atual].focus();
+  });
+
+  // links de outras seções que levam a um ano da partitura (ex.: data-ano="1981")
+  [].forEach.call(document.querySelectorAll('a[data-ano]'), function(a){
+    a.addEventListener('click', function(){
+      var i = dados.findIndex(function(d){ return String(d.ano) === a.getAttribute('data-ano'); });
+      if (i >= 0){ tocando = false; escolher(i); estado(); }
+    });
   });
 
   escolher(0);

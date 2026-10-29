@@ -107,6 +107,14 @@
   var doc = document.getElementById('telaDocumentario');
   if (doc) montarTela(doc, doc.dataset.youtube, doc.dataset.titulo, doc.dataset.aviso);
 
+  // LP do Verde Terra: tocar no disco vira a capa
+  var lp = document.getElementById('lpVirar');
+  if (lp) lp.addEventListener('click', function(){
+    var virado = lp.getAttribute('aria-pressed') !== 'true';
+    lp.setAttribute('aria-pressed', virado ? 'true' : 'false');
+    lp.setAttribute('aria-label', virado ? 'Virar o disco e ver a capa' : 'Virar o disco e ver a contracapa');
+  });
+
   // 3. Foto ampliada: clicar abre, com setas, Esc e as setas do teclado (só entre as fotos visíveis)
   var janela = document.getElementById('ampliada');
   if (janela && janela.showModal){
