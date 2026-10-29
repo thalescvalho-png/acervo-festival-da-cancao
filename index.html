@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=8">
+<link rel="stylesheet" href="css/estilo.css?v=9">
 </head>
 <body>
 
@@ -261,28 +261,32 @@
 <div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
 <p class="rotulo">1976 – 2026</p>
 <h2>Partitura dos campeões</h2>
-<p>Cada nota é um festival. Toque numa nota para ouvir e ver a canção vencedora daquele ano. As pausas são os anos em que não houve festival.</p>
+<p>Os campeões passam no disco, um ano de cada vez. Na partitura, cada nota é um festival e as pausas são os anos em que não houve festival.</p>
 </div>
 
-<div class="campeoes-palco">
-<div class="disco" id="disco" aria-hidden="true">
-<div class="capa-disco"><span>Festival da Canção</span><span>de Alvinópolis</span></div>
-<div class="vinil"><div class="selo"><b id="discoRotuloAno"></b><small>Alvinópolis</small></div></div>
+<div class="vitrola">
+<button type="button" class="player-bt" id="discoAnterior" aria-label="Campeão anterior">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
+</button>
+<button type="button" class="disco" id="disco" aria-label="Pausar a passagem dos campeões" aria-pressed="false">
+<span class="vinil"><span class="selo"><b id="discoRotuloAno"></b><small>Festival da Canção</small></span></span>
+<span class="disco-estado" aria-hidden="true"></span>
+</button>
+<button type="button" class="player-bt" id="discoProximo" aria-label="Próximo campeão">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
+</button>
 </div>
-<div class="ficha-disco" aria-live="polite">
+<div class="ficha-disco" id="fichaDisco" aria-live="polite">
 <p class="rotulo" id="discoEdicao"></p>
-<p class="disco-ano" id="discoAno"></p>
 <h3 id="discoMusica"></h3>
 <p class="disco-autor" id="discoAutor"></p>
 <p class="disco-cidade" id="discoCidade"></p>
 <p class="disco-obs" id="discoObs"></p>
 </div>
-</div>
 
 <div class="pauta-controles">
-<button type="button" class="botao" id="tocarPartitura" aria-pressed="false">▶ Tocar a partitura</button>
-<button type="button" class="botao contorno" id="somPartitura" aria-pressed="true">♪ Som ligado</button>
-<span class="dica">Toque numa nota, ou use as setas do teclado.</span>
+<button type="button" class="botao contorno" id="somPartitura" aria-pressed="false">♪ Ligar o som</button>
+<span class="dica">Clique no disco para pausar. Toque numa nota da partitura para ir direto a um ano.</span>
 </div>
 <div class="pauta-moldura">
 <span class="clave" aria-hidden="true">𝄞</span>
@@ -378,7 +382,7 @@
 <script src="js/acervo.js?v=1"></script>
 <script src="js/principal.js?v=2"></script>
 <script src="js/campeoes.js?v=2"></script>
-<script src="js/partitura.js?v=1"></script>
+<script src="js/partitura.js?v=2"></script>
 <script src="js/rolagem.js?v=1"></script>
 </body>
 </html>

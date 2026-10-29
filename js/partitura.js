@@ -57,23 +57,22 @@
     ano.className = 'nota-ano';
     ano.textContent = "'" + String(d.ano).slice(2);
     b.appendChild(ano);
-    b.addEventListener('click', function(){ parar(); escolher(i, true); });
     trilho.appendChild(b);
     return b;
   });
 
-  // som: caixinha de música feita no próprio navegador
-  var audio = null, somLigado = true;
-  function tocar(grau, curta){
+  // som: caixinha de música feita no próprio navegador (desligado até a pessoa ligar)
+  var audio = null, somLigado = false;
+  function tocar(grau){
     if (!somLigado) return;
     var AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return;
     if (!audio) audio = new AC();
     if (audio.state === 'suspended') audio.resume();
-    var agora = audio.currentTime, dur = curta ? 0.9 : 1.6;
+    var agora = audio.currentTime, dur = 2.2;
     var saida = audio.createGain();
     saida.gain.setValueAtTime(0.0001, agora);
-    saida.gain.exponentialRampToValueAtTime(0.22, agora + 0.012);
+    saida.gain.exponentialRampToValueAtTime(0.2, agora + 0.015);
     saida.gain.exponentialRampToValueAtTime(0.0001, agora + dur);
     saida.connect(audio.destination);
     [[1, 'triangle', 1], [2, 'sine', 0.35], [4.01, 'sine', 0.08]].forEach(function(p){
@@ -85,10 +84,10 @@
     });
   }
 
-  // o disco
+  // o toca-discos
   var disco = document.getElementById('disco');
+  var ficha = document.getElementById('fichaDisco');
   var campos = {
-    ano: document.getElementById('discoAno'),
     rotuloAno: document.getElementById('discoRotuloAno'),
     edicao: document.getElementById('discoEdicao'),
     musica: document.getElementById('discoMusica'),
@@ -96,17 +95,17 @@
     cidade: document.getElementById('discoCidade'),
     obs: document.getElementById('discoObs')
   };
+  var TEMPO = 5200, TEMPO_PAUSA = 3000;   // quanto tempo cada ano fica no disco (ms)
   var atual = 0;
-  function escolher(i, comSom){
-    atual = i;
-    var d = dados[i];
-    botoes.forEach(function(b, j){ b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
-    campos.ano.textContent = d.ano;
+  function escolher(i){
+    atual = (i + dados.length) % dados.length;
+    var d = dados[atual];
+    botoes.forEach(function(b, j){ b.setAttribute('aria-pressed', j === atual ? 'true' : 'false'); });
     campos.rotuloAno.textContent = d.ano;
-    campos.edicao.textContent = d.tipo === 'festival' ? d.edicao + 'º festival'
-      : d.tipo === 'fase-local' ? 'fase local' : 'pausa';
+    campos.edicao.textContent = d.ano + ' · ' + (d.tipo === 'festival' ? d.edicao + 'º festival'
+      : d.tipo === 'fase-local' ? 'fase local' : 'sem festival');
     if (d.tipo === 'pausa'){
-      campos.musica.textContent = 'Sem festival';
+      campos.musica.textContent = 'Pausa';
       campos.autor.textContent = '';
     } else if (d.semVencedor){
       campos.musica.textContent = 'Sem campeão';
@@ -121,54 +120,52 @@
     campos.cidade.textContent = d.cidade || '';
     campos.obs.textContent = d.obs || '';
     disco.classList.toggle('silencio', d.tipo === 'pausa');
-    // o disco troca: sai e volta girando
-    if (!reduzir){
-      disco.classList.remove('troca'); void disco.offsetWidth; disco.classList.add('troca');
-    }
+    if (!reduzir){ ficha.classList.remove('surgindo'); void ficha.offsetWidth; ficha.classList.add('surgindo'); }
     // mantém a nota visível dentro da pauta, sem mexer na página
-    var b = botoes[i], meio = b.offsetLeft - pauta.clientWidth / 2;
+    var b = botoes[atual], meio = b.offsetLeft - pauta.clientWidth / 2;
     pauta.scrollTo({ left: Math.max(0, meio), behavior: reduzir ? 'auto' : 'smooth' });
-    if (comSom && d.tipo !== 'pausa') tocar(d.grau);
+    if (d.tipo !== 'pausa') tocar(d.grau);
   }
 
-  // tocar a partitura inteira
-  var btTocar = document.getElementById('tocarPartitura');
-  var btSom = document.getElementById('somPartitura');
-  var relogio = null;
-  function parar(){
-    if (!relogio) return;
+  // passagem automática: começa quando a seção aparece, para quando sai da tela
+  var tocando = !reduzir, visivel = false, relogio = null;
+  function agendar(){
     clearTimeout(relogio); relogio = null;
-    btTocar.textContent = '▶ Tocar a partitura';
-    btTocar.setAttribute('aria-pressed', 'false');
-    disco.classList.remove('girando');
+    if (!tocando || !visivel) return;
+    relogio = setTimeout(function(){ escolher(atual + 1); agendar(); }, dados[atual].tipo === 'pausa' ? TEMPO_PAUSA : TEMPO);
   }
-  function seguir(i){
-    if (i >= dados.length){ parar(); return; }
-    escolher(i, false);
-    var d = dados[i];
-    if (d.tipo !== 'pausa') tocar(d.grau, true);
-    relogio = setTimeout(function(){ seguir(i + 1); }, d.tipo === 'pausa' ? 380 : 520);
+  function estado(){
+    disco.classList.toggle('tocando', tocando && visivel);
+    disco.setAttribute('aria-pressed', tocando ? 'false' : 'true');
+    disco.setAttribute('aria-label', tocando ? 'Pausar a passagem dos campeões' : 'Continuar a passagem dos campeões');
+    agendar();
   }
-  btTocar.addEventListener('click', function(){
-    if (relogio){ parar(); return; }
-    btTocar.textContent = '■ Parar';
-    btTocar.setAttribute('aria-pressed', 'true');
-    if (!reduzir) disco.classList.add('girando');
-    seguir(atual >= dados.length - 1 ? 0 : atual);
-  });
+  disco.addEventListener('click', function(){ tocando = !tocando; estado(); });
+  document.getElementById('discoAnterior').addEventListener('click', function(){ escolher(atual - 1); agendar(); });
+  document.getElementById('discoProximo').addEventListener('click', function(){ escolher(atual + 1); agendar(); });
+  botoes.forEach(function(b, i){ b.addEventListener('click', function(){ escolher(i); agendar(); }); });
+
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){ visivel = e[0].isIntersecting; estado(); }, { threshold: 0.35 })
+      .observe(document.getElementById('campeoes'));
+  } else { visivel = true; }
+
+  var btSom = document.getElementById('somPartitura');
   btSom.addEventListener('click', function(){
     somLigado = !somLigado;
     btSom.setAttribute('aria-pressed', somLigado ? 'true' : 'false');
-    btSom.textContent = somLigado ? '♪ Som ligado' : '♪ Som desligado';
+    btSom.textContent = somLigado ? '♪ Desligar o som' : '♪ Ligar o som';
+    if (somLigado && dados[atual].tipo !== 'pausa') tocar(dados[atual].grau);
   });
 
   // setas do teclado andam pela pauta
   pauta.addEventListener('keydown', function(e){
     if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-    e.preventDefault(); parar();
-    var j = Math.max(0, Math.min(dados.length - 1, atual + (e.key === 'ArrowRight' ? 1 : -1)));
-    escolher(j, true); botoes[j].focus();
+    e.preventDefault();
+    escolher(atual + (e.key === 'ArrowRight' ? 1 : -1)); agendar();
+    botoes[atual].focus();
   });
 
-  escolher(0, false);
+  escolher(0);
+  estado();
 })();

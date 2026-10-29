@@ -167,37 +167,47 @@ img{ max-width:100%; height:auto; display:block; }
 .causo-fonte a{ color:var(--vinho); }
 
 /* ===== PARTITURA DOS CAMPEÕES ===== */
-.campeoes-palco{ display:grid; grid-template-columns:minmax(0, 420px) minmax(0, 1fr); gap:56px; align-items:center; max-width:980px; margin:0 auto 40px; }
-.disco{ position:relative; aspect-ratio:1.72; max-width:100%; }
-.capa-disco{ position:absolute; left:0; top:0; width:56%; aspect-ratio:1; background:#7A2632; color:#F8F5EE; border:1px solid var(--tinta); outline:1px solid var(--tinta); outline-offset:3px; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; z-index:2; font-family:var(--titulo); text-transform:uppercase; font-size:clamp(14px, 1.9vw, 19px); line-height:1.1; box-shadow:8px 10px 0 -2px rgba(0,0,0,.08); }
-.capa-disco span + span{ font-family:var(--maquina); text-transform:none; font-size:.7em; margin-top:4px; color:#E8D9B5; }
-.vinil{ position:absolute; right:0; top:2%; width:60%; aspect-ratio:1; border-radius:50%; z-index:1;
+.vitrola{ display:flex; align-items:center; justify-content:center; gap:clamp(12px, 4vw, 48px); margin:0 auto 28px; }
+.player-bt{ flex:none; width:56px; height:56px; border-radius:50%; border:1px solid var(--tinta); background:var(--papel); color:var(--tinta); display:grid; place-items:center; cursor:pointer; transition:background .2s ease, color .2s ease; }
+.player-bt svg{ width:22px; height:22px; fill:currentColor; }
+.player-bt:hover{ background:var(--tinta); color:var(--papel); }
+.disco{ position:relative; flex:none; width:min(360px, 62vw); aspect-ratio:1; padding:0; border:0; border-radius:50%; background:none; cursor:pointer; }
+.vinil{ position:absolute; inset:0; border-radius:50%;
   background:radial-gradient(circle, transparent 0 31%, rgba(255,255,255,.06) 31.5% 32%, transparent 32.5%),
-    repeating-radial-gradient(circle, #151110 0 2px, #221c19 2.5px 3.5px),
-    #151110;
-  box-shadow:0 0 0 1px #000, 0 12px 30px -12px rgba(0,0,0,.5); display:grid; place-items:center; transition:transform .8s cubic-bezier(.2,.7,.2,1); }
+    repeating-radial-gradient(circle, #151110 0 2px, #221c19 2.5px 3.5px), #151110;
+  box-shadow:0 0 0 1px #000, 0 18px 40px -16px rgba(0,0,0,.55); display:grid; place-items:center;
+  animation:girar 3.6s linear infinite; animation-play-state:paused; }
 .vinil::after{ content:""; position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 30deg, transparent 0 10%, rgba(255,255,255,.08) 14%, transparent 20% 60%, rgba(255,255,255,.06) 64%, transparent 70%); }
-.selo{ width:36%; aspect-ratio:1; border-radius:50%; background:#C9A962; color:#2B2420; display:grid; place-content:center; text-align:center; gap:12px; position:relative; z-index:1; }
-.selo b{ font-family:var(--titulo); font-weight:400; font-size:clamp(16px, 2.4vw, 24px); line-height:1; }
-.selo small{ font-family:var(--maquina); font-size:9px; letter-spacing:.06em; }
-.selo::after{ content:""; position:absolute; left:50%; top:50%; width:7px; height:7px; margin:-3.5px; border-radius:50%; background:#151110; }
+.disco.tocando .vinil{ animation-play-state:running; }
+.selo{ width:38%; aspect-ratio:1; border-radius:50%; background:#C9A962; color:#2B2420; display:grid; place-content:center; text-align:center; gap:16px; position:relative; z-index:1; transition:background .6s ease; }
+.selo b{ font-family:var(--titulo); font-weight:400; font-size:clamp(20px, 4.4vw, 32px); line-height:1; transition:opacity .4s ease; }
+.selo small{ font-family:var(--maquina); font-size:clamp(8px, 1.6vw, 10px); letter-spacing:.06em; }
+.selo::after{ content:""; position:absolute; left:50%; top:50%; width:8px; height:8px; margin:-4px; border-radius:50%; background:#151110; }
 .disco.silencio .selo{ background:#8F877A; }
-.disco.girando .vinil{ animation:girar 1.8s linear infinite; }
-.disco.troca .vinil{ animation:trocar .7s cubic-bezier(.2,.7,.2,1); }
-.disco.girando.troca .vinil{ animation:girar 1.8s linear infinite; }
+/* sinal de play/pausa que aparece ao passar o mouse ou quando está pausado */
+.disco-estado{ position:absolute; left:50%; top:50%; width:64px; height:64px; margin:-32px; border-radius:50%; background:rgba(21,17,16,.78); opacity:0; transition:opacity .3s ease; z-index:2; }
+.disco-estado::before, .disco-estado::after{ content:""; position:absolute; top:22px; width:6px; height:20px; background:#F3EADB; }
+.disco-estado::before{ left:24px; } .disco-estado::after{ left:34px; }
+.disco:not(.tocando) .disco-estado::before{ left:26px; top:20px; width:0; height:0; background:none; border-left:18px solid #F3EADB; border-top:12px solid transparent; border-bottom:12px solid transparent; }
+.disco:not(.tocando) .disco-estado::after{ display:none; }
+.disco:hover .disco-estado, .disco:focus-visible .disco-estado, .disco:not(.tocando) .disco-estado{ opacity:1; }
+.disco:focus-visible{ outline:2px solid var(--vinho); outline-offset:6px; }
 @keyframes girar{ to{ transform:rotate(360deg); } }
-@keyframes trocar{ from{ transform:translateX(-26%) rotate(-140deg); } to{ transform:none; } }
-.ficha-disco{ display:grid; gap:6px; min-width:0; }
-.disco-ano{ font-family:var(--titulo); font-size:clamp(56px, 7vw, 88px); line-height:1; color:var(--vinho); }
-.ficha-disco h3{ font-family:var(--titulo); font-weight:400; text-transform:uppercase; font-size:clamp(22px, 2.6vw, 30px); line-height:1.15; }
+.ficha-disco{ display:grid; gap:6px; justify-items:center; text-align:center; max-width:36em; min-height:11em; margin:0 auto 40px; align-content:start; }
+.ficha-disco.surgindo > *{ animation:surgir .9s cubic-bezier(.2,.7,.2,1) both; }
+.ficha-disco.surgindo > :nth-child(2){ animation-delay:.08s; } .ficha-disco.surgindo > :nth-child(3){ animation-delay:.16s; }
+.ficha-disco.surgindo > :nth-child(4){ animation-delay:.22s; } .ficha-disco.surgindo > :nth-child(5){ animation-delay:.28s; }
+@keyframes surgir{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+.ficha-disco h3{ font-family:var(--titulo); font-weight:400; text-transform:uppercase; font-size:clamp(24px, 3.2vw, 36px); line-height:1.12; }
 .disco-autor{ font-size:17px; }
 .disco-cidade{ font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--tinta-suave); }
 .disco-obs{ font-style:italic; color:var(--tinta-suave); border-top:1px solid var(--fio); padding-top:10px; margin-top:6px; }
 .disco-obs:empty{ display:none; }
-@media (max-width:760px){ .campeoes-palco{ grid-template-columns:1fr; gap:28px; } .disco{ max-width:360px; } }
+@media (max-width:520px){ .player-bt{ width:46px; height:46px; } .disco{ width:min(260px, 58vw); } }
+@media (prefers-reduced-motion: reduce){ .vinil{ animation:none; } .ficha-disco.surgindo > *{ animation:none; } }
 
-.pauta-controles{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:16px; }
-.pauta-controles .dica{ font-size:14px; color:var(--tinta-suave); }
+.pauta-controles{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; margin-bottom:16px; }
+.pauta-controles .dica{ font-size:14px; color:var(--tinta-suave); text-align:center; }
 .pauta-moldura{ position:relative; border-top:4px double var(--tinta); border-bottom:1px solid var(--tinta); background:var(--papel); }
 .clave{ position:absolute; left:0; top:4px; z-index:2; width:44px; height:120px; display:grid; place-items:center; font-family:Georgia, 'Times New Roman', serif; font-size:64px; line-height:1; color:var(--tinta); background:linear-gradient(90deg, var(--papel) 80%, transparent); pointer-events:none; }
 .pauta{ overflow-x:auto; overflow-y:hidden; margin-left:0; padding-left:44px; scrollbar-width:thin; }
