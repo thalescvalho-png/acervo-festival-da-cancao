@@ -514,3 +514,7 @@ img{ max-width:100%; height:auto; display:block; }
   .rolo.puxando .quadro{ animation:puxar .6s cubic-bezier(.2,.7,.2,1) both; animation-delay:calc(var(--n, 0) * 80ms); }
   @keyframes puxar{ from{ opacity:0; transform:translateX(60px); } to{ opacity:1; transform:none; } }
 }
+.a-conferir{ display:block; margin-top:6px; font-size:12.5px; line-height:1.45; border:1px dashed var(--ouro); padding:3px 8px; }
+.a-conferir::before{ content:"a conferir: "; font-weight:700; color:var(--ouro); }
+.quadro .a-conferir{ border-color:#6B5A3A; color:#D9CFBD; }
+.quadro .a-conferir::before{ color:#E3B76A; }

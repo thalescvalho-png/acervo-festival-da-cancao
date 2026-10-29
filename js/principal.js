@@ -42,6 +42,7 @@
     leg.appendChild(document.createTextNode(f.legenda + ' '));
     if (f.provisorio) leg.appendChild(selo());
     if (f.credito) leg.appendChild(el('span', 'credito', f.credito));
+    if (f.conferir) leg.appendChild(el('span', 'a-conferir', f.conferir));
     fig.appendChild(leg);
     mosaico.appendChild(fig);
     figuras.push(fig);
@@ -157,6 +158,7 @@
         var leg = el('figcaption');
         leg.appendChild(el('b', '', f.periodo || String(f.ano)));
         leg.appendChild(document.createTextNode(' ' + f.legenda));
+        if (f.conferir) leg.appendChild(el('span', 'a-conferir', f.conferir));
         q.appendChild(leg);
         faixa.appendChild(q);
         quadros.push({ ano: f.ano, el: q });
