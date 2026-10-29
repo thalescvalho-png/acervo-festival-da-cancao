@@ -71,7 +71,7 @@ img{ max-width:100%; height:auto; display:block; }
 .menu{ display:flex; gap:12px; font-size:14px; margin-left:auto; }
 .menu a{ text-decoration:none; color:var(--tinta-suave); white-space:nowrap; }
 .menu a:hover{ color:var(--vinho); }
-@media (max-width:1230px){ .menu{ display:none; } }
+@media (max-width:1300px){ .menu{ display:none; } }
 @media (max-width:600px){ .marca{ white-space:normal; line-height:1.15; min-width:0; } }
 @media (max-width:440px){ .marca{ font-size:16px; } }
 .rodape .marca{ white-space:normal; }
@@ -435,3 +435,8 @@ img{ max-width:100%; height:auto; display:block; }
   .chegando{ animation:chegar .7s cubic-bezier(.2,.7,.2,1); }
   @keyframes chegar{ from{ opacity:.3; transform:translateY(14px); } to{ opacity:1; transform:none; } }
 }
+/* ===== PRATAS DA CASA ===== */
+.pratas{ display:grid; gap:56px; }
+.pratas .causo.verde-terra{ margin-bottom:0; }
+.pratas .causo.verde-terra:last-child{ border-bottom:0; padding-bottom:0; }
+.correnteza .lp-objeto{ cursor:default; }
