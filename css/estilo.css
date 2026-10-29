@@ -153,6 +153,67 @@ img{ max-width:100%; height:auto; display:block; }
 .sem-foto{ display:grid; place-items:center; aspect-ratio:4/3; background:var(--vazio) radial-gradient(var(--fio) 1px, transparent 1.4px) 0 0/6px 6px; color:var(--tinta-suave); text-align:center; padding:20px; font-size:14px; letter-spacing:.06em; text-transform:uppercase; }
 .sem-foto b{ display:block; background:var(--vazio); padding:0 10px; font-family:var(--titulo); font-style:normal; font-weight:400; font-size:30px; color:var(--tinta-suave); opacity:.7; }
 
+/* ===== PARTITURA DOS CAMPEÕES ===== */
+.campeoes-palco{ display:grid; grid-template-columns:minmax(0, 420px) minmax(0, 1fr); gap:56px; align-items:center; max-width:980px; margin:0 auto 40px; }
+.disco{ position:relative; aspect-ratio:1.72; max-width:100%; }
+.capa-disco{ position:absolute; left:0; top:0; width:56%; aspect-ratio:1; background:#7A2632; color:#F8F5EE; border:1px solid var(--tinta); outline:1px solid var(--tinta); outline-offset:3px; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; z-index:2; font-family:var(--titulo); text-transform:uppercase; font-size:clamp(14px, 1.9vw, 19px); line-height:1.1; box-shadow:8px 10px 0 -2px rgba(0,0,0,.08); }
+.capa-disco span + span{ font-family:var(--maquina); text-transform:none; font-size:.7em; margin-top:4px; color:#E8D9B5; }
+.vinil{ position:absolute; right:0; top:2%; width:60%; aspect-ratio:1; border-radius:50%; z-index:1;
+  background:radial-gradient(circle, transparent 0 31%, rgba(255,255,255,.06) 31.5% 32%, transparent 32.5%),
+    repeating-radial-gradient(circle, #151110 0 2px, #221c19 2.5px 3.5px),
+    #151110;
+  box-shadow:0 0 0 1px #000, 0 12px 30px -12px rgba(0,0,0,.5); display:grid; place-items:center; transition:transform .8s cubic-bezier(.2,.7,.2,1); }
+.vinil::after{ content:""; position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 30deg, transparent 0 10%, rgba(255,255,255,.08) 14%, transparent 20% 60%, rgba(255,255,255,.06) 64%, transparent 70%); }
+.selo{ width:36%; aspect-ratio:1; border-radius:50%; background:#C9A962; color:#2B2420; display:grid; place-content:center; text-align:center; gap:12px; position:relative; z-index:1; }
+.selo b{ font-family:var(--titulo); font-weight:400; font-size:clamp(16px, 2.4vw, 24px); line-height:1; }
+.selo small{ font-family:var(--maquina); font-size:9px; letter-spacing:.06em; }
+.selo::after{ content:""; position:absolute; left:50%; top:50%; width:7px; height:7px; margin:-3.5px; border-radius:50%; background:#151110; }
+.disco.silencio .selo{ background:#8F877A; }
+.disco.girando .vinil{ animation:girar 1.8s linear infinite; }
+.disco.troca .vinil{ animation:trocar .7s cubic-bezier(.2,.7,.2,1); }
+.disco.girando.troca .vinil{ animation:girar 1.8s linear infinite; }
+@keyframes girar{ to{ transform:rotate(360deg); } }
+@keyframes trocar{ from{ transform:translateX(-26%) rotate(-140deg); } to{ transform:none; } }
+.ficha-disco{ display:grid; gap:6px; min-width:0; }
+.disco-ano{ font-family:var(--titulo); font-size:clamp(56px, 7vw, 88px); line-height:1; color:var(--vinho); }
+.ficha-disco h3{ font-family:var(--titulo); font-weight:400; text-transform:uppercase; font-size:clamp(22px, 2.6vw, 30px); line-height:1.15; }
+.disco-autor{ font-size:17px; }
+.disco-cidade{ font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--tinta-suave); }
+.disco-obs{ font-style:italic; color:var(--tinta-suave); border-top:1px solid var(--fio); padding-top:10px; margin-top:6px; }
+.disco-obs:empty{ display:none; }
+@media (max-width:760px){ .campeoes-palco{ grid-template-columns:1fr; gap:28px; } .disco{ max-width:360px; } }
+
+.pauta-controles{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:16px; }
+.pauta-controles .dica{ font-size:14px; color:var(--tinta-suave); }
+.pauta-moldura{ position:relative; border-top:4px double var(--tinta); border-bottom:1px solid var(--tinta); background:var(--papel); }
+.clave{ position:absolute; left:0; top:4px; z-index:2; width:44px; height:120px; display:grid; place-items:center; font-family:Georgia, 'Times New Roman', serif; font-size:64px; line-height:1; color:var(--tinta); background:linear-gradient(90deg, var(--papel) 80%, transparent); pointer-events:none; }
+.pauta{ overflow-x:auto; overflow-y:hidden; margin-left:0; padding-left:44px; scrollbar-width:thin; }
+.pauta:focus-visible{ outline-offset:-3px; }
+.pauta-trilho{ position:relative; height:140px;
+  background:linear-gradient(var(--tinta), var(--tinta)) 0 18px/100% 1px no-repeat,
+    linear-gradient(var(--tinta), var(--tinta)) 0 32px/100% 1px no-repeat,
+    linear-gradient(var(--tinta), var(--tinta)) 0 46px/100% 1px no-repeat,
+    linear-gradient(var(--tinta), var(--tinta)) 0 60px/100% 1px no-repeat,
+    linear-gradient(var(--tinta), var(--tinta)) 0 74px/100% 1px no-repeat; }
+.compasso{ position:absolute; top:18px; width:1px; height:57px; background:var(--tinta); }
+.nota{ position:absolute; top:0; width:34px; height:140px; margin-left:-17px; padding:0; border:0; background:none; cursor:pointer; color:var(--tinta); }
+.nota:hover .cabeca-nota, .nota[aria-pressed="true"] .cabeca-nota{ background:var(--vinho); }
+.nota:hover .cabeca-nota::after, .nota[aria-pressed="true"] .cabeca-nota::after{ background:var(--vinho); }
+.cabeca-nota{ position:absolute; left:10px; width:14px; height:11px; border-radius:50%; background:var(--tinta); transform:rotate(-22deg); transition:background .2s ease, transform .2s ease; }
+.cabeca-nota::after{ content:""; position:absolute; right:-1px; bottom:5px; width:1.5px; height:36px; background:var(--tinta); transform:rotate(22deg); transform-origin:bottom; }
+.cabeca-nota.haste-baixo::after{ right:auto; left:0; bottom:auto; top:5px; transform-origin:top; }
+.cabeca-nota.suplementar::before{ content:""; position:absolute; left:-5px; top:5px; width:24px; height:1px; background:var(--tinta); transform:rotate(22deg); }
+.nota.incerta .cabeca-nota{ background:transparent; border:2px solid var(--tinta); }
+.nota.incerta[aria-pressed="true"] .cabeca-nota{ border-color:var(--vinho); background:transparent; }
+.nota.fase-local .cabeca-nota{ background:var(--ouro); }
+.nota[aria-pressed="true"] .cabeca-nota{ transform:rotate(-22deg) scale(1.3); }
+.pausa-sinal{ position:absolute; left:11px; top:40px; width:12px; height:6px; background:var(--tinta-suave); }
+.nota.pausa[aria-pressed="true"] .pausa-sinal, .nota.pausa:hover .pausa-sinal{ background:var(--vinho); }
+.nota-ano{ position:absolute; left:0; right:0; top:110px; font-family:var(--maquina); font-size:12px; color:var(--tinta-suave); text-align:center; }
+.nota[aria-pressed="true"] .nota-ano{ color:var(--vinho); font-weight:700; }
+.nota:focus-visible{ outline:2px solid var(--vinho); outline-offset:-2px; }
+.fonte-campeoes{ font-size:13px; color:var(--tinta-suave); margin-top:14px; }
+
 /* ===== GALERIA ===== */
 .filtros{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:40px; }
 .filtros button{ font-family:var(--rotulo); font-size:14px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--tinta-suave); background:transparent; border:1px solid var(--fio); border-radius:0; min-height:40px; padding:0 16px; cursor:pointer; }
