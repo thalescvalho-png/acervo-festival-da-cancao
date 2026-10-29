@@ -71,19 +71,31 @@ img{ max-width:100%; height:auto; display:block; }
 @media (max-width:440px){ .marca{ font-size:16px; } }
 .rodape .marca{ white-space:normal; }
 
-/* ===== ABERTURA ===== */
-.abertura{ padding-block:72px 88px; }
-.abertura-in{ display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
-.abertura-in > *{ min-width:0; }
-.abertura h1{ font-size:clamp(40px, 5.6vw, 74px); }
-.abertura h1 i{ display:block; font-family:var(--cursiva); font-style:normal; font-size:.72em; color:var(--vinho); margin-top:.1em; transform:rotate(-4deg); transform-origin:left; }
-.abertura .datas{ font-family:var(--cursiva); font-size:clamp(22px, 2.4vw, 28px); color:var(--tinta-suave); margin-top:18px; }
-.abertura .chamada{ max-width:34em; margin-top:22px; color:var(--tinta-suave); }
-.acoes{ display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+/* ===== CAPA: cartaz de cinema ===== */
+/* a capa é sempre escura (a foto fica por baixo), por isso tem cores próprias nos dois temas */
+.capa{ position:relative; overflow:hidden; background:#140F0D; color:#F3EADB; min-height:clamp(560px, 86svh, 860px); display:flex; }
+.capa-foto{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:sepia(.55) saturate(.8) contrast(1.05) brightness(.62); }
+.capa::after{ content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 42%, rgba(20,15,13,.15), rgba(20,15,13,.75) 78%), linear-gradient(rgba(20,15,13,0) 55%, rgba(20,15,13,.85)); }
+.capa-moldura{ position:relative; z-index:1; flex:1; width:100%; display:flex; flex-direction:column; justify-content:space-between; gap:40px; padding-block:56px 40px; }
+.capa-moldura::before{ content:""; position:absolute; inset:20px max(12px, env(safe-area-inset-left,0px)); border:1px solid rgba(214,180,110,.55); outline:1px solid rgba(214,180,110,.3); outline-offset:-7px; pointer-events:none; }
+.capa-texto{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; }
+.capa-topo{ font-family:var(--rotulo); font-size:15px; letter-spacing:.24em; text-transform:lowercase; color:#D6B46E; }
+.capa h1{ display:grid; justify-items:center; line-height:.95; }
+.capa-titulo{ font-size:clamp(52px, 14vw, 150px); letter-spacing:.01em; color:#F3EADB; text-shadow:0 2px 0 rgba(0,0,0,.35), 0 10px 40px rgba(0,0,0,.55); }
+.capa h1 i{ font-family:var(--cursiva); font-style:normal; font-size:clamp(38px, 6.4vw, 92px); color:#E3B76A; transform:rotate(-5deg); margin-top:-.08em; text-shadow:0 4px 24px rgba(0,0,0,.6); }
+.capa-datas{ font-family:var(--rotulo); font-size:clamp(15px, 1.6vw, 19px); letter-spacing:.3em; text-transform:lowercase; color:#E8DCC6; display:flex; align-items:center; gap:14px; }
+.capa-datas::before,.capa-datas::after{ content:""; width:40px; height:1px; background:#D6B46E; }
+.capa .acoes{ justify-content:center; margin-top:12px; }
+.capa .botao{ background:#E3B76A; border-color:#E3B76A; color:#1C1715; }
+.capa .botao.contorno{ background:transparent; color:#F3EADB; border-color:rgba(243,234,219,.7); }
+.capa-creditos{ font-family:var(--rotulo); font-size:13px; letter-spacing:.14em; text-transform:lowercase; text-align:center; color:#CDBFA6; line-height:1.9; max-width:60em; margin:0 auto; padding-inline:24px; }
+.capa-creditos b{ font-weight:500; color:#E3B76A; }
+@media (max-width:600px){ .capa-moldura{ padding-block:48px 36px; } .capa-topo{ font-size:13px; letter-spacing:.14em; } .capa-datas{ font-size:14px; letter-spacing:.16em; } .capa h1 i{ font-size:46px; } .capa-datas::before,.capa-datas::after{ width:18px; } .capa-creditos{ font-size:12px; letter-spacing:.08em; } }
+
+.acoes{ display:flex; flex-wrap:wrap; gap:12px; }
 .botao{ display:inline-flex; align-items:center; min-height:46px; padding:0 22px; font-family:var(--rotulo); font-size:17px; letter-spacing:.06em; text-transform:lowercase; text-decoration:none; background:var(--vinho); color:var(--folha); border:1px solid var(--vinho); border-radius:2px; cursor:pointer; }
 .botao.contorno{ background:transparent; color:var(--vinho); }
 .botao:hover{ filter:brightness(1.08); }
-@media (max-width:860px){ .abertura{ padding-block:44px 60px; } .abertura-in{ grid-template-columns:1fr; gap:40px; } }
 
 /* ===== RETRATO: foto com moldura branca e cantoneiras ===== */
 .retrato{ position:relative; background:var(--folha); padding:12px 12px 14px; box-shadow:0 1px 2px rgba(43,36,32,.14), 0 10px 28px -14px rgba(43,36,32,.35); }
@@ -93,9 +105,6 @@ img{ max-width:100%; height:auto; display:block; }
 .retrato::after{ top:-3px; right:-3px; clip-path:polygon(0 0,100% 0,100% 100%); }
 .retrato .cant::before{ bottom:-3px; left:-3px; clip-path:polygon(0 0,100% 100%,0 100%); }
 .retrato .cant::after{ bottom:-3px; right:-3px; clip-path:polygon(100% 0,100% 100%,0 100%); }
-.abertura .retrato{ transform:rotate(1.4deg); }
-.abertura .retrato img{ aspect-ratio:4/3; }
-.abertura figcaption{ font-size:15px; font-style:italic; color:var(--tinta-suave); margin-top:12px; text-align:center; }
 
 /* ===== SEÇÕES ===== */
 .secao{ padding-block:88px; }
