@@ -64,6 +64,30 @@
     decadas.forEach(function(d){ botaoFiltro('anos ' + String(d).slice(2), d); });
   }
 
+  // Acervo fotográfico: um letreiro de cinema para cada edição; escolher um ano mostra a cena dela
+  var cenas = [].slice.call(document.querySelectorAll('#cenas .cena'));
+  var letreiros = document.getElementById('letreiros');
+  if (cenas.length && letreiros){
+    document.getElementById('cenas').classList.add('uma-cena');
+    var cartelas = cenas.map(function(cena, i){
+      var ano = cena.querySelector('.ano'), num = cena.querySelector('.numero');
+      var b = el('button', 'letreiro' + (cena.classList.contains('marco-maior') ? ' marco' : ''));
+      b.type = 'button';
+      b.appendChild(el('b', '', ano ? ano.textContent : '?'));
+      b.appendChild(el('span', '', num ? num.textContent : 'festival'));
+      b.addEventListener('click', function(){ verCena(i, true); });
+      letreiros.appendChild(b);
+      return b;
+    });
+    function verCena(i, comSom){
+      cenas.forEach(function(c, n){ c.hidden = n !== i; });
+      cartelas.forEach(function(b, n){ b.setAttribute('aria-pressed', n === i ? 'true' : 'false'); });
+      if (!reduzir){ cenas[i].classList.remove('corte'); void cenas[i].offsetWidth; cenas[i].classList.add('corte'); }
+      if (comSom && window.SOM) SOM.tocar([0, 2, 4, 5, 7, 9, 11, 7, 4, 9, 12][i % 11], { duracao: 1.6, volume: 0.14 });
+    }
+    verCena(0, false);
+  }
+
   // 2. Telas do YouTube: o vídeo só carrega quando a pessoa clica
   function montarTela(tela, codigo, titulo, aviso){
     tela.textContent = '';
@@ -157,19 +181,14 @@
       e.style.setProperty('--i', ciclo ? i % ciclo : 0);
     });
   }
-  grupo('.edicao');
   grupo('.mosaico figure', 3);
   grupo('.videos figure', 3);
   grupo('.sobre-in > div', 3);
-  var edicoes = [].slice.call(document.querySelectorAll('.edicao'));
   var olho = new IntersectionObserver(function(entradas){
     entradas.forEach(function(e){
       if (!e.isIntersecting) return;
       e.target.classList.add('visto');
       olho.unobserve(e.target);
-      // na linha do tempo, cada edição que aparece é uma nota da melodia
-      var n = edicoes.indexOf(e.target);
-      if (n >= 0 && window.SOM) SOM.tocar([0, 2, 4, 5, 7, 5, 4, 2, 4, 7, 9, 7][n % 12], { duracao: 1.6, volume: 0.13 });
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
   [].forEach.call(document.querySelectorAll('.revela'), function(e){ olho.observe(e); });
