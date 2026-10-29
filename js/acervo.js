@@ -12,6 +12,9 @@
 var ACERVO_FOTOS = [
   { ano: 1976, foto: '', descricao: '', legenda: 'A primeira edição do Festival da Canção de Alvinópolis.', provisorio: true },
   { ano: 1980, periodo: 'anos 80', foto: '', descricao: '', legenda: 'Os festivais dos anos 1980: palco, plateia e cartazes da época.', provisorio: true },
+  { ano: 1987, foto: 'img/acervo/1987_verde-terra_nos-os-loucos_capa.webp', w: 1200, h: 1200,
+    descricao: 'Capa do LP Nós, os loucos, do Verde Terra: homens de terno sentados a uma mesa posta, com um garçom de pé',
+    legenda: 'Capa do LP “Nós, os loucos”, do Verde Terra, banda nascida nos festivais.', credito: 'Foto da capa: Mauro Sérvulo Gomes' },
   { ano: 1990, periodo: 'anos 90', foto: '', descricao: '', legenda: 'Os festivais dos anos 1990.', provisorio: true },
   { ano: 2009, foto: 'img/acervo/2009_festival-alvinopolis_meu-triunfo-e-o-rock-n-roll.webp', w: 448, h: 336,
     descricao: 'Banda tocando guitarras no palco do festival, com luzes coloridas e fumaça',

@@ -84,6 +84,85 @@
       cartelas.forEach(function(b, n){ b.setAttribute('aria-pressed', n === i ? 'true' : 'false'); });
       if (!reduzir){ cenas[i].classList.remove('corte'); void cenas[i].offsetWidth; cenas[i].classList.add('corte'); }
       if (comSom && window.SOM) SOM.tocar([0, 2, 4, 5, 7, 9, 11, 7, 4, 9, 12][i % 11], { duracao: 1.6, volume: 0.14 });
+      montarRolo(cenas[i]);
+    }
+
+    // o rolo de filme: as fotos do período escolhido, em ordem, com a régua dos anos por cima
+    var rolo = document.getElementById('rolo');
+    function periodo(cena){
+      var t = (cena.querySelector('.ano') || {}).textContent || '';
+      var m = t.match(/^(\d{4})$/);
+      if (m) return { de: +m[1], ate: +m[1], nome: m[1] };
+      m = t.match(/anos (\d)0/);
+      if (m){ var d = 1900 + (+m[1]) * 10; if (d < 1970) d += 100; return { de: d, ate: d + 9, nome: t }; }
+      return null;
+    }
+    function montarRolo(cena){
+      if (!rolo) return;
+      rolo.textContent = '';
+      var p = periodo(cena);
+      if (!p) return;
+      var lista = fotos.filter(function(f){ return f.ano >= p.de && f.ano <= p.ate; });
+      var topo = el('div', 'rolo-topo');
+      topo.appendChild(el('p', 'rotulo', 'linha do tempo das fotos · ' + p.nome));
+      var regua = el('div', 'regua');
+      var quadros = [];
+      for (var a = p.de; a <= p.ate; a++) (function(a){
+        var tem = lista.some(function(f){ return f.ano === a; });
+        var b = el('button', 'regua-ano' + (tem ? ' tem' : ''), p.de === p.ate ? String(a) : "'" + String(a).slice(2));
+        b.type = 'button';
+        b.disabled = !tem;
+        b.setAttribute('aria-label', tem ? 'Fotos de ' + a : a + ': sem fotos ainda');
+        b.addEventListener('click', function(){
+          var q = quadros.filter(function(x){ return x.ano === a; });
+          quadros.forEach(function(x){ x.el.classList.toggle('aceso', x.ano === a); });
+          [].forEach.call(regua.children, function(r){ r.setAttribute('aria-pressed', r === b ? 'true' : 'false'); });
+          if (q[0]) faixa.scrollTo({ left: q[0].el.offsetLeft - 20, behavior: reduzir ? 'auto' : 'smooth' });
+          if (window.SOM) SOM.tocar((a - p.de) % 12, { duracao: 1.2, volume: 0.12 });
+        });
+        regua.appendChild(b);
+      })(a);
+      topo.appendChild(regua);
+      rolo.appendChild(topo);
+
+      var faixa = el('div', 'filme');
+      if (!lista.length){
+        var vazio = el('div', 'quadro vazio-rolo');
+        vazio.appendChild(el('b', '', p.nome));
+        vazio.appendChild(document.createTextNode('Ainda não há fotos deste período no acervo. '));
+        var a2 = el('a', '', 'Você tem alguma?'); a2.href = '#contribua';
+        vazio.appendChild(a2);
+        faixa.appendChild(vazio);
+      }
+      lista.forEach(function(f, n){
+        var q = el('figure', 'quadro');
+        q.style.setProperty('--n', n);
+        if (f.foto){
+          var bt = el('button');
+          bt.type = 'button';
+          bt.setAttribute('aria-label', 'Ampliar: ' + f.legenda);
+          var img = el('img'); img.src = f.foto; img.alt = f.descricao || ''; img.loading = 'lazy';
+          bt.appendChild(img);
+          bt.addEventListener('click', function(){
+            var alvo = figuras.filter(function(g){ var i2 = g.querySelector('img'); return i2 && i2.getAttribute('src') === f.foto; })[0];
+            if (alvo){ alvo.hidden = false; alvo.querySelector('button').click(); }
+          });
+          q.appendChild(bt);
+        } else {
+          var sem = el('div', 'sem-foto');
+          sem.appendChild(el('b', '', f.periodo || String(f.ano)));
+          sem.appendChild(document.createTextNode('Foto a encontrar'));
+          q.appendChild(sem);
+        }
+        var leg = el('figcaption');
+        leg.appendChild(el('b', '', f.periodo || String(f.ano)));
+        leg.appendChild(document.createTextNode(' ' + f.legenda));
+        q.appendChild(leg);
+        faixa.appendChild(q);
+        quadros.push({ ano: f.ano, el: q });
+      });
+      rolo.appendChild(faixa);
+      if (!reduzir){ rolo.classList.remove('puxando'); void rolo.offsetWidth; rolo.classList.add('puxando'); }
     }
     verCena(0, false);
   }

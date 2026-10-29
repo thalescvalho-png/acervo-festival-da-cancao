@@ -485,3 +485,32 @@ img{ max-width:100%; height:auto; display:block; }
   @keyframes corte{ 0%{ opacity:0; filter:brightness(2) sepia(1); } 30%{ opacity:1; } 100%{ filter:none; } }
 }
 .cena[hidden]{ display:none; }
+/* rolo de filme do acervo: régua dos anos e fotos do período escolhido */
+.rolo{ margin-top:28px; background:#140F0D; color:#F1E6CF; padding:18px 0 14px; position:relative; }
+.rolo:empty{ display:none; }
+.rolo-topo{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:0 20px 12px; }
+.rolo .rotulo{ color:#C9A962; }
+.regua{ display:flex; flex-wrap:wrap; gap:4px; }
+.regua-ano{ min-width:44px; min-height:36px; padding:0 8px; font-family:var(--titulo); font-size:15px; color:#6B5A3A; background:transparent; border:1px solid #3A322C; cursor:default; }
+.regua-ano.tem{ color:#E3B76A; border-color:#6B5A3A; cursor:pointer; }
+.regua-ano.tem:hover, .regua-ano[aria-pressed="true"]{ background:#7A2632; color:#F1E6CF; border-color:#E3B76A; }
+.filme{ display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x proximity; padding:22px 20px; scrollbar-width:thin;
+  background:
+    radial-gradient(circle, #E9E0CC 0 3px, transparent 3.5px) 0 4px/22px 14px repeat-x,
+    radial-gradient(circle, #E9E0CC 0 3px, transparent 3.5px) 0 calc(100% - 4px)/22px 14px repeat-x,
+    #1C1715; }
+.quadro{ flex:0 0 clamp(220px, 30vw, 320px); scroll-snap-align:start; margin:0; display:grid; gap:8px; align-content:start; transition:transform .3s ease, box-shadow .3s ease; }
+.quadro button{ display:block; width:100%; padding:0; border:0; background:none; cursor:zoom-in; }
+.quadro img, .quadro .sem-foto{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; border:3px solid #0E0B09; filter:sepia(.25) contrast(1.05); transition:filter .4s ease; }
+.quadro:hover img, .quadro.aceso img{ filter:none; }
+.quadro.aceso{ transform:translateY(-4px); }
+.quadro.aceso img{ box-shadow:0 0 0 3px #E3B76A; }
+.quadro figcaption{ font-size:13.5px; line-height:1.45; color:#D9CFBD; }
+.quadro figcaption b{ font-family:var(--titulo); font-weight:400; color:#E3B76A; margin-right:4px; }
+.vazio-rolo{ flex-basis:100%; display:block; text-align:center; padding:30px 10px; color:#D9CFBD; }
+.vazio-rolo b{ display:block; font-family:var(--titulo); font-weight:400; font-size:34px; color:#E3B76A; }
+.vazio-rolo a{ color:#E3B76A; }
+@media (prefers-reduced-motion: no-preference){
+  .rolo.puxando .quadro{ animation:puxar .6s cubic-bezier(.2,.7,.2,1) both; animation-delay:calc(var(--n, 0) * 80ms); }
+  @keyframes puxar{ from{ opacity:0; transform:translateX(60px); } to{ opacity:1; transform:none; } }
+}
