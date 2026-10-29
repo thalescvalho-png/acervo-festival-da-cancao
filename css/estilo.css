@@ -1,6 +1,6 @@
-/* Conceito: um álbum de retratos aberto. Papel de álbum, fotos presas por cantoneiras,
-   a linha do tempo correndo no meio da página como a lombada, e o documentário no fim
-   como uma sala de projeção. */
+/* Conceito: um álbum de retratos aberto, com capa de cartaz de cinema dos anos 70
+   (letras douradas em letreiro sobre a foto em sépia) e fichas datilografadas de acervo nos detalhes.
+   Fotos presas por cantoneiras, a linha do tempo como lombada, o documentário numa sala de projeção. */
 
 /* ===== CORES (troque aqui para mudar a paleta do site inteiro) ===== */
 :root{
@@ -17,10 +17,10 @@
   --sala-suave:#B5A994;
   --vazio:#D9D2C3;          /* moldura de foto que ainda não chegou */
 
-  --titulo:'Limelight', 'Didot', Georgia, serif;           /* letreiro de cinema antigo */
-  --cursiva:'Yellowtail', 'Brush Script MT', cursive;       /* o traço manuscrito dos cartazes */
+  --titulo:'Rye', 'Rockwell', Georgia, serif;                      /* letreiro de cartaz de cinema */
+  --maquina:'Special Elite', 'Courier New', Courier, monospace;      /* máquina de escrever */
   --texto:'Spectral', Georgia, 'Times New Roman', serif;
-  --rotulo:'Spectral SC', 'Spectral', Georgia, serif;
+  --rotulo:var(--maquina);
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
@@ -47,6 +47,8 @@ body{ margin:0; background:var(--papel); color:var(--tinta); font-family:var(--t
 body::before{ content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:30; background:var(--papel); }
 h1,h2,h3,p,figure,dl,dd{ margin:0; }
 h1,h2,h3{ font-family:var(--titulo); font-weight:400; line-height:1.12; text-wrap:balance; }
+h2{ text-transform:uppercase; letter-spacing:.02em; }
+h3{ font-family:var(--maquina); line-height:1.25; }
 a{ color:inherit; }
 img{ max-width:100%; height:auto; display:block; }
 :focus-visible{ outline:2px solid var(--vinho); outline-offset:3px; }
@@ -63,7 +65,8 @@ img{ max-width:100%; height:auto; display:block; }
 .topo{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--papel); border-bottom:1px solid var(--fio); }
 .topo-in{ height:64px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .marca{ font-family:var(--titulo); font-size:19px; text-decoration:none; white-space:nowrap; }
-.marca em{ font-family:var(--cursiva); font-style:normal; font-size:1.2em; color:var(--vinho); }
+.marca{ text-transform:uppercase; }
+.marca em{ font-family:var(--maquina); font-style:normal; text-transform:none; color:var(--ouro); }
 .menu{ display:flex; gap:26px; font-size:16px; }
 .menu a{ text-decoration:none; color:var(--tinta-suave); white-space:nowrap; }
 .menu a:hover{ color:var(--vinho); }
@@ -71,29 +74,31 @@ img{ max-width:100%; height:auto; display:block; }
 @media (max-width:440px){ .marca{ font-size:16px; } }
 .rodape .marca{ white-space:normal; }
 
-/* ===== CAPA: cartaz de cinema ===== */
-/* a capa é sempre escura (a foto fica por baixo), por isso tem cores próprias nos dois temas */
+/* ===== CAPA: cartaz de cinema dos anos 70 ===== */
+/* a capa é sempre escura (a foto fica por baixo, em sépia), por isso tem cores próprias nos dois temas */
 .capa{ position:relative; overflow:hidden; background:#140F0D; color:#F3EADB; min-height:clamp(560px, 86svh, 860px); display:flex; }
-.capa-foto{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:sepia(.55) saturate(.8) contrast(1.05) brightness(.62); }
-.capa::after{ content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 42%, rgba(20,15,13,.15), rgba(20,15,13,.75) 78%), linear-gradient(rgba(20,15,13,0) 55%, rgba(20,15,13,.85)); }
-.capa-moldura{ position:relative; z-index:1; flex:1; width:100%; display:flex; flex-direction:column; justify-content:space-between; gap:40px; padding-block:56px 40px; }
+.capa-foto{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:sepia(.6) saturate(.75) contrast(1.08) brightness(.6); }
+.capa::after{ content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 45%, rgba(20,15,13,.12), rgba(20,15,13,.78) 80%), linear-gradient(rgba(20,15,13,0) 55%, rgba(20,15,13,.88)); }
+.capa-grao{ position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.22; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"); }
+.capa-moldura{ position:relative; z-index:2; flex:1; width:100%; display:flex; flex-direction:column; justify-content:space-between; gap:40px; padding-block:56px 40px; }
 .capa-moldura::before{ content:""; position:absolute; inset:20px max(12px, env(safe-area-inset-left,0px)); border:1px solid rgba(214,180,110,.55); outline:1px solid rgba(214,180,110,.3); outline-offset:-7px; pointer-events:none; }
-.capa-texto{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; }
-.capa-topo{ font-family:var(--rotulo); font-size:15px; letter-spacing:.24em; text-transform:lowercase; color:#D6B46E; }
-.capa h1{ display:grid; justify-items:center; line-height:.95; }
-.capa-titulo{ font-size:clamp(52px, 14vw, 150px); letter-spacing:.01em; color:#F3EADB; text-shadow:0 2px 0 rgba(0,0,0,.35), 0 10px 40px rgba(0,0,0,.55); }
-.capa h1 i{ font-family:var(--cursiva); font-style:normal; font-size:clamp(38px, 6.4vw, 92px); color:#E3B76A; transform:rotate(-5deg); margin-top:-.08em; text-shadow:0 4px 24px rgba(0,0,0,.6); }
-.capa-datas{ font-family:var(--rotulo); font-size:clamp(15px, 1.6vw, 19px); letter-spacing:.3em; text-transform:lowercase; color:#E8DCC6; display:flex; align-items:center; gap:14px; }
+.capa-texto{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:20px; }
+.capa-topo{ font-family:var(--maquina); font-size:16px; letter-spacing:.18em; color:#F1E6CF; }
+.capa h1{ display:grid; justify-items:center; gap:.06em; text-transform:uppercase; color:#E3B76A; line-height:.98; text-shadow:0 2px 0 #6E4E1C, 0 8px 30px rgba(0,0,0,.65); }
+.capa-titulo{ font-size:clamp(44px, 11.5vw, 118px); letter-spacing:.01em; }
+.capa-titulo span{ display:inline-block; }
+.capa-sub{ font-size:clamp(28px, 6vw, 62px); letter-spacing:.03em; }
+.capa-datas{ font-family:var(--maquina); font-size:clamp(15px, 1.6vw, 19px); letter-spacing:.14em; color:#F1E6CF; display:flex; align-items:center; gap:14px; }
 .capa-datas::before,.capa-datas::after{ content:""; width:40px; height:1px; background:#D6B46E; }
-.capa .acoes{ justify-content:center; margin-top:12px; }
+.capa .acoes{ justify-content:center; margin-top:10px; }
 .capa .botao{ background:#E3B76A; border-color:#E3B76A; color:#1C1715; }
-.capa .botao.contorno{ background:transparent; color:#F3EADB; border-color:rgba(243,234,219,.7); }
-.capa-creditos{ font-family:var(--rotulo); font-size:13px; letter-spacing:.14em; text-transform:lowercase; text-align:center; color:#CDBFA6; line-height:1.9; max-width:60em; margin:0 auto; padding-inline:24px; }
-.capa-creditos b{ font-weight:500; color:#E3B76A; }
-@media (max-width:600px){ .capa-moldura{ padding-block:48px 36px; } .capa-topo{ font-size:13px; letter-spacing:.14em; } .capa-datas{ font-size:14px; letter-spacing:.16em; } .capa h1 i{ font-size:46px; } .capa-datas::before,.capa-datas::after{ width:18px; } .capa-creditos{ font-size:12px; letter-spacing:.08em; } }
+.capa .botao.contorno{ background:transparent; color:#F1E6CF; border-color:rgba(241,230,207,.7); }
+.capa-creditos{ font-family:var(--maquina); font-size:13.5px; letter-spacing:.04em; text-align:center; color:#CDBFA6; line-height:1.9; max-width:60em; margin:0 auto; padding-inline:24px; }
+.capa-creditos b{ font-weight:400; color:#E3B76A; }
+@media (max-width:600px){ .capa-moldura{ padding-block:48px 36px; } .capa-topo{ font-size:13px; letter-spacing:.08em; } .capa-datas{ font-size:14px; letter-spacing:.08em; } .capa-datas::before,.capa-datas::after{ width:18px; } .capa-creditos{ font-size:12px; } }
 
 .acoes{ display:flex; flex-wrap:wrap; gap:12px; }
-.botao{ display:inline-flex; align-items:center; min-height:46px; padding:0 22px; font-family:var(--rotulo); font-size:17px; letter-spacing:.06em; text-transform:lowercase; text-decoration:none; background:var(--vinho); color:var(--folha); border:1px solid var(--vinho); border-radius:2px; cursor:pointer; }
+.botao{ display:inline-flex; align-items:center; min-height:46px; padding:0 22px; font-family:var(--maquina); font-size:16px; letter-spacing:.06em; text-decoration:none; background:var(--vinho); color:var(--folha); border:1px solid var(--vinho); border-radius:2px; cursor:pointer; }
 .botao.contorno{ background:transparent; color:var(--vinho); }
 .botao:hover{ filter:brightness(1.08); }
 
@@ -194,6 +199,7 @@ img{ max-width:100%; height:auto; display:block; }
 /* ===== DOCUMENTÁRIO (sala de projeção) ===== */
 .documentario{ background:var(--sala); color:var(--sala-texto); padding-block:96px; }
 .documentario .cabeca p{ color:var(--sala-suave); }
+.documentario .rotulo{ color:#C9A962; }
 .documentario .ornamento::before,.documentario .ornamento::after{ background:#4A3F36; }
 .documentario .tela{ max-width:960px; margin:0 auto; box-shadow:0 0 0 1px #3A312A, 0 30px 80px -30px #000; }
 .documentario .tela .aguardando{ background:#26201C; color:var(--sala-suave); }
