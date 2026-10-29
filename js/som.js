@@ -33,6 +33,20 @@
     graus.forEach(function(g, i){ tocar(g, { atraso: i * (passo || 0.12), duracao: 1.2, volume: 0.14 }); });
   }
 
+  // chiado de agulha descendo no disco
+  function agulha(){
+    if (!ligado) return;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    if (!audio) audio = new AC();
+    var n = Math.floor(audio.sampleRate * 0.35), buf = audio.createBuffer(1, n, audio.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (Math.random() < 0.02 ? 0.5 : 0.04) * (1 - i / n);
+    var fonte = audio.createBufferSource(), g = audio.createGain();
+    fonte.buffer = buf; g.gain.value = 0.5;
+    fonte.connect(g); g.connect(audio.destination);
+    fonte.start();
+  }
+
   function definir(valor){
     ligado = valor;
     avisos.forEach(function(f){ f(ligado); });
@@ -41,6 +55,7 @@
   window.SOM = {
     tocar: tocar,
     frase: frase,
+    agulha: agulha,
     ligado: function(){ return ligado; },
     alternar: function(){ definir(!ligado); if (ligado) frase([0, 2, 4, 7]); },
     aoMudar: function(f){ avisos.push(f); f(ligado); }
