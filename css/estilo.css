@@ -78,7 +78,7 @@ img{ max-width:100%; height:auto; display:block; }
 
 /* ===== CAPA: cartaz de cinema dos anos 70 ===== */
 /* a capa é sempre escura (a foto fica por baixo, em sépia), por isso tem cores próprias nos dois temas */
-.capa{ position:relative; overflow:hidden; background:#140F0D; color:#F3EADB; min-height:clamp(560px, 86svh, 860px); display:flex; }
+.capa{ position:relative; overflow:hidden; background:radial-gradient(ellipse 70% 60% at 50% 42%, #2E241E 0%, #140F0D 70%); color:#F3EADB; min-height:clamp(560px, 86svh, 860px); display:flex; }
 .capa-foto{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:sepia(.6) saturate(.75) contrast(1.08) brightness(.6); }
 .capa::after{ content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 45%, rgba(20,15,13,.12), rgba(20,15,13,.78) 80%), linear-gradient(rgba(20,15,13,0) 55%, rgba(20,15,13,.88)); }
 .capa-grao{ position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.22; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"); }
