@@ -182,6 +182,24 @@
       if (!reduzir){ rolo.classList.remove('puxando'); void rolo.offsetWidth; rolo.classList.add('puxando'); }
     }
     verDecada(0, false);
+
+    // passeio pelas décadas: quando o acervo aparece na tela, o destaque passa de década em década
+    // sozinho; para de vez assim que a pessoa toca num letreiro ou no rolo de fotos
+    var atual = 0, passeio = null, parado = reduzir, PASSO = 3600;
+    function marcarPasseio(){
+      cartelas.forEach(function(b, n){ b.classList.toggle('passeio', n === atual && !!passeio); });
+      var b = cartelas[atual];
+      if (letreiros.scrollWidth > letreiros.clientWidth) letreiros.scrollTo({ left: b.offsetLeft - letreiros.offsetLeft - 20, behavior: 'smooth' });
+    }
+    function andar(){ atual = (atual + 1) % cartelas.length; verDecada(atual, false); marcarPasseio(); }
+    function comecar(){ if (parado || passeio) return; passeio = setInterval(andar, PASSO); marcarPasseio(); }
+    function pausar(){ clearInterval(passeio); passeio = null; marcarPasseio(); }
+    function parar(){ parado = true; pausar(); }
+    cartelas.forEach(function(b, i){ b.addEventListener('click', function(){ atual = i; parar(); }); });
+    if (rolo) rolo.addEventListener('pointerdown', parar);
+    if ('IntersectionObserver' in window && !reduzir){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting ? comecar() : pausar(); }); }, { threshold: 0.6 }).observe(letreiros);
+    }
   }
 
   // 2. Telas do YouTube: o vídeo só carrega quando a pessoa clica
