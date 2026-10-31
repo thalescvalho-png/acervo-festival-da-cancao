@@ -109,9 +109,6 @@ img{ max-width:100%; height:auto; display:block; }
 .capa-texto{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:20px; }
 .capa-topo{ font-family:var(--maquina); font-size:16px; letter-spacing:.18em; color:#F1E6CF; }
 .capa h1{ display:grid; justify-items:center; gap:.06em; text-transform:uppercase; color:#E3B76A; line-height:1.06; text-shadow:0 2px 0 #6E4E1C, 0 8px 30px rgba(0,0,0,.65); }
-.capa-titulo{ font-size:clamp(44px, 11.5vw, 118px); letter-spacing:.01em; }
-.capa-titulo span{ display:inline-block; }
-.capa-sub{ font-size:clamp(28px, 6vw, 62px); letter-spacing:.03em; }
 .capa-datas{ font-family:var(--maquina); font-size:clamp(15px, 1.6vw, 19px); letter-spacing:.14em; color:#F1E6CF; display:flex; align-items:center; gap:14px; }
 .capa-datas::before,.capa-datas::after{ content:""; width:40px; height:1px; background:#D6B46E; }
 .capa .acoes{ justify-content:center; margin-top:10px; }
@@ -119,20 +116,14 @@ img{ max-width:100%; height:auto; display:block; }
 .capa .botao.contorno{ background:transparent; color:#F1E6CF; border-color:rgba(241,230,207,.7); }
 .capa-creditos{ font-family:var(--maquina); font-size:13.5px; letter-spacing:.04em; text-align:center; color:#CDBFA6; line-height:1.9; max-width:60em; margin:0 auto; padding-inline:24px; }
 .capa-creditos b{ font-weight:400; color:#E3B76A; }
-/* LOGOTIPO: cabeçalho de jornal antigo. "Festival da Canção" em letra gótica de jornal, entre o selo
-   "acervo" e "de Alvinópolis" entre fios duplos; embaixo, a linha de data do jornal. Tudo mede pela largura. */
-.capa h1.logo{ text-transform:none; text-shadow:none; gap:0; }
-.logo{ --ouro-capa:#E3B76A; --fio-capa:rgba(214,180,110,.75); display:grid; justify-items:center; width:min(100%, 780px); margin:0; color:var(--ouro-capa); font-family:'UnifrakturMaguntia', var(--titulo); font-weight:400; line-height:1; }
-.logo > span{ display:block; }
-.logo-topo{ font-family:var(--maquina); text-transform:uppercase; font-size:clamp(11px, 1.3vw, 14px); letter-spacing:.5em; padding-left:.5em; color:#F1E6CF; display:flex !important; align-items:center; gap:14px; width:100%; margin-bottom:clamp(10px, 1.6vw, 18px); }
-.logo-topo::before, .logo-topo::after{ content:""; flex:1; height:5px; border-block:1px solid var(--fio-capa); }
-.logo-festival, .logo-cancao{ text-shadow:0 2px 0 #6E4E1C, 0 3px 0 #4A3313, 0 10px 28px rgba(0,0,0,.6); white-space:nowrap; }
-.logo-festival{ font-size:clamp(30px, 9vw, 70px); }
-.logo-cancao{ font-size:clamp(40px, 13.5vw, 104px); margin-top:-.08em; }
-.logo-cidade{ width:100%; margin-top:clamp(12px, 1.8vw, 20px); padding-block:clamp(7px, 1vw, 11px); border-block:3px double var(--fio-capa); }
-.logo-cidade span{ font-family:var(--jornal); font-style:italic; font-weight:500; font-size:clamp(22px, 3.2vw, 36px); letter-spacing:.04em; color:#F1E6CF; }
-.logo-data{ display:flex; justify-content:space-between; gap:6px 14px; width:min(100%, 780px); font-family:var(--maquina); font-size:clamp(10.5px, 1.2vw, 13.5px); letter-spacing:.14em; text-transform:uppercase; color:#CDBFA6; padding-bottom:8px; border-bottom:1px solid var(--fio-capa); margin-top:-10px; white-space:nowrap; }
-@media (max-width:600px){ .logo-data{ letter-spacing:.06em; } .logo-topo{ letter-spacing:.35em; } .logo, .logo-data{ width:calc(100% - 28px); } }
+/* LOGOTIPO: a mesma letra de cartaz, montada como bloco justificado. Cada linha tem um tamanho
+   calculado para que as três ocupem exatamente a mesma largura (unidade cqi = % da largura do bloco):
+   FESTIVAL espaçado, DA CANÇÃO maior, DE ALVINÓPOLIS menor. O bloco cresce e encolhe com a tela. */
+.capa h1.logo{ container-type:inline-size; display:grid; justify-items:center; gap:0; width:100%; max-width:600px; margin:0; line-height:.98; }
+.logo > span{ display:block; white-space:nowrap; }
+.logo-festival{ font-size:12.9cqi; letter-spacing:.3em; margin-right:-.3em; }
+.logo-cancao{ font-size:14.86cqi; letter-spacing:.01em; margin-right:-.01em; margin-block:.02em .04em; }
+.logo-cidade{ font-size:9.06cqi; letter-spacing:.12em; margin-right:-.12em; }
 @media (max-width:600px){ .capa-moldura{ padding-block:48px 36px; } .capa-topo{ font-size:13px; letter-spacing:.08em; } .capa-datas{ font-size:14px; letter-spacing:.08em; } .capa-datas::before,.capa-datas::after{ width:18px; } .capa-creditos{ font-size:12px; } }
 
 .acoes{ display:flex; flex-wrap:wrap; gap:12px; }
@@ -581,7 +572,6 @@ html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
 @media (orientation:landscape) and (max-height:520px){
   .capa{ min-height:calc(100svh - 64px); }
   .capa-moldura{ padding-block:32px 24px; gap:20px; }
-  .capa-titulo{ font-size:clamp(36px, 15svh, 72px); }
-  .capa-sub{ font-size:clamp(22px, 8svh, 40px); }
+  .capa h1.logo{ width:min(100%, 100svh); }
   .capa-creditos{ display:none; }
 }
