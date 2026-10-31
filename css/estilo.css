@@ -350,6 +350,7 @@ img{ max-width:100%; height:auto; display:block; }
 .creditos dl div{ display:flex; flex-wrap:wrap; justify-content:center; gap:0 8px; align-items:baseline; }
 .creditos dt{ font-family:var(--maquina); font-size:13px; letter-spacing:.06em; }
 .creditos dd{ margin:0; color:var(--tinta); font-weight:600; }
+.creditos-bio{ max-width:44em; margin:14px auto 0; font-size:15px; font-style:italic; }
 .apoio{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
 .apoio span{ border:1px dashed var(--fio); padding:8px 14px; font-size:13px; font-style:italic; }
 
