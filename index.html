@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=26">
+<link rel="stylesheet" href="css/estilo.css?v=27">
 <script src="js/aparelho.js?v=1"></script>
 </head>
 <body>
@@ -27,14 +27,14 @@
 <a class="marca" href="#inicio">Festival da Canção <em>de Alvinópolis</em></a>
 <button type="button" class="faixas-bt" id="faixasBt" aria-expanded="false" aria-controls="menu"><span class="faixas-icone" aria-hidden="true"></span>faixas</button>
 <nav class="menu" id="menu" aria-label="Seções">
-<a href="#causos"><i>A1</i>Causos</a>
-<a href="#pratas"><i>A2</i>Discos</a>
-<a href="#campeoes"><i>A3</i>Campeões</a>
-<a href="#cartazes"><i>B1</i>Cartazes</a>
-<a href="#videos-arquivo"><i>B2</i>Vídeos</a>
-<a href="#acervo"><i>B3</i>Fotos</a>
-<a href="#documentario"><i>B4</i>Documentário</a>
-<a href="#contribua"><i>bônus</i>Contribua</a>
+<a href="#acervo">Fotos</a>
+<a href="#causos">Causos</a>
+<a href="#pratas">Discos</a>
+<a href="#campeoes">Campeões</a>
+<a href="#cartazes">Cartazes</a>
+<a href="#videos-arquivo">Vídeos</a>
+<a href="#documentario">Documentário</a>
+<a href="#contribua">Contribua</a>
 </nav>
 <button type="button" class="som-topo" id="somTopo" aria-pressed="false" aria-label="Ligar ou desligar o som do site"><span class="som-disco" aria-hidden="true"></span><span class="som-texto">som</span></button>
 </div>
@@ -42,258 +42,42 @@
 
 <main>
 
-<!-- ===== CAPA (cartaz de cinema: a foto ocupa tudo e o título vai por cima) ===== -->
+<!-- ===== CAPA: título de cartaz no meio; nas laterais, discos girando, notas subindo e um equalizador
+     (js/capa.js). Tocar na capa solta notas, e com o som ligado elas tocam. O documentário fica em destaque. ===== -->
 <section class="capa" id="inicio">
 <div class="capa-grao" aria-hidden="true"></div>
-<div class="capa-moldura miolo">
+<div class="capa-palco" id="capaPalco" aria-hidden="true">
+<div class="capa-vinil capa-vinil-esq"><span>1976</span></div>
+<div class="capa-vinil capa-vinil-dir"><span>2026</span></div>
+<div class="capa-notas" id="capaNotas"></div>
+<div class="capa-eq" id="capaEq"></div>
+</div>
+<div class="capa-moldura">
 <div class="capa-texto">
 <p class="capa-topo">acervo · alvinópolis · minas gerais</p>
 <!-- LOGOTIPO: as três linhas do título ficam com a mesma largura (bloco justificado), como num letreiro -->
 <h1 class="logo"><span class="logo-festival">Festival</span> <span class="logo-cancao">da Canção</span> <span class="logo-cidade">de Alvinópolis</span></h1>
 <p class="capa-datas">desde 1976 · quarenta edições</p>
-<div class="acoes">
-<a class="botao" href="#causos">Percorrer o acervo</a>
-<a class="botao contorno" href="#documentario">Ver o documentário</a>
-</div>
-</div>
-<p class="capa-creditos">fotos · vídeos · lembranças de quem subiu ao palco e de quem assistiu da plateia<br><b>com o documentário</b> “Festival da Canção de Alvinópolis – Histórias” · <b>estreia</b> agosto de 2027</p>
-</div>
-</section>
-
-<!-- ===== SOBRE O ACERVO ===== -->
-<section class="secao alterna" id="sobre" aria-label="Sobre o acervo">
-<div class="miolo">
-<div class="sobre-in">
-<div>
-<p class="rotulo">o festival</p>
-<h3>Cinquenta anos de canção</h3>
-<p>Desde 1976, o Festival da Canção reúne compositores de Alvinópolis e de todo o Brasil. Já teve campeões de Sete Lagoas, Ouro Preto, Belo Horizonte, Jundiaí, Recife e da própria cidade.</p>
-</div>
-<div>
-<p class="rotulo">o acervo</p>
-<h3>Memória guardada em casa</h3>
-<p>Boa parte dessa história está em álbuns de família, recortes de jornal e fitas VHS. Este site reúne esse material, digitalizado, num só lugar.</p>
-</div>
-<div>
-<p class="rotulo">o site</p>
-<h3>Independente e sem fins lucrativos</h3>
-<p>O acervo é um projeto cultural independente, sem vínculo com a Prefeitura nem com a organização do festival. Cada foto traz o crédito de quem a cedeu.</p>
-</div>
-</div>
-</div>
-</section>
-
-<!-- ===== CAUSOS: histórias contadas por quem viveu, adaptadas das fontes citadas no pé de cada uma ===== -->
-<section class="secao" id="causos">
-<div class="miolo">
-<div class="cabeca">
-<h2>Causos do festival</h2>
-<p>Histórias de palco e de bastidor guardadas por quem acompanhou o festival de perto. Escolha uma faixa, deixe o disco girar e leia o causo como se tivesse saído na primeira página.</p>
-</div>
-
-<!-- TOCA-CAUSOS: os causos viram faixas de um disco (dados em js/causos.js, código em js/toca-causos.js) -->
-<div class="tc" id="tocaCausos">
-<div class="tc-vitrola">
-<div class="tc-prato">
-<button type="button" class="tc-disco" id="tcDisco" aria-label="Pausar o disco"><span class="tc-selo" id="tcSelo">Causos<small>lado A</small></span></button>
-<div class="tc-braco" aria-hidden="true"><svg viewBox="0 0 100 130"><circle cx="88" cy="10" r="9" fill="currentColor"/><path d="M88 10 L70 100 L52 118" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="40" y="112" width="18" height="12" rx="2" transform="rotate(-35 49 118)" fill="currentColor"/></svg></div>
-</div>
-<div class="tc-comandos">
-<button type="button" class="tc-cmd" id="tcAnterior" aria-label="Causo anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5L8 12l11 7z" fill="currentColor" stroke="currentColor" stroke-width="2"/></svg></button>
-<button type="button" class="tc-cmd tc-sorte" id="tcSorte" aria-label="Um causo qualquer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l10 10h4M3 17h4l3-3M14 10l3-3h4M18 4l3 3-3 3M18 14l3 3-3 3" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
-<button type="button" class="tc-cmd" id="tcProximo" aria-label="Próximo causo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l11 7-11 7z" fill="currentColor" stroke="currentColor" stroke-width="2"/></svg></button>
-</div>
-<p class="tc-contador" id="tcContador">33⅓ rpm</p>
-<div class="tc-faixas" id="tcFaixas" aria-label="Lista de causos"></div>
-</div>
-<article class="tc-jornal" id="tcJornal" aria-live="polite"></article>
-</div>
-
-<aside class="tc-encarte" aria-labelledby="tcEncarte">
-<span class="tc-notas" aria-hidden="true">♫</span>
-<p class="rotulo">encarte · agradecimento</p>
-<h3 id="tcEncarte">Um blog que guardou a cidade</h3>
-<p>Quase tudo o que toca neste disco saiu do <a href="https://alvinopolisquepensa.blogspot.com/" target="_blank" rel="noopener">Alvinópolis Que Pensa</a>, no ar desde 2008, e do seu irmão caçula, o <a href="https://memoriafestalvi.blogspot.com/" target="_blank" rel="noopener">FESTIALVI Memórias</a>, feito só para o festival.</p>
-<p>Post a post, os dois blogs guardaram o que quase ninguém mais guardou: os resultados de cada edição, os causos de palco e de bastidor, os cartazes, as marcas e os nomes de quem fez o festival acontecer, inclusive nos anos em que faltou dinheiro e sobrou teimosia.</p>
-<p>Sem esse registro paciente, boa parte dessa história teria ficado só na memória de quem viveu. É com ele que este acervo consegue juntar as peças e deixar a cultura alvinopolense gravada para quem vier depois, como se grava um disco: para tocar de novo.</p>
-<p class="tc-assinatura">Obrigado ao Alvinópolis Que Pensa e ao FESTIALVI Memórias, e a Marcos Martino, que criou o blog e guardou ali parte da história do festival.</p>
-</aside>
-
-</div>
-</section>
-
-<!-- ===== PRATAS DA CASA: discos de artistas de Alvinópolis ligados ao festival ===== -->
-<section class="secao alterna" id="pratas">
-<div class="miolo">
-<div class="cabeca">
-<h2>Pratas da casa</h2>
-<p><span class="provisorio">título provisório</span></p>
-<p>Discos gravados por artistas de Alvinópolis que passaram pelos palcos do festival.</p>
-</div>
-<div class="pratas">
-
-<article class="causo verde-terra" id="verde-terra">
-<div class="lp">
-<button type="button" class="lp-objeto" id="lpVirar" aria-label="Virar o disco e ver a contracapa" aria-pressed="false">
-<span class="lp-vinil" aria-hidden="true"><span class="lp-selo"></span></span>
-<span class="lp-capa">
-<span class="lp-face lp-frente"><img src="img/acervo/1987_verde-terra_nos-os-loucos_capa.webp" width="1200" height="1200" loading="lazy" alt="Capa do LP Nós, os loucos, do Verde Terra: foto em preto e branco de homens de terno sentados a uma mesa posta, com um garçom de pé, e um quadro com três pessoas abraçadas em primeiro plano"></span>
-<span class="lp-face lp-verso"><img src="img/acervo/1987_verde-terra_nos-os-loucos_contracapa.webp" width="1000" height="1694" loading="lazy" alt="Contracapa do LP Nós, os loucos, com os retratos dos nove integrantes, a ficha técnica e o texto Verde Terra: A Criação do Som"></span>
+<!-- DOCUMENTÁRIO EM DESTAQUE: um pedaço de película que leva à seção do filme -->
+<a class="capa-doc" href="#documentario">
+<span class="capa-doc-play" aria-hidden="true"></span>
+<span class="capa-doc-texto">
+<span class="capa-doc-selo">documentário · estreia em agosto de 2027</span>
+<span class="capa-doc-titulo">Festival da Canção de Alvinópolis – Histórias</span>
+<span class="capa-doc-info">Entrevistas, fotos e vídeos de arquivo de cinco décadas de festival.</span>
 </span>
-</button>
-<p class="lp-dica">Toque no disco para virar e ver a contracapa.</p>
-<p class="lp-legenda"><b>1987</b> · LP <i>Nós, os loucos</i>, do Verde Terra. Foto da capa: Mauro Sérvulo Gomes, no Solar dos Barcellos, em Alvinópolis.</p>
-</div>
-
-<div class="vt-texto">
-<p class="rotulo">banda de alvinópolis · anos 1980</p>
-<h3>Verde Terra, nascido em festivais</h3>
-<p>Banda clássica de Alvinópolis, o Verde Terra foi campeão do Festival da Canção duas vezes, com canções de Marcos Martino: “Massacre no Solimões”, em 1981, e “Juízo Final”, em 1983.</p>
-<p>A contracapa do LP <i>Nós, os loucos</i> conta como tudo começou. Em 1979, o jornalista Fred Ozanam Barcelos era jurado do IV Festival da Canção de Alvinópolis e passou a acompanhar o trabalho de Marcos Martino. “O navegador” foi o primeiro prêmio do compositor, e no ano seguinte ele, aos 17 anos, e o recém-criado Verde Terra saíram para “muitos mares mineiros”.</p>
-<p>Em 1987, já baseado em Belo Horizonte e depois de sete anos de estrada, o grupo somava 26 troféus ganhos em festivais. Naquele ano gravou <i>Nós, os loucos</i>, no estúdio Bemol, em BH. Segundo a contracapa, a Censura proibiu a audição pública de uma das faixas, a crônica urbana “Noite de cão”. Nos primeiros festivais, a censura também já tinha cortado letras.</p>
-<p>Fred Ozanam Barcelos, que assina o texto, também aparece no blog de Marcos Martino entre as pessoas que mantiveram o festival vivo.</p>
-<p class="vt-ouvir">No toca-discos dos campeões: <a href="#campeoes" data-ano="1981">1981</a> · <a href="#campeoes" data-ano="1983">1983</a></p>
-
-<div class="vt-formacao">
-<p class="rotulo">a formação no disco</p>
-<ol>
-<li>Marcos Martino <span>cordas e vocal</span></li>
-<li>Manoel Barcellos <span>baixo</span></li>
-<li>Rogério Martino <span>cordas</span></li>
-<li>Ricardo Simões <span>bateria e percussão</span></li>
-<li>Ronaldo Corrêa <span>vocal</span></li>
-<li>Lucas Guerra <span>teclados</span></li>
-<li>Jovelino Carvalho <span>vocal</span></li>
-<li>João Carlos <span>vocal</span></li>
-<li>Luiz Flávio <span>sopros</span></li>
-</ol>
-<p class="vt-part">Participações especiais: José Augusto Silvestre e Eduardo Bittencourt.</p>
-</div>
-
-<details class="vt-detalhe">
-<summary>Ler o texto da contracapa</summary>
-<blockquote class="contracapa">
-<p class="contracapa-titulo">Verde Terra: A Criação do Som</p>
-<p>Desde 1979, como jurado do IV Festival da Canção de Alvinópolis, que acompanho o trabalho de Marcos Martino. “O navegador”, seu primeiro prêmio, lançaria no ano seguinte este jovem timoneiro (17 anos) e o recém-criado Verde Terra a muitos mares mineiros. Hoje ancorada em Belo Horizonte, após 7 anos de suave e outras vezes turbulenta navegação, a embarcação ostenta em sua galeria 26 grandes troféus — todos conquistados, poética e melodicamente, em disputados festivais.</p>
-<p>Nascido em festivais, neles o Verde Terra fez a sua história. Compositor e letrista, Marcos Martino divide com os demais componentes do grupo a criação dos arranjos e a encenação “teatral” que tão bem acondiciona algumas de suas composições.</p>
-<p>Mineiramente, todos eles dispensam rótulos. Do rock ao samba de raiz, da valsa estilizada ao bolero, da guarânia progressiva ao “brega”, eles vão fazendo o mapa musical deste País, em meio a paródias de fatos históricos e a críticas sociais.</p>
-<p>Tudo isso está muito bem definido nas faixas deste disco. Pena que, à beira do ano 2.000, a Censura — cega e burra, como sempre — ainda se apegue ao “hontem” e proíba a audição pública de uma crônica urbana tão atual e real como a de “Noite de cão”.</p>
-<p>Conheça agora, mente e coração ligados, o lirismo, a irreverência e o swing que a música mineira ganhou. Sinta, enfim, a criação-verde (nova) da música-terra (bem brasileira).</p>
-<footer>Fred Ozanam Barcelos, jornalista · junho/87</footer>
-</blockquote>
-<p><span class="provisorio">transcrição a conferir no disco</span></p>
-</details>
-
-<details class="vt-detalhe">
-<summary>Ficha técnica do disco</summary>
-<dl class="vt-ficha">
-<div><dt>Idealização, direção e arranjos</dt><dd>Verde Terra</dd></div>
-<div><dt>Gravação e mixagem</dt><dd>Bemol (BH), janeiro e fevereiro de 1987</dd></div>
-<div><dt>Técnicos de gravação</dt><dd>Dirceu Cheib e Perón</dd></div>
-<div><dt>Corte e prensagem</dt><dd>Gravações Elétricas Continental (SP)</dd></div>
-<div><dt>Capa</dt><dd>Produção Verde Terra</dd></div>
-<div><dt>Fotografia</dt><dd>Mauro Sérvulo Gomes</dd></div>
-<div><dt>Ambientação</dt><dd>Solar dos Barcellos (Alvinópolis)</dd></div>
-<div><dt>Maquiagem</dt><dd>Selma Drumond</dd></div>
-<div><dt>Iluminação</dt><dd>Márcio Vasconcellos (Zú)</dd></div>
-<div><dt>Layout e arte final</dt><dd>Bia Marques</dd></div>
-<div><dt>Impressão</dt><dd>Rona Editora</dd></div>
-</dl>
-</details>
-
-<p class="causo-fonte">Fontes: contracapa do LP <i>Nós, os loucos</i> (Verde Terra, 1987), com texto de Fred Ozanam Barcelos, junho de 1987; lista de vencedores do festival organizada por Marcos Martino; <a href="https://alvinopolisquepensa.blogspot.com/2015/05/o-festival-da-musica-apontamentos.html" target="_blank" rel="noopener">blog Alvinópolis Que Pensa, 23/05/2015</a>. Fotos do disco enviadas por Thales Carvalho. História adaptada para o site.</p>
-</div>
-</article>
-
-<article class="causo verde-terra correnteza" id="correnteza">
-<div class="lp">
-<div class="lp-objeto">
-<span class="lp-vinil" aria-hidden="true"><span class="lp-selo"></span></span>
-<span class="lp-capa"><span class="lp-face lp-frente"><img src="img/acervo/sem-ano_thales-e-thayson_correnteza_capa.webp" width="1200" height="1200" loading="lazy" alt="Capa do álbum Correnteza, de Thales Carvalho e Thayson Azevedo"></span></span>
-</div>
-<p class="lp-legenda"><b>Correnteza</b> · primeiro álbum de Thales Carvalho e Thayson Azevedo.</p>
-</div>
-
-<div class="vt-texto">
-<p class="rotulo">dupla de alvinópolis · desde 2007</p>
-<h3>Correnteza, de Thales Carvalho e Thayson Azevedo</h3>
-<p>Thales e Thayson se conheceram em 2007, ainda muito jovens, nas aulas de musicalização de uma banda de instrumentos de sopro de Alvinópolis. A partir de 2009, com outros amigos, formaram o primeiro projeto musical, uma banda de rock, e desde então seguem compondo e tocando juntos.</p>
-<p>Parte importante dessa formação aconteceu nos festivais de música autoral. A convivência com compositores, intérpretes e músicos fez desses palcos uma escola para a dupla, que tem participações e premiações em festivais da canção.</p>
-<p><i>Correnteza</i>, o primeiro álbum da dupla, é uma jornada pela força transformadora da natureza e pelos fluxos internos da experiência humana. Celebra o interior de Minas Gerais, onde essa música nasce, e marca o amadurecimento de uma parceria e de uma amizade de mais de quinze anos.</p>
-<p class="vt-ouvir"><a href="https://thalescvalho-png.github.io/site-thales-thayson/correnteza/" target="_blank" rel="noopener">Ouvir Correnteza ↗</a></p>
-<p class="causo-fonte">Fonte: <a href="https://thalescvalho-png.github.io/site-thales-thayson/" target="_blank" rel="noopener">site de Thales Carvalho e Thayson Azevedo</a>. História adaptada para o site.</p>
-</div>
-</article>
-
+</a>
+<div class="acoes">
+<a class="botao" href="#acervo">Percorrer o acervo</a>
 </div>
 </div>
-</section>
-
-<!-- ===== OS CAMPEÕES: toca-discos (dados em js/campeoes.js) ===== -->
-<section class="secao" id="campeoes">
-<div class="miolo">
-<div class="cabeca">
-<h2>Os campeões</h2>
-<p>Os campeões passam no disco, um ano de cada vez, de 1976 até hoje. Os anos sem festival também estão lá.</p>
-</div>
-
-<div class="vitrola" id="vitrola">
-<button type="button" class="player-bt" id="discoAnterior" aria-label="Campeão anterior">
-<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
-</button>
-<div class="toca">
-<div class="capa-disco" aria-hidden="true"><span>Festival da Canção</span><span>de Alvinópolis</span><span class="capa-disco-anos">campeões · 1976–2026</span></div>
-<button type="button" class="disco" id="disco" aria-label="Pausar a passagem dos campeões" aria-pressed="false">
-<span class="vinil"><span class="selo"><b id="discoRotuloAno"></b><small>Festival da Canção</small></span></span>
-<span class="disco-estado" aria-hidden="true"></span>
-</button>
-</div>
-<button type="button" class="player-bt" id="discoProximo" aria-label="Próximo campeão">
-<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
-</button>
-</div>
-<div class="ficha-disco" id="fichaDisco" aria-live="polite">
-<p class="rotulo" id="discoEdicao"></p>
-<h3 id="discoMusica"></h3>
-<p class="disco-autor" id="discoAutor"></p>
-<p class="disco-cidade" id="discoCidade"></p>
-<p class="disco-obs" id="discoObs"></p>
-</div>
-
-<div class="pauta-controles">
-<button type="button" class="botao contorno" id="somPartitura" aria-pressed="false">♪ Ligar o som</button>
-<span class="dica">Clique no disco para pausar. Use os botões ou as setas do teclado para voltar e avançar.</span>
-</div>
-<p class="fonte-campeoes">Lista de vencedores organizada por Marcos Martino, do blog Alvinópolis Que Pensa, com acréscimos de Thales Carvalho.</p>
-</div>
-</section>
-
-<!-- ===== MURAL DE CARTAZES (dados em js/cartazes.js) ===== -->
-<section class="secao alterna" id="cartazes">
-<div class="miolo">
-<div class="cabeca">
-<h2>Mural de cartazes</h2>
-<p>As marcas e os cartazes do festival, pregados com fita crepe. Toque num cartaz para ver de perto.</p>
-</div>
-<div class="mural" id="mural"></div>
-<p class="fonte-campeoes">Cartazes e marcas guardados por Marcos Martino no blog <a href="https://alvinopolisquepensa.blogspot.com/" target="_blank" rel="noopener">Alvinópolis Que Pensa</a>.</p>
-</div>
-</section>
-
-<!-- ===== VÍDEOS DE ARQUIVO (vêm de js/acervo.js) ===== -->
-<section class="secao" id="videos-arquivo">
-<div class="miolo">
-<div class="cabeca">
-<h2>Vídeos de arquivo</h2>
-<p>Gravações antigas, reportagens e apresentações, à medida que forem digitalizadas.</p>
-</div>
-<div class="videos" id="videos"></div>
+<p class="capa-creditos">fotos · vídeos · lembranças de quem subiu ao palco e de quem assistiu da plateia</p>
 </div>
 </section>
 
 <!-- ===== ACERVO FOTOGRÁFICO: edição por edição (cada <article class="edicao"> é uma cena,
      e o js/principal.js monta os letreiros dos anos a partir delas) e todas as fotos (js/acervo.js) ===== -->
-<section class="secao alterna" id="acervo">
+<section class="secao" id="acervo">
 <div class="miolo">
 <div class="cabeca">
 <h2>Acervo fotográfico</h2>
@@ -428,11 +212,224 @@
 <noscript><p class="galeria-vazia">Ative o JavaScript para ver a galeria.</p></noscript>
 </div>
 
-<aside class="fecho" aria-labelledby="fechoTitulo">
+
+</div>
+</section>
+
+<!-- ===== CAUSOS: histórias contadas por quem viveu, adaptadas das fontes citadas no pé de cada uma ===== -->
+<section class="secao alterna" id="causos">
+<div class="miolo">
+<div class="cabeca">
+<h2>Causos do festival</h2>
+<p>Histórias de palco e de bastidor guardadas por quem acompanhou o festival de perto. Escolha uma faixa, deixe o disco girar e leia o causo como se tivesse saído na primeira página.</p>
+</div>
+
+<!-- TOCA-CAUSOS: os causos viram faixas de um disco (dados em js/causos.js, código em js/toca-causos.js) -->
+<div class="tc" id="tocaCausos">
+<div class="tc-vitrola">
+<div class="tc-prato">
+<button type="button" class="tc-disco" id="tcDisco" aria-label="Pausar o disco"><span class="tc-selo" id="tcSelo">Causos<small>lado A</small></span></button>
+<div class="tc-braco" aria-hidden="true"><svg viewBox="0 0 100 130"><circle cx="88" cy="10" r="9" fill="currentColor"/><path d="M88 10 L70 100 L52 118" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="40" y="112" width="18" height="12" rx="2" transform="rotate(-35 49 118)" fill="currentColor"/></svg></div>
+</div>
+<div class="tc-comandos">
+<button type="button" class="tc-cmd" id="tcAnterior" aria-label="Causo anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5L8 12l11 7z" fill="currentColor" stroke="currentColor" stroke-width="2"/></svg></button>
+<button type="button" class="tc-cmd tc-sorte" id="tcSorte" aria-label="Um causo qualquer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l10 10h4M3 17h4l3-3M14 10l3-3h4M18 4l3 3-3 3M18 14l3 3-3 3" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+<button type="button" class="tc-cmd" id="tcProximo" aria-label="Próximo causo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l11 7-11 7z" fill="currentColor" stroke="currentColor" stroke-width="2"/></svg></button>
+</div>
+<p class="tc-contador" id="tcContador">33⅓ rpm</p>
+<div class="tc-faixas" id="tcFaixas" aria-label="Lista de causos"></div>
+</div>
+<article class="tc-jornal" id="tcJornal" aria-live="polite"></article>
+</div>
+
+<aside class="tc-encarte" aria-labelledby="tcEncarte">
+<span class="tc-notas" aria-hidden="true">♫</span>
+<p class="rotulo">encarte · agradecimento</p>
+<h3 id="tcEncarte">Um blog que guardou a cidade</h3>
+<p>Quase tudo o que toca neste disco saiu do <a href="https://alvinopolisquepensa.blogspot.com/" target="_blank" rel="noopener">Alvinópolis Que Pensa</a>, no ar desde 2008, e do seu irmão caçula, o <a href="https://memoriafestalvi.blogspot.com/" target="_blank" rel="noopener">FESTIALVI Memórias</a>, feito só para o festival.</p>
+<p>Post a post, os dois blogs guardaram o que quase ninguém mais guardou: os resultados de cada edição, os causos de palco e de bastidor, os cartazes, as marcas e os nomes de quem fez o festival acontecer, inclusive nos anos em que faltou dinheiro e sobrou teimosia.</p>
+<p>Sem esse registro paciente, boa parte dessa história teria ficado só na memória de quem viveu. É com ele que este acervo consegue juntar as peças e deixar a cultura alvinopolense gravada para quem vier depois, como se grava um disco: para tocar de novo.</p>
+<p class="tc-assinatura">Obrigado ao Alvinópolis Que Pensa e ao FESTIALVI Memórias, e a Marcos Martino, que criou o blog e guardou ali parte da história do festival.</p>
+</aside>
+
+</div>
+</section>
+
+<!-- ===== PRATAS DA CASA: discos de artistas de Alvinópolis ligados ao festival ===== -->
+<section class="secao" id="pratas">
+<div class="miolo">
+<div class="cabeca">
+<h2>Pratas da casa</h2>
+<p>Discos gravados por artistas de Alvinópolis que passaram pelos palcos do festival.</p>
+</div>
+<div class="pratas">
+
+<article class="causo verde-terra" id="verde-terra">
+<div class="lp">
+<button type="button" class="lp-objeto" id="lpVirar" aria-label="Virar o disco e ver a contracapa" aria-pressed="false">
+<span class="lp-vinil" aria-hidden="true"><span class="lp-selo"></span></span>
+<span class="lp-capa">
+<span class="lp-face lp-frente"><img src="img/acervo/1987_verde-terra_nos-os-loucos_capa.webp" width="1200" height="1200" loading="lazy" alt="Capa do LP Nós, os loucos, do Verde Terra: foto em preto e branco de homens de terno sentados a uma mesa posta, com um garçom de pé, e um quadro com três pessoas abraçadas em primeiro plano"></span>
+<span class="lp-face lp-verso"><img src="img/acervo/1987_verde-terra_nos-os-loucos_contracapa.webp" width="1000" height="1694" loading="lazy" alt="Contracapa do LP Nós, os loucos, com os retratos dos nove integrantes, a ficha técnica e o texto Verde Terra: A Criação do Som"></span>
+</span>
+</button>
+<p class="lp-dica">Toque no disco para virar e ver a contracapa.</p>
+<p class="lp-legenda"><b>1987</b> · LP <i>Nós, os loucos</i>, do Verde Terra. Foto da capa: Mauro Sérvulo Gomes, no Solar dos Barcellos, em Alvinópolis.</p>
+</div>
+
+<div class="vt-texto">
+<p class="rotulo">banda de alvinópolis · anos 1980</p>
+<h3>Verde Terra, nascido em festivais</h3>
+<p>Banda clássica de Alvinópolis, o Verde Terra foi campeão do Festival da Canção duas vezes, com canções de Marcos Martino: “Massacre no Solimões”, em 1981, e “Juízo Final”, em 1983.</p>
+<p>A contracapa do LP <i>Nós, os loucos</i> conta como tudo começou. Em 1979, o jornalista Fred Ozanam Barcelos era jurado do IV Festival da Canção de Alvinópolis e passou a acompanhar o trabalho de Marcos Martino. “O navegador” foi o primeiro prêmio do compositor, e no ano seguinte ele, aos 17 anos, e o recém-criado Verde Terra saíram para “muitos mares mineiros”.</p>
+<p>Em 1987, já baseado em Belo Horizonte e depois de sete anos de estrada, o grupo somava 26 troféus ganhos em festivais. Naquele ano gravou <i>Nós, os loucos</i>, no estúdio Bemol, em BH. Segundo a contracapa, a Censura proibiu a audição pública de uma das faixas, a crônica urbana “Noite de cão”. Nos primeiros festivais, a censura também já tinha cortado letras.</p>
+<p>Fred Ozanam Barcelos, que assina o texto, também aparece no blog de Marcos Martino entre as pessoas que mantiveram o festival vivo.</p>
+<p class="vt-ouvir">No toca-discos dos campeões: <a href="#campeoes" data-ano="1981">1981</a> · <a href="#campeoes" data-ano="1983">1983</a></p>
+
+<div class="vt-formacao">
+<p class="rotulo">a formação no disco</p>
+<ol>
+<li>Marcos Martino <span>cordas e vocal</span></li>
+<li>Manoel Barcellos <span>baixo</span></li>
+<li>Rogério Martino <span>cordas</span></li>
+<li>Ricardo Simões <span>bateria e percussão</span></li>
+<li>Ronaldo Corrêa <span>vocal</span></li>
+<li>Lucas Guerra <span>teclados</span></li>
+<li>Jovelino Carvalho <span>vocal</span></li>
+<li>João Carlos <span>vocal</span></li>
+<li>Luiz Flávio <span>sopros</span></li>
+</ol>
+<p class="vt-part">Participações especiais: José Augusto Silvestre e Eduardo Bittencourt.</p>
+</div>
+
+<details class="vt-detalhe">
+<summary>Ler o texto da contracapa</summary>
+<blockquote class="contracapa">
+<p class="contracapa-titulo">Verde Terra: A Criação do Som</p>
+<p>Desde 1979, como jurado do IV Festival da Canção de Alvinópolis, que acompanho o trabalho de Marcos Martino. “O navegador”, seu primeiro prêmio, lançaria no ano seguinte este jovem timoneiro (17 anos) e o recém-criado Verde Terra a muitos mares mineiros. Hoje ancorada em Belo Horizonte, após 7 anos de suave e outras vezes turbulenta navegação, a embarcação ostenta em sua galeria 26 grandes troféus — todos conquistados, poética e melodicamente, em disputados festivais.</p>
+<p>Nascido em festivais, neles o Verde Terra fez a sua história. Compositor e letrista, Marcos Martino divide com os demais componentes do grupo a criação dos arranjos e a encenação “teatral” que tão bem acondiciona algumas de suas composições.</p>
+<p>Mineiramente, todos eles dispensam rótulos. Do rock ao samba de raiz, da valsa estilizada ao bolero, da guarânia progressiva ao “brega”, eles vão fazendo o mapa musical deste País, em meio a paródias de fatos históricos e a críticas sociais.</p>
+<p>Tudo isso está muito bem definido nas faixas deste disco. Pena que, à beira do ano 2.000, a Censura — cega e burra, como sempre — ainda se apegue ao “hontem” e proíba a audição pública de uma crônica urbana tão atual e real como a de “Noite de cão”.</p>
+<p>Conheça agora, mente e coração ligados, o lirismo, a irreverência e o swing que a música mineira ganhou. Sinta, enfim, a criação-verde (nova) da música-terra (bem brasileira).</p>
+<footer>Fred Ozanam Barcelos, jornalista · junho/87</footer>
+</blockquote>
+</details>
+
+<details class="vt-detalhe">
+<summary>Ficha técnica do disco</summary>
+<dl class="vt-ficha">
+<div><dt>Idealização, direção e arranjos</dt><dd>Verde Terra</dd></div>
+<div><dt>Gravação e mixagem</dt><dd>Bemol (BH), janeiro e fevereiro de 1987</dd></div>
+<div><dt>Técnicos de gravação</dt><dd>Dirceu Cheib e Perón</dd></div>
+<div><dt>Corte e prensagem</dt><dd>Gravações Elétricas Continental (SP)</dd></div>
+<div><dt>Capa</dt><dd>Produção Verde Terra</dd></div>
+<div><dt>Fotografia</dt><dd>Mauro Sérvulo Gomes</dd></div>
+<div><dt>Ambientação</dt><dd>Solar dos Barcellos (Alvinópolis)</dd></div>
+<div><dt>Maquiagem</dt><dd>Selma Drumond</dd></div>
+<div><dt>Iluminação</dt><dd>Márcio Vasconcellos (Zú)</dd></div>
+<div><dt>Layout e arte final</dt><dd>Bia Marques</dd></div>
+<div><dt>Impressão</dt><dd>Rona Editora</dd></div>
+</dl>
+</details>
+
+<p class="causo-fonte">Fontes: contracapa do LP <i>Nós, os loucos</i> (Verde Terra, 1987), com texto de Fred Ozanam Barcelos, junho de 1987; lista de vencedores do festival organizada por Marcos Martino; <a href="https://alvinopolisquepensa.blogspot.com/2015/05/o-festival-da-musica-apontamentos.html" target="_blank" rel="noopener">blog Alvinópolis Que Pensa, 23/05/2015</a>. Fotos do disco enviadas por Thales Carvalho. História adaptada para o site.</p>
+</div>
+</article>
+
+<article class="causo verde-terra correnteza" id="correnteza">
+<div class="lp">
+<div class="lp-objeto">
+<span class="lp-vinil" aria-hidden="true"><span class="lp-selo"></span></span>
+<span class="lp-capa"><span class="lp-face lp-frente"><img src="img/acervo/sem-ano_thales-e-thayson_correnteza_capa.webp" width="1200" height="1200" loading="lazy" alt="Capa do álbum Correnteza, de Thales Carvalho e Thayson Azevedo"></span></span>
+</div>
+<p class="lp-legenda"><b>Correnteza</b> · primeiro álbum de Thales Carvalho e Thayson Azevedo.</p>
+</div>
+
+<div class="vt-texto">
+<p class="rotulo">dupla de alvinópolis · desde 2007</p>
+<h3>Correnteza, de Thales Carvalho e Thayson Azevedo</h3>
+<p>Thales e Thayson se conheceram em 2007, ainda muito jovens, nas aulas de musicalização de uma banda de instrumentos de sopro de Alvinópolis. A partir de 2009, com outros amigos, formaram o primeiro projeto musical, uma banda de rock, e desde então seguem compondo e tocando juntos.</p>
+<p>Parte importante dessa formação aconteceu nos festivais de música autoral. A convivência com compositores, intérpretes e músicos fez desses palcos uma escola para a dupla, que tem participações e premiações em festivais da canção.</p>
+<p><i>Correnteza</i>, o primeiro álbum da dupla, é uma jornada pela força transformadora da natureza e pelos fluxos internos da experiência humana. Celebra o interior de Minas Gerais, onde essa música nasce, e marca o amadurecimento de uma parceria e de uma amizade de mais de quinze anos.</p>
+<p class="vt-ouvir"><a href="https://thalescvalho-png.github.io/site-thales-thayson/correnteza/" target="_blank" rel="noopener">Ouvir Correnteza ↗</a></p>
+<p class="causo-fonte">Fonte: <a href="https://thalescvalho-png.github.io/site-thales-thayson/" target="_blank" rel="noopener">site de Thales Carvalho e Thayson Azevedo</a>. História adaptada para o site.</p>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- ===== OS CAMPEÕES: toca-discos (dados em js/campeoes.js) ===== -->
+<section class="secao alterna" id="campeoes">
+<div class="miolo">
+<div class="cabeca">
+<h2>Os campeões</h2>
+<p>Os campeões passam no disco, um ano de cada vez, de 1976 até hoje. Os anos sem festival também estão lá.</p>
+</div>
+
+<div class="vitrola" id="vitrola">
+<button type="button" class="player-bt" id="discoAnterior" aria-label="Campeão anterior">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
+</button>
+<div class="toca">
+<div class="capa-disco" aria-hidden="true"><span>Festival da Canção</span><span>de Alvinópolis</span><span class="capa-disco-anos">campeões · 1976–2026</span></div>
+<button type="button" class="disco" id="disco" aria-label="Pausar a passagem dos campeões" aria-pressed="false">
+<span class="vinil"><span class="selo"><b id="discoRotuloAno"></b><small>Festival da Canção</small></span></span>
+<span class="disco-estado" aria-hidden="true"></span>
+</button>
+</div>
+<button type="button" class="player-bt" id="discoProximo" aria-label="Próximo campeão">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
+</button>
+</div>
+<div class="ficha-disco" id="fichaDisco" aria-live="polite">
+<p class="rotulo" id="discoEdicao"></p>
+<h3 id="discoMusica"></h3>
+<p class="disco-autor" id="discoAutor"></p>
+<p class="disco-cidade" id="discoCidade"></p>
+<p class="disco-obs" id="discoObs"></p>
+</div>
+
+<div class="pauta-controles">
+<button type="button" class="botao contorno" id="somPartitura" aria-pressed="false">♪ Ligar o som</button>
+<span class="dica">Clique no disco para pausar. Use os botões ou as setas do teclado para voltar e avançar.</span>
+</div>
+<p class="fonte-campeoes">Lista de vencedores organizada por Marcos Martino, do blog Alvinópolis Que Pensa, com acréscimos de Thales Carvalho.</p>
+</div>
+</section>
+
+<!-- ===== MURAL DE CARTAZES (dados em js/cartazes.js) ===== -->
+<section class="secao" id="cartazes">
+<div class="miolo">
+<div class="cabeca">
+<h2>Mural de cartazes</h2>
+<p>As marcas e os cartazes do festival, pregados com fita crepe. Toque num cartaz para ver de perto.</p>
+</div>
+<div class="mural" id="mural"></div>
+<p class="fonte-campeoes">Cartazes e marcas guardados por Marcos Martino no blog <a href="https://alvinopolisquepensa.blogspot.com/" target="_blank" rel="noopener">Alvinópolis Que Pensa</a>.</p>
+</div>
+</section>
+
+<!-- ===== VÍDEOS DE ARQUIVO (vêm de js/acervo.js) ===== -->
+<section class="secao alterna" id="videos-arquivo">
+<div class="miolo">
+<div class="cabeca">
+<h2>Vídeos de arquivo</h2>
+<p>Gravações antigas, reportagens e apresentações, à medida que forem digitalizadas.</p>
+</div>
+<div class="videos" id="videos"></div>
+</div>
+</section>
+
+<!-- ===== O FESTIVAL: texto de fechamento sobre a importância do festival ===== -->
+<section class="secao" id="festival">
+<div class="miolo">
+<aside class="fecho fecho-solto" aria-labelledby="fechoTitulo">
 <p class="rotulo">para terminar o disco</p>
 <h3 id="fechoTitulo">Um festival de Minas que o Brasil ouviu</h3>
 <div class="fecho-colunas">
-<p>Desde 1976, o Festival da Canção de Alvinópolis chegou à quadragésima edição, em 2026, atravessando pausas, mudanças de palco e anos de dinheiro curto. É um dos festivais de música mais antigos de Minas Gerais <span class="provisorio">a conferir</span>.</p>
+<p>Desde 1976, o Festival da Canção de Alvinópolis chegou à quadragésima edição, em 2026, atravessando pausas, mudanças de palco e anos de dinheiro curto. É um dos festivais de música mais antigos de Minas Gerais.</p>
 <p>Alvinópolis tem cerca de 15 mil habitantes e fica a uns 95 km de Belo Horizonte, em linha reta. É pequena no tamanho, mas gigante no meio artístico. Em 50 anos de história, o festival promoveu encontros, provocou influências e ajudou a forjar a música de Minas Gerais.</p>
 <p>A ideia nasceu na própria região do Médio Piracicaba: em 1974, Alvinópolis mandou representantes ao festival dos dez anos de João Monlevade, e de lá voltou a vontade de fazer o seu. Nos primeiros anos, os campeões vieram de Sete Lagoas, Ouro Preto e Itabira, e o festival virou ponto de encontro de compositores do interior mineiro e de Belo Horizonte.</p>
 <p>Para os músicos da cidade, foi escola. O Verde Terra, nascido nesses palcos, chegou a 1987 com 26 troféus ganhos em festivais, e novas gerações de artistas alvinopolenses seguem se formando ali. “Mais do que festa, Festival é escola”, escreveu Marcos Martino.</p>
@@ -462,6 +459,29 @@
 </div>
 </section>
 
+<!-- ===== SOBRE O ACERVO ===== -->
+<section class="secao alterna" id="sobre" aria-label="Sobre o acervo">
+<div class="miolo">
+<div class="sobre-in">
+<div>
+<p class="rotulo">o festival</p>
+<h3>Cinquenta anos de canção</h3>
+<p>Desde 1976, o Festival da Canção reúne compositores de Alvinópolis e de todo o Brasil. Já teve campeões de Sete Lagoas, Ouro Preto, Belo Horizonte, Jundiaí, Recife e da própria cidade.</p>
+</div>
+<div>
+<p class="rotulo">o acervo</p>
+<h3>Memória guardada em casa</h3>
+<p>Boa parte dessa história está em álbuns de família, recortes de jornal e fitas VHS. Este site reúne esse material, digitalizado, num só lugar.</p>
+</div>
+<div>
+<p class="rotulo">o site</p>
+<h3>Independente e sem fins lucrativos</h3>
+<p>O acervo é um projeto cultural independente, sem vínculo com a Prefeitura nem com a organização do festival. Cada foto traz o crédito de quem a cedeu.</p>
+</div>
+</div>
+</div>
+</section>
+
 <!-- ===== CONTRIBUA ===== -->
 <section class="secao" id="contribua">
 <div class="miolo">
@@ -470,11 +490,9 @@
 <p>Fotos de família, recortes de jornal, cartazes, fitas VHS ou gravações em celular, de qualquer época. Nós digitalizamos e devolvemos o original, e a imagem entra no acervo com o seu nome no crédito.</p>
 <!-- troque o href pelo endereço do formulário de envio -->
 <a class="botao" href="#contribua">Enviar material para o acervo</a>
-<p><span class="provisorio">formulário ainda não criado</span></p>
 </div>
 </div>
 </section>
-
 </main>
 
 <footer class="rodape">
@@ -508,7 +526,7 @@
 
 <script src="js/acervo.js?v=4"></script>
 <script src="js/som.js?v=2"></script>
-<script src="js/principal.js?v=8"></script>
+<script src="js/principal.js?v=9"></script>
 <script src="js/campeoes.js?v=2"></script>
 <script src="js/causos.js?v=1"></script>
 <script src="js/cartazes.js?v=3"></script>
@@ -517,5 +535,6 @@
 <script src="js/toca-discos.js?v=2"></script>
 <script src="js/rolagem.js?v=1"></script>
 <script src="js/menu.js?v=1"></script>
+<script src="js/capa.js?v=1"></script>
 </body>
 </html>

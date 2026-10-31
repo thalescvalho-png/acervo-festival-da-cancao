@@ -8,7 +8,8 @@
     return e;
   }
   function decada(ano){ return ano ? Math.floor(ano / 10) * 10 : null; }
-  function selo(){ return el('span', 'provisorio', 'texto provisório'); }
+  // a marca de "texto provisório" não aparece mais para o público (pedido do Thales em 31/10); o campo provisorio segue nos dados
+  function selo(){ return document.createTextNode(''); }
 
   // 1. Galeria: monta as fotos de js/acervo.js, com filtro por década
   var mosaico = document.getElementById('mosaico');
