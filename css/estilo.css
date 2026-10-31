@@ -612,7 +612,7 @@ html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
 
 /* DOCUMENTÁRIO EM DESTAQUE NA CAPA: fotograma em tela larga 2.39:1 entre faixas pretas (letterbox),
    foto do festival escurecida como cena de filme, título fino e espaçado em Jost, play simples */
-.capa-doc{ container-type:inline-size; --largo:min(100%, 868px); position:relative; display:block; width:var(--largo); aspect-ratio:2.39; margin-top:12px; overflow:hidden; text-decoration:none; color:#fff;
+.capa-doc{ container-type:inline-size; --largo:min(100%, 868px, max(420px, calc((100svh - 400px) * 2.39))); position:relative; display:block; width:var(--largo); aspect-ratio:2.39; margin-top:12px; overflow:hidden; text-decoration:none; color:#fff;
   background:#000; box-shadow:0 0 0 1px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.7); border-block:clamp(10px, 2vw, 16px) solid #000; transition:box-shadow .4s ease; }
 .capa-doc-foto{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 55%; filter:grayscale(.2) contrast(1.1) brightness(.55) sepia(.35); transform-origin:60% 45%; animation:previa 16s ease-in-out infinite alternate; transition:filter .6s ease; }
 /* "prévia" de filme: a foto começa perto e vai se afastando devagar (zoom out), e volta */
