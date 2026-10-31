@@ -593,17 +593,28 @@ html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
 @media (max-width:860px){ .capa-vinil{ width:min(70vw, 360px); opacity:.25; } .capa-vinil-esq{ translate:-70% -50%; } .capa-vinil-dir{ translate:70% -50%; } .capa-eq{ -webkit-mask-image:none; mask-image:none; opacity:.18; } }
 @media (prefers-reduced-motion: reduce){ .capa-vinil, .capa-eq i{ animation:none; } .capa-notas{ display:none; } }
 
-/* DOCUMENTÁRIO EM DESTAQUE NA CAPA: tira de película com o botão de play */
-.capa-doc{ display:flex; align-items:center; gap:18px; width:min(100%, 600px); margin-top:8px; padding:16px 22px; text-align:left; text-decoration:none; color:#F1E6CF;
-  background:linear-gradient(#0E0B0A, #0E0B0A) padding-box, repeating-linear-gradient(90deg, #E3B76A 0 10px, transparent 10px 18px) border-box;
-  border:7px solid transparent; border-inline-width:2px; box-shadow:0 0 0 1px rgba(227,183,106,.5), 0 14px 40px rgba(0,0,0,.55); transition:transform .25s ease, box-shadow .25s ease; }
-.capa-doc:hover, .capa-doc:focus-visible{ transform:translateY(-3px); box-shadow:0 0 0 1px #E3B76A, 0 20px 50px rgba(0,0,0,.65); }
-.capa-doc-play{ flex:none; width:56px; height:56px; border-radius:50%; background:#E3B76A; position:relative; box-shadow:0 0 0 6px rgba(227,183,106,.18); animation:pulso 2.4s ease-in-out infinite; }
-.capa-doc-play::after{ content:""; position:absolute; left:22px; top:17px; border-left:18px solid #1C1715; border-block:11px solid transparent; }
-@keyframes pulso{ 50%{ box-shadow:0 0 0 12px rgba(227,183,106,0); } }
-.capa-doc-texto{ display:grid; gap:2px; min-width:0; }
-.capa-doc-selo{ font-family:var(--maquina); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#E3B76A; }
-.capa-doc-titulo{ font-family:var(--titulo); font-size:clamp(17px, 2vw, 22px); line-height:1.15; text-transform:uppercase; }
-.capa-doc-info{ font-size:15px; color:#CDBFA6; }
-@media (max-width:480px){ .capa-doc{ gap:12px; padding:12px 14px; } .capa-doc-play{ width:44px; height:44px; } .capa-doc-play::after{ left:17px; top:12px; border-left-width:14px; border-block-width:10px; } }
-@media (prefers-reduced-motion: reduce){ .capa-doc-play{ animation:none; } }
+/* DOCUMENTÁRIO EM DESTAQUE NA CAPA: letreiro de cinema de rua (marquise vinho com lâmpadas que
+   acendem em sequência, placa clara com letras de encaixar e o pé com a estreia) */
+.capa-doc{ position:relative; display:grid; justify-items:center; gap:10px; width:min(100%, 600px); margin-top:10px; padding:22px 26px 18px; text-align:center; text-decoration:none; color:#F1E6CF;
+  background:linear-gradient(#5E1C26, #7A2632 40%, #5E1C26); border-radius:6px; box-shadow:inset 0 0 0 3px #3A1017, inset 0 0 0 5px #C9A962, 0 18px 50px rgba(0,0,0,.6); transition:transform .25s ease, box-shadow .25s ease; }
+.capa-doc:hover, .capa-doc:focus-visible{ transform:translateY(-3px) scale(1.01); box-shadow:inset 0 0 0 3px #3A1017, inset 0 0 0 5px #E3B76A, 0 0 40px rgba(227,183,106,.35), 0 24px 60px rgba(0,0,0,.7); }
+.capa-doc-luzes, .capa-doc-luzes::after{ position:absolute; inset:8px; border-radius:4px; pointer-events:none;
+  --l:radial-gradient(circle, #FFF3C8 0 2.6px, #F2C46A 3px, rgba(242,196,106,.35) 4.5px, transparent 6px);
+  background:var(--l) 0 0/18px 18px repeat-x, var(--l) 9px 100%/18px 18px repeat-x, var(--l) 0 9px/18px 18px repeat-y, var(--l) 100% 0/18px 18px repeat-y;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% 12px no-repeat, linear-gradient(#000 0 0) bottom/100% 12px no-repeat, linear-gradient(#000 0 0) left/12px 100% no-repeat, linear-gradient(#000 0 0) right/12px 100% no-repeat;
+          mask:linear-gradient(#000 0 0) top/100% 12px no-repeat, linear-gradient(#000 0 0) bottom/100% 12px no-repeat, linear-gradient(#000 0 0) left/12px 100% no-repeat, linear-gradient(#000 0 0) right/12px 100% no-repeat; }
+.capa-doc-luzes{ content:""; animation:lampadas 1.2s steps(1) infinite; }
+.capa-doc-luzes::after{ content:""; inset:0; background-position:9px 0, 0 100%, 0 0, 100% 9px; animation:lampadas 1.2s steps(1) infinite reverse; }
+@keyframes lampadas{ 0%{ opacity:1; } 50%{ opacity:.25; } }
+.capa-doc-topo{ position:relative; font-family:var(--maquina); font-size:13px; letter-spacing:.3em; text-transform:uppercase; color:#F2C46A; text-shadow:0 0 10px rgba(242,196,106,.55); }
+.capa-doc-placa{ position:relative; display:grid; gap:2px; width:100%; padding:12px 14px 10px; background:linear-gradient(#FBF6EA, #EDE4CF); border-radius:2px;
+  box-shadow:inset 0 0 0 1px #CDBFA6, 0 0 24px rgba(255,236,190,.35);
+  background-image:linear-gradient(#FBF6EA, #EDE4CF), repeating-linear-gradient(transparent 0 33%, rgba(0,0,0,.06) 33% calc(33% + 1px)); background-blend-mode:multiply; }
+.capa-doc-titulo{ font-family:var(--titulo); font-size:clamp(17px, 2.6vw, 27px); line-height:1.1; text-transform:uppercase; color:#1C1715; letter-spacing:.02em; }
+.capa-doc-sub{ font-family:var(--titulo); font-size:clamp(15px, 2vw, 21px); text-transform:uppercase; letter-spacing:.2em; color:#7A2632; }
+.capa-doc-pe{ position:relative; display:inline-flex; align-items:center; gap:10px; font-family:var(--maquina); font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:#F1E6CF; }
+.capa-doc-play{ flex:none; width:30px; height:30px; border-radius:50%; background:#F2C46A; position:relative; box-shadow:0 0 0 4px rgba(242,196,106,.25); animation:pulso 2.4s ease-in-out infinite; }
+.capa-doc-play::after{ content:""; position:absolute; left:12px; top:9px; border-left:10px solid #5E1C26; border-block:6px solid transparent; }
+@keyframes pulso{ 50%{ box-shadow:0 0 0 10px rgba(242,196,106,0); } }
+@media (max-width:480px){ .capa-doc{ padding:20px 18px 16px; } .capa-doc-topo{ font-size:11px; letter-spacing:.2em; } .capa-doc-pe{ font-size:11px; letter-spacing:.05em; } .capa-doc-mais{ display:none; } }
+@media (prefers-reduced-motion: reduce){ .capa-doc-play, .capa-doc-luzes, .capa-doc-luzes::after{ animation:none; } }
