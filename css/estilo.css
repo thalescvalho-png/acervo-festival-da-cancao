@@ -344,6 +344,12 @@ img{ max-width:100%; height:auto; display:block; }
 .rodape-in{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; }
 .rodape-in > div{ min-width:0; max-width:36em; display:grid; gap:6px; }
 .rodape .marca{ color:var(--tinta); }
+.creditos{ margin-top:32px; padding-top:20px; border-top:3px double var(--fio); text-align:center; }
+.creditos .rotulo{ margin-bottom:10px; }
+.creditos dl{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px 40px; margin:0; }
+.creditos dl div{ display:flex; flex-wrap:wrap; justify-content:center; gap:0 8px; align-items:baseline; }
+.creditos dt{ font-family:var(--maquina); font-size:13px; letter-spacing:.06em; }
+.creditos dd{ margin:0; color:var(--tinta); font-weight:600; }
 .apoio{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
 .apoio span{ border:1px dashed var(--fio); padding:8px 14px; font-size:13px; font-style:italic; }
 
