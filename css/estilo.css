@@ -115,12 +115,14 @@ button.capa-datas{ background:none; border:0; padding:6px 0; cursor:pointer; tex
 /* LOGOTIPO: a mesma letra de cartaz, montada como bloco justificado. Cada linha tem um tamanho
    calculado para que as três ocupem exatamente a mesma largura (unidade cqi = % da largura do bloco):
    FESTIVAL espaçado, DA CANÇÃO maior, DE ALVINÓPOLIS menor. O bloco cresce e encolhe com a tela. */
-.capa h1.logo{ container-type:inline-size; display:grid; justify-items:center; gap:0; width:100%; max-width:min(480px, 100%); margin:0 auto; line-height:.98; }
+.capa h1.logo{ container-type:inline-size; display:grid; justify-items:center; gap:0; width:100%; max-width:min(760px, 100%); margin:0 auto; line-height:.98; }
 .logo > span{ display:block; white-space:nowrap; }
 .logo-festival{ font-size:12.9cqi; letter-spacing:.3em; margin-right:-.3em; }
 .logo-cancao{ font-size:14.86cqi; letter-spacing:.01em; margin-right:-.01em; margin-block:.16em .02em; }
+.logo > span.logo-linha{ font-size:7.85cqi; letter-spacing:.02em; margin-right:-.02em; }
+.logo-linha > span{ font-size:inherit; letter-spacing:inherit; margin:0; display:inline; }
 /* "de Alvinópolis" separado embaixo, entre dois fios dourados, como assinatura de cartaz */
-.logo > span.logo-cidade{ display:flex; align-items:center; gap:.7em; width:100%; font-size:5.2cqi; letter-spacing:.32em; margin-top:.45em; }
+.logo > span.logo-cidade{ display:flex; align-items:center; gap:.7em; width:100%; font-size:4.6cqi; letter-spacing:.32em; margin-top:.45em; }
 .logo-cidade::before, .logo-cidade::after{ content:""; flex:1; height:max(2px, .06em); background:currentColor; opacity:.7; }
 .logo-cidade::after{ margin-left:-.32em; }
 @media (max-width:600px){ .capa-moldura{ padding-block:48px 36px; } .capa-topo{ font-size:13px; letter-spacing:.08em; } .capa-datas{ font-size:14px; letter-spacing:.08em; } .capa-datas::before,.capa-datas::after{ width:18px; } .capa-creditos{ font-size:12px; } }
@@ -610,7 +612,7 @@ html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
 
 /* DOCUMENTÁRIO EM DESTAQUE NA CAPA: fotograma em tela larga 2.39:1 entre faixas pretas (letterbox),
    foto do festival escurecida como cena de filme, título fino e espaçado em Jost, play simples */
-.capa-doc{ container-type:inline-size; --largo:min(100%, 1040px, max(440px, calc((100svh - 440px) * 2.39))); position:relative; display:block; width:var(--largo); aspect-ratio:2.39; margin-top:12px; overflow:hidden; text-decoration:none; color:#fff;
+.capa-doc{ container-type:inline-size; --largo:min(100%, 1240px); position:relative; display:block; width:var(--largo); aspect-ratio:2.39; margin-top:12px; overflow:hidden; text-decoration:none; color:#fff;
   background:#000; box-shadow:0 0 0 1px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.7); border-block:clamp(10px, 2vw, 16px) solid #000; transition:box-shadow .4s ease; }
 .capa-doc-foto{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 55%; filter:grayscale(.2) contrast(1.1) brightness(.55) sepia(.35); transform-origin:60% 45%; animation:previa 16s ease-in-out infinite alternate; transition:filter .6s ease; }
 /* "prévia" de filme: a foto começa perto e vai se afastando devagar (zoom out), e volta */
