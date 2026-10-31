@@ -42,6 +42,39 @@
     if (!parado) setTimeout(function(){ contar(false); }, 500);
   }
 
+  // título do documentário datilografado, com cursor piscando; repete ao passar o mouse
+  var doc = document.getElementById('capaDoc');
+  var linhas = doc ? doc.querySelectorAll('.tw-linha') : [];
+  var datilo = 0;
+  function datilografar(){
+    if (!linhas.length) return;
+    var vez = ++datilo, textos = [].map.call(linhas, function(l){ return l.querySelector('.tw-fantasma').textContent; });
+    var alvos = [].map.call(linhas, function(l){ return l.querySelector('.tw-texto'); });
+    var cursor = document.createElement('span'); cursor.className = 'tw-cursor';
+    alvos.forEach(function(a){ a.textContent = ''; });
+    var li = 0, ci = 0;
+    function tecla(){
+      if (vez !== datilo) return;
+      if (li >= textos.length){ alvos[alvos.length - 1].appendChild(cursor); return; }
+      ci++;
+      alvos[li].textContent = textos[li].slice(0, ci);
+      alvos[li].appendChild(cursor);
+      var pausa = textos[li][ci - 1] === ' ' ? 120 : 55 + Math.random() * 70;
+      if (ci >= textos[li].length){ li++; ci = 0; pausa = 450; }
+      setTimeout(tecla, pausa);
+    }
+    setTimeout(tecla, 300);
+  }
+  if (linhas.length){
+    if (parado){
+      [].forEach.call(linhas, function(l){ l.querySelector('.tw-texto').textContent = l.querySelector('.tw-fantasma').textContent; });
+    } else {
+      setTimeout(datilografar, 700);
+      var tocouAgora = 0;
+      doc.addEventListener('mouseenter', function(){ if (Date.now() - tocouAgora > 4000){ tocouAgora = Date.now(); datilografar(); } });
+    }
+  }
+
   if (parado) return;
 
   // notas subindo, mais nas laterais do que no meio (o título fica limpo)
