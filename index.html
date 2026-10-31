@@ -17,14 +17,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=19">
+<link rel="stylesheet" href="css/estilo.css?v=20">
 </head>
 <body>
 
 <header class="topo" id="topo">
 <div class="topo-in miolo">
 <a class="marca" href="#inicio">Festival da Canção <em>de Alvinópolis</em></a>
-<nav class="menu" aria-label="Seções">
+<button type="button" class="faixas-bt" id="faixasBt" aria-expanded="false" aria-controls="menu"><span class="faixas-icone" aria-hidden="true"></span>faixas</button>
+<nav class="menu" id="menu" aria-label="Seções">
 <a href="#causos"><i>A1</i>Causos</a>
 <a href="#pratas"><i>A2</i>Discos</a>
 <a href="#campeoes"><i>A3</i>Campeões</a>
@@ -521,5 +522,6 @@
 <script src="js/mural.js?v=2"></script>
 <script src="js/toca-discos.js?v=2"></script>
 <script src="js/rolagem.js?v=1"></script>
+<script src="js/menu.js?v=1"></script>
 </body>
 </html>
