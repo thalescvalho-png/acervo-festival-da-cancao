@@ -59,22 +59,12 @@
     cab.appendChild(nome);
     var ed = el('span', 'tc-edicao');
     ed.appendChild(el('span', '', 'Alvinópolis · MG'));
-    ed.appendChild(el('span', '', 'lado ' + lado(atual) + ' · faixa ' + numero(atual)));
     ed.appendChild(el('span', '', c.ano ? 'ano: ' + c.ano : 'ano: o blog não diz'));
     cab.appendChild(ed);
     jornal.appendChild(cab);
     jornal.appendChild(el('p', 'tc-chapeu', c.destaque ? '♫ faixa de trabalho · crença da terra' : '♪ causos do festival'));
     jornal.appendChild(el('h3', '', c.titulo));
     if (c.linhaFina) jornal.appendChild(el('p', 'tc-linhafina', c.linhaFina));
-    var pauta = el('div', 'tc-pauta');
-    pauta.setAttribute('aria-hidden', 'true');
-    ['♪', '♩', '♫', '♪'].forEach(function(s, k){
-      var n = el('span', '', s);
-      n.style.left = (8 + k * 22 + ((atual * 7 + k * 13) % 9)) + '%';
-      n.style.top = (-8 + ((atual + k) % 4) * 4) + 'px';
-      pauta.appendChild(n);
-    });
-    jornal.appendChild(pauta);
     var col = el('div', 'tc-colunas');
     (c.paragrafos || []).forEach(function(p){ col.appendChild(el('p', '', p)); });
     jornal.appendChild(col);
