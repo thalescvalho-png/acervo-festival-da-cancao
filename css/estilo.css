@@ -482,6 +482,10 @@ button.capa-datas{ background:none; border:0; padding:6px 0; cursor:pointer; tex
 .letreiro:hover, .filtros button:hover{ transform:translateY(-3px); }
 .letreiro[aria-pressed="true"], .filtros button[aria-pressed="true"]{ background:radial-gradient(ellipse at 50% 40%, #9A3442 0%, #5E1C26 80%); box-shadow:inset 0 0 0 4px #5E1C26, inset 0 0 0 5px #E3B76A, 0 10px 22px -10px rgba(122,38,50,.8); transform:translateY(-3px) scale(1.03); }
 .letreiro[aria-pressed="true"] b{ color:#F1E6CF; }
+/* passeio automático: um fio dourado enche a base do letreiro aceso até passar para a próxima década */
+.letreiro.passeio::before{ content:""; position:absolute; left:10%; bottom:6px; height:2px; width:80%; background:#E3B76A; transform-origin:left; transform:scaleX(0); animation:passeio 3.6s linear forwards; border-radius:2px; }
+@keyframes passeio{ to{ transform:scaleX(1); } }
+.letreiro{ transition:transform .5s ease, box-shadow .5s ease, background .5s ease; }
 .uma-cena .cena{ grid-template-columns:minmax(0, 5fr) minmax(0, 7fr); gap:44px; padding:28px; background:var(--folha); border:1px solid var(--tinta); outline:1px solid var(--tinta); outline-offset:3px; margin:4px; }
 .uma-cena .cena::before, .uma-cena .cena::after{ content:none; }
 .uma-cena .cena .relato, .uma-cena .cena:nth-child(even) .relato{ order:0; text-align:left; }
