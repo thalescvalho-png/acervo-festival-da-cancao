@@ -115,7 +115,7 @@ button.capa-datas{ background:none; border:0; padding:6px 0; cursor:pointer; tex
 /* LOGOTIPO: a mesma letra de cartaz, montada como bloco justificado. Cada linha tem um tamanho
    calculado para que as três ocupem exatamente a mesma largura (unidade cqi = % da largura do bloco):
    FESTIVAL espaçado, DA CANÇÃO maior, DE ALVINÓPOLIS menor. O bloco cresce e encolhe com a tela. */
-.capa h1.logo{ container-type:inline-size; display:grid; justify-items:center; gap:0; width:100%; max-width:min(990px, 100%); margin:0 auto; line-height:.98; }
+.capa h1.logo{ container-type:inline-size; display:grid; justify-items:center; gap:0; width:100%; max-width:min(480px, 100%); margin:0 auto; line-height:.98; }
 .logo > span{ display:block; white-space:nowrap; }
 .logo-festival{ font-size:12.9cqi; letter-spacing:.3em; margin-right:-.3em; }
 .logo-cancao{ font-size:14.86cqi; letter-spacing:.01em; margin-right:-.01em; margin-block:.16em .02em; }
@@ -610,7 +610,7 @@ html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
 
 /* DOCUMENTÁRIO EM DESTAQUE NA CAPA: fotograma em tela larga 2.39:1 entre faixas pretas (letterbox),
    foto do festival escurecida como cena de filme, título fino e espaçado em Jost, play simples */
-.capa-doc{ --largo:min(100%, 640px); position:relative; display:block; width:var(--largo); aspect-ratio:2.39; margin-top:12px; overflow:hidden; text-decoration:none; color:#fff;
+.capa-doc{ container-type:inline-size; --largo:min(100%, 1040px, max(440px, calc((100svh - 440px) * 2.39))); position:relative; display:block; width:var(--largo); aspect-ratio:2.39; margin-top:12px; overflow:hidden; text-decoration:none; color:#fff;
   background:#000; box-shadow:0 0 0 1px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.7); border-block:clamp(10px, 2vw, 16px) solid #000; transition:box-shadow .4s ease; }
 .capa-doc-foto{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 55%; filter:grayscale(.2) contrast(1.1) brightness(.55) sepia(.35); transform-origin:60% 45%; animation:previa 16s ease-in-out infinite alternate; transition:filter .6s ease; }
 /* "prévia" de filme: a foto começa perto e vai se afastando devagar (zoom out), e volta */
@@ -619,17 +619,17 @@ html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
 .capa-doc:hover .capa-doc-foto, .capa-doc:focus-visible .capa-doc-foto{ filter:grayscale(.1) contrast(1.1) brightness(.62) sepia(.15); }
 .capa-doc:hover, .capa-doc:focus-visible{ box-shadow:0 0 0 1px rgba(227,183,106,.6), 0 30px 70px rgba(0,0,0,.8); }
 .capa-doc-texto{ position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:clamp(4px, 1vw, 10px); padding:0 clamp(16px, 4vw, 34px); text-align:left; font-family:'Jost', system-ui, sans-serif; }
-.capa-doc-selo{ position:absolute; z-index:1; right:clamp(12px, 3vw, 24px); bottom:clamp(8px, 1.6vw, 14px); font-family:'Jost', system-ui, sans-serif; font-size:clamp(8px, 1vw, 10px); font-weight:400; letter-spacing:.26em; text-transform:uppercase; color:rgba(255,255,255,.6); opacity:0; transform:translateY(4px); transition:opacity 1.6s ease, transform 1.6s ease; }
+.capa-doc-selo{ position:absolute; z-index:1; right:clamp(12px, 3vw, 24px); bottom:clamp(8px, 1.6vw, 14px); font-family:'Jost', system-ui, sans-serif; font-size:clamp(8px, 1vw, 12px); font-weight:400; letter-spacing:.26em; text-transform:uppercase; color:rgba(255,255,255,.6); opacity:0; transform:translateY(4px); transition:opacity 1.6s ease, transform 1.6s ease; }
 .capa-doc.creditado .capa-doc-selo{ opacity:1; transform:none; }
 @media (prefers-reduced-motion: reduce){ .capa-doc-selo{ opacity:1; transform:none; transition:none; } }
-.capa-doc-titulo{ display:grid; font-size:clamp(15px, 2.5vw, 25px); font-weight:300; letter-spacing:.14em; text-transform:uppercase; line-height:1.2; color:#fff; }
+.capa-doc-titulo{ display:grid; font-size:clamp(14px, 3.4cqi, 38px); font-weight:300; letter-spacing:.14em; text-transform:uppercase; line-height:1.2; color:#fff; }
 .tw-linha{ position:relative; display:block; }
 .tw-fantasma{ visibility:hidden; }
 .tw-texto{ position:absolute; inset:0; }
 .tw-destaque{ color:#E3B76A; font-size:.86em; font-weight:500; letter-spacing:.42em; }
 .tw-cursor{ display:inline-block; width:1.5px; height:1em; margin-left:3px; vertical-align:-.12em; background:currentColor; animation:cursor 1s steps(1) infinite; }
 @keyframes cursor{ 50%{ opacity:0; } }
-.capa-doc-pe{ display:inline-flex; align-items:center; gap:10px; margin-top:clamp(2px, .8vw, 8px); font-size:clamp(10px, 1.2vw, 12px); font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.85); }
+.capa-doc-pe{ display:inline-flex; align-items:center; gap:10px; margin-top:clamp(2px, .8vw, 8px); font-size:clamp(10px, 1.2vw, 14px); font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.85); }
 .capa-doc-play{ flex:none; width:clamp(24px, 3vw, 30px); aspect-ratio:1; border:1px solid rgba(255,255,255,.85); border-radius:50%; position:relative; transition:background .3s ease, border-color .3s ease; }
 .capa-doc-play::after{ content:""; position:absolute; left:52%; top:50%; translate:-40% -50%; border-left:8px solid #fff; border-block:5px solid transparent; }
 .capa-doc:hover .capa-doc-play{ background:#E3B76A; border-color:#E3B76A; }
