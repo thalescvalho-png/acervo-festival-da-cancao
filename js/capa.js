@@ -52,10 +52,11 @@
     var alvos = [].map.call(linhas, function(l){ return l.querySelector('.tw-texto'); });
     var cursor = document.createElement('span'); cursor.className = 'tw-cursor';
     alvos.forEach(function(a){ a.textContent = ''; });
+    doc.classList.remove('creditado');
     var li = 0, ci = 0;
     function tecla(){
       if (vez !== datilo) return;
-      if (li >= textos.length){ alvos[alvos.length - 1].appendChild(cursor); return; }
+      if (li >= textos.length){ alvos[alvos.length - 1].appendChild(cursor); setTimeout(function(){ if (vez === datilo) doc.classList.add('creditado'); }, 400); return; }
       ci++;
       alvos[li].textContent = textos[li].slice(0, ci);
       alvos[li].appendChild(cursor);
