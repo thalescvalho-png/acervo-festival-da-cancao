@@ -16,15 +16,17 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=19">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css?v=26">
+<script src="js/aparelho.js?v=1"></script>
 </head>
 <body>
 
 <header class="topo" id="topo">
 <div class="topo-in miolo">
 <a class="marca" href="#inicio">Festival da Canção <em>de Alvinópolis</em></a>
-<nav class="menu" aria-label="Seções">
+<button type="button" class="faixas-bt" id="faixasBt" aria-expanded="false" aria-controls="menu"><span class="faixas-icone" aria-hidden="true"></span>faixas</button>
+<nav class="menu" id="menu" aria-label="Seções">
 <a href="#causos"><i>A1</i>Causos</a>
 <a href="#pratas"><i>A2</i>Discos</a>
 <a href="#campeoes"><i>A3</i>Campeões</a>
@@ -46,7 +48,8 @@
 <div class="capa-moldura miolo">
 <div class="capa-texto">
 <p class="capa-topo">acervo · alvinópolis · minas gerais</p>
-<h1><span class="capa-titulo"><span>Festival</span> <span>da Canção</span></span><span class="capa-sub">de Alvinópolis</span></h1>
+<!-- LOGOTIPO: as três linhas do título ficam com a mesma largura (bloco justificado), como num letreiro -->
+<h1 class="logo"><span class="logo-festival">Festival</span> <span class="logo-cancao">da Canção</span> <span class="logo-cidade">de Alvinópolis</span></h1>
 <p class="capa-datas">desde 1976 · quarenta edições</p>
 <div class="acoes">
 <a class="botao" href="#causos">Percorrer o acervo</a>
@@ -84,8 +87,6 @@
 <section class="secao" id="causos">
 <div class="miolo">
 <div class="cabeca">
-<div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo faixa">lado A · faixa 1 · recortes</p>
 <h2>Causos do festival</h2>
 <p>Histórias de palco e de bastidor guardadas por quem acompanhou o festival de perto. Escolha uma faixa, deixe o disco girar e leia o causo como se tivesse saído na primeira página.</p>
 </div>
@@ -112,10 +113,10 @@
 <span class="tc-notas" aria-hidden="true">♫</span>
 <p class="rotulo">encarte · agradecimento</p>
 <h3 id="tcEncarte">Um blog que guardou a cidade</h3>
-<p>Quase tudo o que toca neste disco saiu do <a href="https://alvinopolisquepensa.blogspot.com/" target="_blank" rel="noopener">Alvinópolis Que Pensa</a>, o blog que Marcos Martino escreve desde 2008, e do seu irmão caçula, o <a href="https://memoriafestalvi.blogspot.com/" target="_blank" rel="noopener">FESTIALVI Memórias</a>, feito só para o festival.</p>
-<p>Músico, jurado e produtor de festivais, o Marcos foi anotando, post a post, o que quase ninguém mais guardou: os resultados de cada edição, os causos de palco e de bastidor, os cartazes, as marcas e os nomes de quem fez o festival acontecer, inclusive nos anos em que faltou dinheiro e sobrou teimosia.</p>
+<p>Quase tudo o que toca neste disco saiu do <a href="https://alvinopolisquepensa.blogspot.com/" target="_blank" rel="noopener">Alvinópolis Que Pensa</a>, no ar desde 2008, e do seu irmão caçula, o <a href="https://memoriafestalvi.blogspot.com/" target="_blank" rel="noopener">FESTIALVI Memórias</a>, feito só para o festival.</p>
+<p>Post a post, os dois blogs guardaram o que quase ninguém mais guardou: os resultados de cada edição, os causos de palco e de bastidor, os cartazes, as marcas e os nomes de quem fez o festival acontecer, inclusive nos anos em que faltou dinheiro e sobrou teimosia.</p>
 <p>Sem esse registro paciente, boa parte dessa história teria ficado só na memória de quem viveu. É com ele que este acervo consegue juntar as peças e deixar a cultura alvinopolense gravada para quem vier depois, como se grava um disco: para tocar de novo.</p>
-<p class="tc-assinatura">Obrigado, Marcos. Este lado do disco é seu.</p>
+<p class="tc-assinatura">Obrigado ao Alvinópolis Que Pensa e ao FESTIALVI Memórias, e a Marcos Martino, que criou o blog e guardou ali parte da história do festival.</p>
 </aside>
 
 </div>
@@ -125,8 +126,6 @@
 <section class="secao alterna" id="pratas">
 <div class="miolo">
 <div class="cabeca">
-<div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo faixa">lado A · faixa 2 · discos da cidade</p>
 <h2>Pratas da casa</h2>
 <p><span class="provisorio">título provisório</span></p>
 <p>Discos gravados por artistas de Alvinópolis que passaram pelos palcos do festival.</p>
@@ -234,8 +233,6 @@
 <section class="secao" id="campeoes">
 <div class="miolo">
 <div class="cabeca">
-<div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo faixa">lado A · faixa 3 · 1976 – 2026</p>
 <h2>Os campeões</h2>
 <p>Os campeões passam no disco, um ano de cada vez, de 1976 até hoje. Os anos sem festival também estão lá.</p>
 </div>
@@ -275,8 +272,6 @@
 <section class="secao alterna" id="cartazes">
 <div class="miolo">
 <div class="cabeca">
-<div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo faixa">lado B · faixa 1 · marcas e cartazes</p>
 <h2>Mural de cartazes</h2>
 <p>As marcas e os cartazes do festival, pregados com fita crepe. Toque num cartaz para ver de perto.</p>
 </div>
@@ -289,8 +284,6 @@
 <section class="secao" id="videos-arquivo">
 <div class="miolo">
 <div class="cabeca">
-<div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo faixa">lado B · faixa 2</p>
 <h2>Vídeos de arquivo</h2>
 <p>Gravações antigas, reportagens e apresentações, à medida que forem digitalizadas.</p>
 </div>
@@ -303,8 +296,6 @@
 <section class="secao alterna" id="acervo">
 <div class="miolo">
 <div class="cabeca">
-<div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo faixa">lado B · faixa 3</p>
 <h2>Acervo fotográfico</h2>
 </div>
 
@@ -350,9 +341,9 @@
 <div class="relato">
 <span class="ano">2010</span><span class="numero">30º festival</span>
 <h3>Trinta anos de festival</h3>
-<p>A final vira maratona, e o resultado só sai às 5h20 da manhã. Os Sicilianos, do Recife, tocam num frio de cinco graus e levam o terceiro lugar: “Alvinópolis entrou pra nossa história.”</p>
+<p>A final vira maratona, e o resultado só sai às 5h20 da manhã. Babi Jaques e Os Sicilianos, do Recife, tocam num frio de cinco graus e levam o terceiro lugar: “Alvinópolis entrou pra nossa história.”</p>
 </div>
-<div class="retrato"><img src="img/acervo/blog/foto-sicilianos-03.webp" loading="lazy" alt="Os Sicilianos recebem o troféu no festival de 2010"></div>
+<div class="retrato"><img src="img/acervo/blog/foto-sicilianos-03.webp" loading="lazy" alt="Babi Jaques e Os Sicilianos recebem o troféu no festival de 2010"></div>
 </article>
 
 <article class="edicao cena">
@@ -446,7 +437,7 @@
 <p>A ideia nasceu na própria região do Médio Piracicaba: em 1974, Alvinópolis mandou representantes ao festival dos dez anos de João Monlevade, e de lá voltou a vontade de fazer o seu. Nos primeiros anos, os campeões vieram de Sete Lagoas, Ouro Preto e Itabira, e o festival virou ponto de encontro de compositores do interior mineiro e de Belo Horizonte.</p>
 <p>Para os músicos da cidade, foi escola. O Verde Terra, nascido nesses palcos, chegou a 1987 com 26 troféus ganhos em festivais, e novas gerações de artistas alvinopolenses seguem se formando ali. “Mais do que festa, Festival é escola”, escreveu Marcos Martino.</p>
 <p>Pelos seus palcos passaram artistas do movimento da música mineira regional, nomes que depois ficaram conhecidos, gravaram discos importantes, fizeram sucesso e participaram de programas de televisão de grande audiência, como o The Voice Brasil, da Rede Globo.</p>
-<p>E a estrada não ficou em Minas. A lista de vencedores tem canções de Jundiaí (SP), Vitória da Conquista (BA), do Rio de Janeiro e do Recife. Em 2010, a banda Os Sicilianos viajou do Recife, tocou a final num frio de cinco graus e escreveu depois: “Alvinópolis entrou pra nossa história.”</p>
+<p>E a estrada não ficou em Minas. A lista de vencedores tem canções de Jundiaí (SP), Vitória da Conquista (BA), do Rio de Janeiro e do Recife. Em 2010, Babi Jaques e Os Sicilianos viajaram do Recife, tocaram a final num frio de cinco graus e escreveram depois: “Alvinópolis entrou pra nossa história.”</p>
 </div>
 <p class="causo-fonte">Fontes: lista de vencedores organizada por Marcos Martino; Marcos Martino, <a href="https://alvinopolisquepensa.blogspot.com/2023/02/as-origens-do-festival-de-alvinopolis.html" target="_blank" rel="noopener">“As origens do Festival de Alvinópolis”</a> (04/02/2023) e <a href="https://alvinopolisquepensa.blogspot.com/2010/08/postagem-da-banda-de-recife.html" target="_blank" rel="noopener">“Banda de Recife fala sobre o Festival de Alvinópolis”</a> (06/08/2010), blog Alvinópolis Que Pensa; contracapa do LP <i>Nós, os loucos</i> (1987); relato de Thales Carvalho; <a href="https://www.ibge.gov.br/cidades-e-estados/mg/3102308.html" target="_blank" rel="noopener">IBGE, Censo 2022</a> (15.059 habitantes). Texto adaptado para o site.</p>
 </aside>
@@ -459,8 +450,6 @@
 <section class="documentario" id="documentario">
 <div class="miolo">
 <div class="cabeca">
-<div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo faixa">lado B · faixa 4 · documentário</p>
 <h2>Festival da Canção de Alvinópolis – Histórias</h2>
 <p>Entrevistas com quem fez o festival, fotografias e vídeos de arquivo, histórias engraçadas e personagens que a cidade não esquece.</p>
 </div>
@@ -477,8 +466,6 @@
 <section class="secao" id="contribua">
 <div class="miolo">
 <div class="contribua-in">
-<div class="ornamento" aria-hidden="true"><span>𝄞</span></div>
-<p class="rotulo faixa">lado B · faixa bônus · a sua história</p>
 <h2>Você tem uma foto do festival?</h2>
 <p>Fotos de família, recortes de jornal, cartazes, fitas VHS ou gravações em celular, de qualquer época. Nós digitalizamos e devolvemos o original, e a imagem entra no acervo com o seu nome no crédito.</p>
 <!-- troque o href pelo endereço do formulário de envio -->
@@ -501,6 +488,14 @@
 <div class="apoio" aria-label="Apoio"><span>logo PNAB</span><span>logo Ministério da Cultura</span></div>
 </div>
 </div>
+<!-- CRÉDITOS DO SITE: ficha técnica no fim do disco -->
+<div class="creditos miolo">
+<p class="rotulo">créditos do site</p>
+<dl>
+<div><dt>Idealizado por</dt><dd>Thales Carvalho</dd></div>
+</dl>
+<p class="creditos-bio">Idealizador do acervo que reúne, num só lugar, as histórias e as fotos do Festival da Canção de Alvinópolis.</p>
+</div>
 </footer>
 
 <dialog class="ampliada" id="ampliada" aria-label="Foto ampliada">
@@ -517,9 +512,10 @@
 <script src="js/campeoes.js?v=2"></script>
 <script src="js/causos.js?v=1"></script>
 <script src="js/cartazes.js?v=3"></script>
-<script src="js/toca-causos.js?v=1"></script>
+<script src="js/toca-causos.js?v=2"></script>
 <script src="js/mural.js?v=2"></script>
 <script src="js/toca-discos.js?v=2"></script>
 <script src="js/rolagem.js?v=1"></script>
+<script src="js/menu.js?v=1"></script>
 </body>
 </html>

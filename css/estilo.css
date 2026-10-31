@@ -19,7 +19,8 @@
 
   --titulo:'Alfa Slab One', 'Rockwell', Georgia, serif;             /* letreiro de cartaz: tipo de madeira, sem ornamentos */
   --maquina:'Special Elite', 'Courier New', Courier, monospace;     /* máquina de escrever antiga, com a tinta falhada (escolha do Thales) */
-  --texto:var(--maquina);
+  --jornal:'Newsreader', Georgia, 'Times New Roman', serif;        /* textos corridos: serifa de jornal, leve para ler (troca pedida pelo Thales em 31/10) */
+  --texto:var(--jornal);
   --rotulo:var(--maquina);
   color-scheme:light;
 }
@@ -43,12 +44,12 @@
 :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
 html{ scroll-padding-top:calc(64px + env(safe-area-inset-top,0px)); }
 *,*::before,*::after{ box-sizing:inherit; }
-body{ margin:0; background:var(--papel); color:var(--tinta); font-family:var(--texto); font-size:17px; line-height:1.7; -webkit-font-smoothing:antialiased; }
+body{ margin:0; background:var(--papel); color:var(--tinta); font-family:var(--texto); font-size:18.5px; line-height:1.65; -webkit-font-smoothing:antialiased; }
 body::before{ content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:30; background:var(--papel); }
 h1,h2,h3,p,figure,dl,dd{ margin:0; }
 h1,h2,h3{ font-family:var(--titulo); font-weight:400; line-height:1.12; text-wrap:balance; }
 h2{ text-transform:uppercase; letter-spacing:.02em; }
-h3{ font-family:var(--maquina); font-weight:700; line-height:1.3; }
+h3{ font-family:var(--texto); font-weight:700; line-height:1.3; }
 a{ color:inherit; }
 img{ max-width:100%; height:auto; display:block; }
 :focus-visible{ outline:2px solid var(--vinho); outline-offset:3px; }
@@ -71,7 +72,28 @@ img{ max-width:100%; height:auto; display:block; }
 .menu{ display:flex; gap:12px; font-size:14px; margin-left:auto; }
 .menu a{ text-decoration:none; color:var(--tinta-suave); white-space:nowrap; }
 .menu a:hover{ color:var(--vinho); }
-@media (max-width:1300px){ .menu{ display:none; } }
+.faixas-bt{ display:none; }
+@media (max-width:1300px){
+  .topo-in{ position:relative; gap:12px; }
+  .faixas-bt{ display:inline-flex; align-items:center; gap:8px; margin-left:auto; flex:none; min-height:40px; padding:0 14px 0 10px; font-family:var(--maquina); font-size:14px; color:var(--tinta-suave); background:transparent; border:1px solid var(--fio); border-radius:999px; cursor:pointer; }
+  .faixas-bt:hover, .faixas-bt[aria-expanded="true"]{ color:var(--vinho); border-color:var(--vinho); }
+  .faixas-icone{ width:16px; height:12px; background:repeating-linear-gradient(to bottom, currentColor 0 2px, transparent 2px 5px); }
+  .faixas-bt[aria-expanded="true"] .faixas-icone{ background:none; position:relative; }
+  .faixas-bt[aria-expanded="true"] .faixas-icone::before{ content:"✕"; position:absolute; inset:-3px 0 0; font-size:14px; line-height:1; text-align:center; }
+  .menu{ display:none; }
+  .menu.aberto{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:0 28px; position:absolute; top:calc(100% + 1px); right:max(20px, env(safe-area-inset-right,0px)); width:min(460px, calc(100% - 40px)); max-height:calc(100dvh - 90px); overflow:auto; padding:14px 22px 18px; font-size:16px; background:var(--folha); border:1px solid var(--fio); border-top:0; box-shadow:0 18px 30px -18px rgba(28,23,21,.45); }
+  .menu.aberto::before{ content:"lado A"; grid-column:1; grid-row:1; }
+  .menu.aberto::after{ content:"lado B"; grid-column:2; grid-row:1; }
+  .menu.aberto::before, .menu.aberto::after{ font-size:12px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ouro); padding-bottom:6px; border-bottom:3px double var(--fio); margin-bottom:4px; }
+  .menu.aberto a{ display:block; padding:9px 0; border-bottom:1px dotted var(--fio); color:var(--tinta); }
+  .menu.aberto a:nth-child(-n+3){ grid-column:1; }
+  .menu.aberto a:nth-child(n+4){ grid-column:2; }
+  .menu.aberto a:nth-child(1){ grid-row:2; } .menu.aberto a:nth-child(2){ grid-row:3; } .menu.aberto a:nth-child(3){ grid-row:4; }
+  .menu.aberto a:nth-child(4){ grid-row:2; } .menu.aberto a:nth-child(5){ grid-row:3; } .menu.aberto a:nth-child(6){ grid-row:4; }
+  .menu.aberto a:nth-child(7){ grid-row:5; } .menu.aberto a:nth-child(8){ grid-row:6; }
+  .menu.aberto a i{ display:inline-block; min-width:2.6em; }
+}
+@media (max-width:440px){ .faixas-bt{ padding:0 10px; font-size:13px; } }
 @media (max-width:600px){ .marca{ white-space:normal; line-height:1.15; min-width:0; } }
 @media (max-width:440px){ .marca{ font-size:16px; } }
 .rodape .marca{ white-space:normal; }
@@ -87,9 +109,6 @@ img{ max-width:100%; height:auto; display:block; }
 .capa-texto{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:20px; }
 .capa-topo{ font-family:var(--maquina); font-size:16px; letter-spacing:.18em; color:#F1E6CF; }
 .capa h1{ display:grid; justify-items:center; gap:.06em; text-transform:uppercase; color:#E3B76A; line-height:1.06; text-shadow:0 2px 0 #6E4E1C, 0 8px 30px rgba(0,0,0,.65); }
-.capa-titulo{ font-size:clamp(44px, 11.5vw, 118px); letter-spacing:.01em; }
-.capa-titulo span{ display:inline-block; }
-.capa-sub{ font-size:clamp(28px, 6vw, 62px); letter-spacing:.03em; }
 .capa-datas{ font-family:var(--maquina); font-size:clamp(15px, 1.6vw, 19px); letter-spacing:.14em; color:#F1E6CF; display:flex; align-items:center; gap:14px; }
 .capa-datas::before,.capa-datas::after{ content:""; width:40px; height:1px; background:#D6B46E; }
 .capa .acoes{ justify-content:center; margin-top:10px; }
@@ -97,6 +116,14 @@ img{ max-width:100%; height:auto; display:block; }
 .capa .botao.contorno{ background:transparent; color:#F1E6CF; border-color:rgba(241,230,207,.7); }
 .capa-creditos{ font-family:var(--maquina); font-size:13.5px; letter-spacing:.04em; text-align:center; color:#CDBFA6; line-height:1.9; max-width:60em; margin:0 auto; padding-inline:24px; }
 .capa-creditos b{ font-weight:400; color:#E3B76A; }
+/* LOGOTIPO: a mesma letra de cartaz, montada como bloco justificado. Cada linha tem um tamanho
+   calculado para que as três ocupem exatamente a mesma largura (unidade cqi = % da largura do bloco):
+   FESTIVAL espaçado, DA CANÇÃO maior, DE ALVINÓPOLIS menor. O bloco cresce e encolhe com a tela. */
+.capa h1.logo{ container-type:inline-size; display:grid; justify-items:center; gap:0; width:100%; max-width:600px; margin:0; line-height:.98; }
+.logo > span{ display:block; white-space:nowrap; }
+.logo-festival{ font-size:12.9cqi; letter-spacing:.3em; margin-right:-.3em; }
+.logo-cancao{ font-size:14.86cqi; letter-spacing:.01em; margin-right:-.01em; margin-block:.02em .04em; }
+.logo-cidade{ font-size:9.06cqi; letter-spacing:.12em; margin-right:-.12em; }
 @media (max-width:600px){ .capa-moldura{ padding-block:48px 36px; } .capa-topo{ font-size:13px; letter-spacing:.08em; } .capa-datas{ font-size:14px; letter-spacing:.08em; } .capa-datas::before,.capa-datas::after{ width:18px; } .capa-creditos{ font-size:12px; } }
 
 .acoes{ display:flex; flex-wrap:wrap; gap:12px; }
@@ -322,6 +349,13 @@ img{ max-width:100%; height:auto; display:block; }
 .rodape-in{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; }
 .rodape-in > div{ min-width:0; max-width:36em; display:grid; gap:6px; }
 .rodape .marca{ color:var(--tinta); }
+.creditos{ margin-top:32px; padding-top:20px; border-top:3px double var(--fio); text-align:center; }
+.creditos .rotulo{ margin-bottom:10px; }
+.creditos dl{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px 40px; margin:0; }
+.creditos dl div{ display:flex; flex-wrap:wrap; justify-content:center; gap:0 8px; align-items:baseline; }
+.creditos dt{ font-family:var(--maquina); font-size:13px; letter-spacing:.06em; }
+.creditos dd{ margin:0; color:var(--tinta); font-weight:600; }
+.creditos-bio{ max-width:44em; margin:14px auto 0; font-size:15px; font-style:italic; }
 .apoio{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
 .apoio span{ border:1px dashed var(--fio); padding:8px 14px; font-size:13px; font-style:italic; }
 
@@ -520,3 +554,24 @@ img{ max-width:100%; height:auto; display:block; }
 .quadro .a-conferir::before{ color:#E3B76A; }
 .letreiros{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); }
 .letreiro b{ font-size:clamp(24px, 2.8vw, 32px); }
+
+/* ===== TELAS GRANDES E TV =====
+   O site é desenhado para até ~1400 px de largura. Em monitores enormes e TVs, em vez de deixar tudo
+   miúdo no meio da tela, a página inteira é ampliada por igual. O js/aparelho.js marca a TV (html.tv)
+   para ampliar um pouco mais, porque ela é vista de longe, e para destacar o foco do controle remoto. */
+@media (min-width:1900px){ html{ zoom:1.2; } }
+@media (min-width:2300px){ html{ zoom:1.5; } }
+@media (min-width:2900px){ html{ zoom:1.9; } }
+@media (min-width:3500px){ html{ zoom:2.3; } }
+@media (min-width:1600px){ html.tv{ zoom:1.3; } }
+@media (min-width:2300px){ html.tv{ zoom:1.7; } }
+@media (min-width:3500px){ html.tv{ zoom:2.6; } }
+html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
+
+/* celular deitado (tela baixa e larga): a capa cabe na altura da tela */
+@media (orientation:landscape) and (max-height:520px){
+  .capa{ min-height:calc(100svh - 64px); }
+  .capa-moldura{ padding-block:32px 24px; gap:20px; }
+  .capa h1.logo{ width:min(100%, 100svh); }
+  .capa-creditos{ display:none; }
+}
