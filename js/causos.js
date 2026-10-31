@@ -176,7 +176,7 @@ var ACERVO_CAUSOS = [
     "titulo": "Cinco graus na final",
     "ano": "2010",
     "paragrafos": [
-      "Quem conta este é a banda Os Sicilianos, de Recife. A viagem de Belo Horizonte, que devia levar umas duas horas, passou de cinco horas e meia.",
+      "Quem conta este são Babi Jaques e Os Sicilianos, do Recife. A viagem de Belo Horizonte, que devia levar umas duas horas, passou de cinco horas e meia.",
       "Na final, o termômetro marcava uns cinco graus. A cantora soltava fumaça pela boca e os músicos tocaram de luvas. Saíram com o terceiro lugar, troféu e cheque, e uma frase: “Alvinópolis entrou pra nossa história.”"
     ],
     "fonte": "Banda de Recife fala sobre o Festival de Alvinópolis",
