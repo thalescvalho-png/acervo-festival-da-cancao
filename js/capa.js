@@ -9,15 +9,18 @@
   var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var SIMBOLOS = ['♪', '♫', '♩', '♬'];
 
-  // equalizador: barras com alturas e ritmos diferentes
-  var barras = Math.max(24, Math.min(90, Math.round(window.innerWidth / 18)));
-  for (var i = 0; i < barras; i++){
-    var b = document.createElement('i');
-    b.style.setProperty('--a', (0.35 + Math.random() * 0.65).toFixed(2));
-    b.style.animationDuration = (0.45 + Math.random() * 0.9).toFixed(2) + 's';
-    b.style.animationDelay = (-Math.random()).toFixed(2) + 's';
-    eq.appendChild(b);
+  // pé da capa: três linhas de onda, finas e douradas, que deslizam devagar (como som se espalhando)
+  var W = 1200, H = 100;
+  function onda(amp, comp, y){
+    var d = 'M0 ' + y;
+    for (var x = 0; x <= W * 2; x += 10) d += ' L' + x + ' ' + (y + Math.sin(x / comp * Math.PI * 2) * amp).toFixed(1);
+    return d;
   }
+  eq.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">' +
+    '<path class="onda o1" d="' + onda(14, 300, 55) + '"/>' +
+    '<path class="onda o2" d="' + onda(9, 200, 62) + '"/>' +
+    '<path class="onda o3" d="' + onda(18, 400, 50) + '"/></svg>';
+
   // contador da linha de datas: o ano volta de 2026 a 1976, edições e anos sobem até 40 e 50
   var datas = document.getElementById('capaDatas');
   function contar(comSom){
