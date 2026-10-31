@@ -593,28 +593,22 @@ html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
 @media (max-width:860px){ .capa-vinil{ width:min(70vw, 360px); opacity:.25; } .capa-vinil-esq{ translate:-70% -50%; } .capa-vinil-dir{ translate:70% -50%; } .capa-eq{ -webkit-mask-image:none; mask-image:none; opacity:.18; } }
 @media (prefers-reduced-motion: reduce){ .capa-vinil, .capa-eq i{ animation:none; } .capa-notas{ display:none; } }
 
-/* DOCUMENTÁRIO EM DESTAQUE NA CAPA: letreiro de cinema de rua (marquise vinho com lâmpadas que
-   acendem em sequência, placa clara com letras de encaixar e o pé com a estreia) */
-.capa-doc{ position:relative; display:grid; justify-items:center; gap:10px; width:min(100%, 600px); margin-top:10px; padding:22px 26px 18px; text-align:center; text-decoration:none; color:#F1E6CF;
-  background:linear-gradient(#5E1C26, #7A2632 40%, #5E1C26); border-radius:6px; box-shadow:inset 0 0 0 3px #3A1017, inset 0 0 0 5px #C9A962, 0 18px 50px rgba(0,0,0,.6); transition:transform .25s ease, box-shadow .25s ease; }
-.capa-doc:hover, .capa-doc:focus-visible{ transform:translateY(-3px) scale(1.01); box-shadow:inset 0 0 0 3px #3A1017, inset 0 0 0 5px #E3B76A, 0 0 40px rgba(227,183,106,.35), 0 24px 60px rgba(0,0,0,.7); }
-.capa-doc-luzes, .capa-doc-luzes::after{ position:absolute; inset:8px; border-radius:4px; pointer-events:none;
-  --l:radial-gradient(circle, #FFF3C8 0 2.6px, #F2C46A 3px, rgba(242,196,106,.35) 4.5px, transparent 6px);
-  background:var(--l) 0 0/18px 18px repeat-x, var(--l) 9px 100%/18px 18px repeat-x, var(--l) 0 9px/18px 18px repeat-y, var(--l) 100% 0/18px 18px repeat-y;
-  -webkit-mask:linear-gradient(#000 0 0) top/100% 12px no-repeat, linear-gradient(#000 0 0) bottom/100% 12px no-repeat, linear-gradient(#000 0 0) left/12px 100% no-repeat, linear-gradient(#000 0 0) right/12px 100% no-repeat;
-          mask:linear-gradient(#000 0 0) top/100% 12px no-repeat, linear-gradient(#000 0 0) bottom/100% 12px no-repeat, linear-gradient(#000 0 0) left/12px 100% no-repeat, linear-gradient(#000 0 0) right/12px 100% no-repeat; }
-.capa-doc-luzes{ content:""; animation:lampadas 1.2s steps(1) infinite; }
-.capa-doc-luzes::after{ content:""; inset:0; background-position:9px 0, 0 100%, 0 0, 100% 9px; animation:lampadas 1.2s steps(1) infinite reverse; }
-@keyframes lampadas{ 0%{ opacity:1; } 50%{ opacity:.25; } }
-.capa-doc-topo{ position:relative; font-family:var(--maquina); font-size:13px; letter-spacing:.3em; text-transform:uppercase; color:#F2C46A; text-shadow:0 0 10px rgba(242,196,106,.55); }
-.capa-doc-placa{ position:relative; display:grid; gap:2px; width:100%; padding:12px 14px 10px; background:linear-gradient(#FBF6EA, #EDE4CF); border-radius:2px;
-  box-shadow:inset 0 0 0 1px #CDBFA6, 0 0 24px rgba(255,236,190,.35);
-  background-image:linear-gradient(#FBF6EA, #EDE4CF), repeating-linear-gradient(transparent 0 33%, rgba(0,0,0,.06) 33% calc(33% + 1px)); background-blend-mode:multiply; }
-.capa-doc-titulo{ font-family:var(--titulo); font-size:clamp(17px, 2.6vw, 27px); line-height:1.1; text-transform:uppercase; color:#1C1715; letter-spacing:.02em; }
-.capa-doc-sub{ font-family:var(--titulo); font-size:clamp(15px, 2vw, 21px); text-transform:uppercase; letter-spacing:.2em; color:#7A2632; }
-.capa-doc-pe{ position:relative; display:inline-flex; align-items:center; gap:10px; font-family:var(--maquina); font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:#F1E6CF; }
-.capa-doc-play{ flex:none; width:30px; height:30px; border-radius:50%; background:#F2C46A; position:relative; box-shadow:0 0 0 4px rgba(242,196,106,.25); animation:pulso 2.4s ease-in-out infinite; }
-.capa-doc-play::after{ content:""; position:absolute; left:12px; top:9px; border-left:10px solid #5E1C26; border-block:6px solid transparent; }
-@keyframes pulso{ 50%{ box-shadow:0 0 0 10px rgba(242,196,106,0); } }
-@media (max-width:480px){ .capa-doc{ padding:20px 18px 16px; } .capa-doc-topo{ font-size:11px; letter-spacing:.2em; } .capa-doc-pe{ font-size:11px; letter-spacing:.05em; } .capa-doc-mais{ display:none; } }
-@media (prefers-reduced-motion: reduce){ .capa-doc-play, .capa-doc-luzes, .capa-doc-luzes::after{ animation:none; } }
+/* DOCUMENTÁRIO EM DESTAQUE NA CAPA: fotograma em tela larga 2.39:1 entre faixas pretas (letterbox),
+   foto do festival escurecida como cena de filme, título fino e espaçado em Jost, play simples */
+.capa-doc{ --largo:min(100%, 640px); position:relative; display:block; width:var(--largo); aspect-ratio:2.39; margin-top:12px; overflow:hidden; text-decoration:none; color:#fff;
+  background:#000; box-shadow:0 0 0 1px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.7); border-block:clamp(10px, 2vw, 16px) solid #000; transition:box-shadow .4s ease; }
+.capa-doc-foto{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 35%; filter:grayscale(.35) contrast(1.1) brightness(.5) sepia(.25); transform:scale(1.04); transition:transform 6s ease, filter .6s ease; }
+.capa-doc::after{ content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0,0,0,.65) 100%), linear-gradient(90deg, rgba(0,0,0,.55), transparent 60%); pointer-events:none; }
+.capa-doc:hover .capa-doc-foto, .capa-doc:focus-visible .capa-doc-foto{ transform:scale(1.1); filter:grayscale(.1) contrast(1.1) brightness(.62) sepia(.15); }
+.capa-doc:hover, .capa-doc:focus-visible{ box-shadow:0 0 0 1px rgba(227,183,106,.6), 0 30px 70px rgba(0,0,0,.8); }
+.capa-doc-texto{ position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:clamp(4px, 1vw, 10px); padding:0 clamp(16px, 4vw, 34px); text-align:left; font-family:'Jost', system-ui, sans-serif; }
+.capa-doc-selo{ font-size:clamp(9px, 1.2vw, 11.5px); font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:rgba(255,255,255,.7); }
+.capa-doc-titulo{ display:grid; font-size:clamp(15px, 2.5vw, 25px); font-weight:300; letter-spacing:.14em; text-transform:uppercase; line-height:1.2; color:#fff; }
+.capa-doc-titulo b{ font-weight:500; letter-spacing:.42em; color:#E3B76A; font-size:.86em; }
+.capa-doc-pe{ display:inline-flex; align-items:center; gap:10px; margin-top:clamp(2px, .8vw, 8px); font-size:clamp(10px, 1.2vw, 12px); font-weight:400; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.85); }
+.capa-doc-play{ flex:none; width:clamp(24px, 3vw, 30px); aspect-ratio:1; border:1px solid rgba(255,255,255,.85); border-radius:50%; position:relative; transition:background .3s ease, border-color .3s ease; }
+.capa-doc-play::after{ content:""; position:absolute; left:52%; top:50%; translate:-40% -50%; border-left:8px solid #fff; border-block:5px solid transparent; }
+.capa-doc:hover .capa-doc-play{ background:#E3B76A; border-color:#E3B76A; }
+.capa-doc:hover .capa-doc-play::after{ border-left-color:#000; }
+@media (max-width:480px){ .capa-doc{ aspect-ratio:1.9; } }
+@media (prefers-reduced-motion: reduce){ .capa-doc-foto{ transition:none; } }
