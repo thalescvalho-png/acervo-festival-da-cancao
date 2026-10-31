@@ -542,3 +542,25 @@ img{ max-width:100%; height:auto; display:block; }
 .quadro .a-conferir::before{ color:#E3B76A; }
 .letreiros{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); }
 .letreiro b{ font-size:clamp(24px, 2.8vw, 32px); }
+
+/* ===== TELAS GRANDES E TV =====
+   O site é desenhado para até ~1400 px de largura. Em monitores enormes e TVs, em vez de deixar tudo
+   miúdo no meio da tela, a página inteira é ampliada por igual. O js/aparelho.js marca a TV (html.tv)
+   para ampliar um pouco mais, porque ela é vista de longe, e para destacar o foco do controle remoto. */
+@media (min-width:1900px){ html{ zoom:1.2; } }
+@media (min-width:2300px){ html{ zoom:1.5; } }
+@media (min-width:2900px){ html{ zoom:1.9; } }
+@media (min-width:3500px){ html{ zoom:2.3; } }
+@media (min-width:1600px){ html.tv{ zoom:1.3; } }
+@media (min-width:2300px){ html.tv{ zoom:1.7; } }
+@media (min-width:3500px){ html.tv{ zoom:2.6; } }
+html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
+
+/* celular deitado (tela baixa e larga): a capa cabe na altura da tela */
+@media (orientation:landscape) and (max-height:520px){
+  .capa{ min-height:calc(100svh - 64px); }
+  .capa-moldura{ padding-block:32px 24px; gap:20px; }
+  .capa-titulo{ font-size:clamp(36px, 15svh, 72px); }
+  .capa-sub{ font-size:clamp(22px, 8svh, 40px); }
+  .capa-creditos{ display:none; }
+}
