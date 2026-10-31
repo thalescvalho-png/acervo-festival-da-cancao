@@ -115,7 +115,7 @@ button.capa-datas{ background:none; border:0; padding:6px 0; cursor:pointer; tex
 /* LOGOTIPO: a mesma letra de cartaz, montada como bloco justificado. Cada linha tem um tamanho
    calculado para que as três ocupem exatamente a mesma largura (unidade cqi = % da largura do bloco):
    FESTIVAL espaçado, DA CANÇÃO maior, DE ALVINÓPOLIS menor. O bloco cresce e encolhe com a tela. */
-.capa h1.logo{ container-type:inline-size; display:grid; justify-items:center; gap:0; width:100%; max-width:min(1240px, 100%); margin:0 auto; line-height:.98; }
+.capa h1.logo{ container-type:inline-size; display:grid; justify-items:center; gap:0; width:100%; max-width:min(990px, 100%); margin:0 auto; line-height:.98; }
 .logo > span{ display:block; white-space:nowrap; }
 .logo-festival{ font-size:12.9cqi; letter-spacing:.3em; margin-right:-.3em; }
 .logo-cancao{ font-size:14.86cqi; letter-spacing:.01em; margin-right:-.01em; margin-block:.16em .02em; }
