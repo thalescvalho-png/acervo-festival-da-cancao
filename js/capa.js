@@ -18,6 +18,30 @@
     b.style.animationDelay = (-Math.random()).toFixed(2) + 's';
     eq.appendChild(b);
   }
+  // contador da linha de datas: o ano volta de 2026 a 1976, edições e anos sobem até 40 e 50
+  var datas = document.getElementById('capaDatas');
+  function contar(comSom){
+    if (!datas) return;
+    var cs = datas.querySelectorAll('.conta'), t0 = null, dur = 1800, ultimo = -1;
+    datas.classList.add('contando');
+    function passo(t){
+      if (t0 === null) t0 = t;
+      var x = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - x, 3);
+      cs.forEach(function(c){
+        var de = +c.dataset.de, ate = +c.dataset.ate;
+        c.textContent = Math.round(de + (ate - de) * e);
+      });
+      var nota = Math.floor(e * 8);
+      if (comSom && window.SOM && nota !== ultimo){ ultimo = nota; window.SOM.tocar(nota, { duracao: .5, volume: .12 }); }
+      if (x < 1) requestAnimationFrame(passo); else datas.classList.remove('contando');
+    }
+    requestAnimationFrame(passo);
+  }
+  if (datas){
+    datas.addEventListener('click', function(){ contar(true); });
+    if (!parado) setTimeout(function(){ contar(false); }, 500);
+  }
+
   if (parado) return;
 
   // notas subindo, mais nas laterais do que no meio (o título fica limpo)

@@ -101,7 +101,12 @@ img{ max-width:100%; height:auto; display:block; }
 .capa-topo{ font-family:var(--maquina); font-size:16px; letter-spacing:.18em; color:#F1E6CF; }
 .capa h1{ display:grid; justify-items:center; gap:.06em; text-transform:uppercase; color:#E3B76A; line-height:1.06; text-shadow:0 2px 0 #6E4E1C, 0 8px 30px rgba(0,0,0,.65); }
 .capa-datas{ font-family:var(--maquina); font-size:clamp(15px, 1.6vw, 19px); letter-spacing:.14em; color:#F1E6CF; display:flex; align-items:center; gap:14px; }
-.capa-datas::before,.capa-datas::after{ content:""; width:40px; height:1px; background:#D6B46E; }
+.capa-datas::before,.capa-datas::after{ content:""; width:40px; height:1px; background:#D6B46E; transition:width .4s ease; }
+button.capa-datas{ background:none; border:0; padding:6px 0; cursor:pointer; text-align:center; }
+.capa-datas .conta{ font-family:var(--titulo); font-weight:400; color:#E3B76A; font-size:1.25em; font-variant-numeric:tabular-nums; letter-spacing:.02em; display:inline-block; min-width:1.2em; }
+.capa-datas .conta:first-child{ min-width:2.4em; }
+.capa-datas.contando .conta{ text-shadow:0 0 14px rgba(227,183,106,.7); }
+.capa-datas:hover::before, .capa-datas:hover::after, .capa-datas:focus-visible::before, .capa-datas:focus-visible::after{ width:64px; }
 .capa .acoes{ justify-content:center; margin-top:10px; }
 .capa .botao{ background:#E3B76A; border-color:#E3B76A; color:#1C1715; }
 .capa .botao.contorno{ background:transparent; color:#F1E6CF; border-color:rgba(241,230,207,.7); }
@@ -614,3 +619,4 @@ html.tv :focus-visible{ outline:4px solid var(--ouro); outline-offset:4px; }
 .capa-doc:hover .capa-doc-play::after{ border-left-color:#000; }
 @media (max-width:480px){ .capa-doc{ aspect-ratio:1.9; } }
 @media (prefers-reduced-motion: reduce){ .capa-doc-foto{ transition:none; animation:none; transform:scale(1.04); } }
+@media (max-width:600px){ .capa-datas::before, .capa-datas::after{ display:none; } }

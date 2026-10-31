@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Jost:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=30">
+<link rel="stylesheet" href="css/estilo.css?v=31">
 <script src="js/aparelho.js?v=1"></script>
 </head>
 <body>
@@ -57,7 +57,11 @@
 <p class="capa-topo">acervo · alvinópolis · minas gerais</p>
 <!-- LOGOTIPO: as três linhas do título ficam com a mesma largura (bloco justificado), como num letreiro -->
 <h1 class="logo"><span class="logo-festival">Festival</span> <span class="logo-cancao">da Canção</span> <span class="logo-cidade">de Alvinópolis</span></h1>
-<p class="capa-datas">desde 1976 · quarenta edições</p>
+<!-- CONTADOR: ao abrir a capa, o ano volta de 2026 até 1976 e as edições e os anos sobem até 40 e 50;
+     tocar na linha conta de novo (com o som ligado, cada passo toca uma nota). Dados: js/capa.js -->
+<button type="button" class="capa-datas" id="capaDatas" aria-label="Desde 1976, 40 edições em 50 anos de história. Toque para contar de novo.">
+<span aria-hidden="true">desde <b class="conta" data-de="2026" data-ate="1976">1976</b> · <b class="conta" data-de="0" data-ate="40">40</b> edições em <b class="conta" data-de="0" data-ate="50">50</b> anos de história</span>
+</button>
 <!-- DOCUMENTÁRIO EM DESTAQUE: quadro de cinema em tela larga (2.39:1), com faixas pretas, foto antiga do festival (anos 1970, blog FESTIALVI Memórias)
      tratada como fotograma, título fino e o botão de play -->
 <a class="capa-doc" href="#documentario">
@@ -530,6 +534,6 @@
 <script src="js/toca-discos.js?v=2"></script>
 <script src="js/rolagem.js?v=1"></script>
 <script src="js/menu.js?v=1"></script>
-<script src="js/capa.js?v=1"></script>
+<script src="js/capa.js?v=2"></script>
 </body>
 </html>
