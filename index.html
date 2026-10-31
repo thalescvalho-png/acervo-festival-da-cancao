@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Jost:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=29">
+<link rel="stylesheet" href="css/estilo.css?v=35">
 <script src="js/aparelho.js?v=1"></script>
 </head>
 <body>
@@ -57,20 +57,25 @@
 <p class="capa-topo">acervo · alvinópolis · minas gerais</p>
 <!-- LOGOTIPO: as três linhas do título ficam com a mesma largura (bloco justificado), como num letreiro -->
 <h1 class="logo"><span class="logo-festival">Festival</span> <span class="logo-cancao">da Canção</span> <span class="logo-cidade">de Alvinópolis</span></h1>
-<p class="capa-datas">desde 1976 · quarenta edições</p>
-<!-- DOCUMENTÁRIO EM DESTAQUE: quadro de cinema em tela larga (2.39:1), com faixas pretas, foto do festival
+<!-- CONTADOR: ao abrir a capa, o ano volta de 2026 até 1976 e as edições e os anos sobem até 40 e 50;
+     tocar na linha conta de novo (com o som ligado, cada passo toca uma nota). Dados: js/capa.js -->
+<button type="button" class="capa-datas" id="capaDatas" aria-label="Desde 1976, 40 edições em 50 anos de história. Toque para contar de novo.">
+<span aria-hidden="true">desde <b class="conta" data-de="2026" data-ate="1976">1976</b> · <b class="conta" data-de="0" data-ate="40">40</b> edições em <b class="conta" data-de="0" data-ate="50">50</b> anos de história</span>
+</button>
+<!-- DOCUMENTÁRIO EM DESTAQUE: quadro de cinema em tela larga (2.39:1), com faixas pretas, foto antiga do festival (anos 1970, blog FESTIALVI Memórias)
      tratada como fotograma, título fino e o botão de play -->
-<a class="capa-doc" href="#documentario">
-<img class="capa-doc-foto" src="img/acervo/2026_festival-alvinopolis_do-avesso-1.webp" width="1600" height="1200" alt="" loading="eager">
-<span class="capa-doc-texto">
-<span class="capa-doc-selo">um documentário de Thales Carvalho</span>
-<span class="capa-doc-titulo">Festival da Canção de Alvinópolis<b>Histórias</b></span>
-<span class="capa-doc-pe"><span class="capa-doc-play" aria-hidden="true"></span>em breve · agosto de 2027</span>
+<a class="capa-doc" id="capaDoc" href="#documentario" aria-label="Documentário Festival da Canção de Alvinópolis – Histórias, produzido por Thales Carvalho. Em breve, agosto de 2027.">
+<img class="capa-doc-foto" src="img/acervo/blog/foto-reliquias-07.webp" width="989" height="693" alt="" loading="eager">
+<span class="capa-doc-texto" aria-hidden="true">
+<!-- o título é datilografado na tela (js/capa.js); o texto fantasma guarda o espaço para nada pular -->
+<span class="capa-doc-titulo">
+<span class="tw-linha"><span class="tw-fantasma">Festival da Canção de Alvinópolis</span><span class="tw-texto"></span></span>
+<span class="tw-linha tw-destaque"><span class="tw-fantasma">Histórias</span><span class="tw-texto"></span></span>
 </span>
+<span class="capa-doc-pe"><span class="capa-doc-play"></span>em breve · agosto de 2027</span>
+</span>
+<span class="capa-doc-selo" aria-hidden="true">produzido por Thales Carvalho</span>
 </a>
-<div class="acoes">
-<a class="botao" href="#acervo">Percorrer o acervo</a>
-</div>
 </div>
 <p class="capa-creditos">fotos · vídeos · lembranças de quem subiu ao palco e de quem assistiu da plateia</p>
 </div>
@@ -247,10 +252,8 @@
 <span class="tc-notas" aria-hidden="true">♫</span>
 <p class="rotulo">encarte · agradecimento</p>
 <h3 id="tcEncarte">Um blog que guardou a cidade</h3>
-<p>Quase tudo o que toca neste disco saiu do <a href="https://alvinopolisquepensa.blogspot.com/" target="_blank" rel="noopener">Alvinópolis Que Pensa</a>, no ar desde 2008, e do seu irmão caçula, o <a href="https://memoriafestalvi.blogspot.com/" target="_blank" rel="noopener">FESTIALVI Memórias</a>, feito só para o festival.</p>
-<p>Post a post, os dois blogs guardaram o que quase ninguém mais guardou: os resultados de cada edição, os causos de palco e de bastidor, os cartazes, as marcas e os nomes de quem fez o festival acontecer, inclusive nos anos em que faltou dinheiro e sobrou teimosia.</p>
-<p>Sem esse registro paciente, boa parte dessa história teria ficado só na memória de quem viveu. É com ele que este acervo consegue juntar as peças e deixar a cultura alvinopolense gravada para quem vier depois, como se grava um disco: para tocar de novo.</p>
-<p class="tc-assinatura">Obrigado ao Alvinópolis Que Pensa e ao FESTIALVI Memórias, e a Marcos Martino, que criou o blog e guardou ali parte da história do festival.</p>
+<p>Quase todos estes causos saíram do <a href="https://alvinopolisquepensa.blogspot.com/" target="_blank" rel="noopener">Alvinópolis Que Pensa</a> e do <a href="https://memoriafestalvi.blogspot.com/" target="_blank" rel="noopener">FESTIALVI Memórias</a>, blogs que guardaram, post a post, a história do festival.</p>
+<p class="tc-assinatura">Obrigado aos dois blogs e a Marcos Martino, que os criou.</p>
 </aside>
 
 </div>
@@ -535,6 +538,6 @@
 <script src="js/toca-discos.js?v=2"></script>
 <script src="js/rolagem.js?v=1"></script>
 <script src="js/menu.js?v=1"></script>
-<script src="js/capa.js?v=1"></script>
+<script src="js/capa.js?v=5"></script>
 </body>
 </html>

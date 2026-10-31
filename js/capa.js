@@ -9,15 +9,76 @@
   var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var SIMBOLOS = ['♪', '♫', '♩', '♬'];
 
-  // equalizador: barras com alturas e ritmos diferentes
-  var barras = Math.max(24, Math.min(90, Math.round(window.innerWidth / 18)));
-  for (var i = 0; i < barras; i++){
-    var b = document.createElement('i');
-    b.style.setProperty('--a', (0.35 + Math.random() * 0.65).toFixed(2));
-    b.style.animationDuration = (0.45 + Math.random() * 0.9).toFixed(2) + 's';
-    b.style.animationDelay = (-Math.random()).toFixed(2) + 's';
-    eq.appendChild(b);
+  // pé da capa: três linhas de onda, finas e douradas, que deslizam devagar (como som se espalhando)
+  var W = 1200, H = 100;
+  function onda(amp, comp, y){
+    var d = 'M0 ' + y;
+    for (var x = 0; x <= W * 2; x += 10) d += ' L' + x + ' ' + (y + Math.sin(x / comp * Math.PI * 2) * amp).toFixed(1);
+    return d;
   }
+  eq.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">' +
+    '<path class="onda o1" d="' + onda(14, 300, 55) + '"/>' +
+    '<path class="onda o2" d="' + onda(9, 200, 62) + '"/>' +
+    '<path class="onda o3" d="' + onda(18, 400, 50) + '"/></svg>';
+
+  // contador da linha de datas: o ano volta de 2026 a 1976, edições e anos sobem até 40 e 50
+  var datas = document.getElementById('capaDatas');
+  function contar(comSom){
+    if (!datas) return;
+    var cs = datas.querySelectorAll('.conta'), t0 = null, dur = 1800, ultimo = -1;
+    datas.classList.add('contando');
+    function passo(t){
+      if (t0 === null) t0 = t;
+      var x = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - x, 3);
+      cs.forEach(function(c){
+        var de = +c.dataset.de, ate = +c.dataset.ate;
+        c.textContent = Math.round(de + (ate - de) * e);
+      });
+      var nota = Math.floor(e * 8);
+      if (comSom && window.SOM && nota !== ultimo){ ultimo = nota; window.SOM.tocar(nota, { duracao: .5, volume: .12 }); }
+      if (x < 1) requestAnimationFrame(passo); else datas.classList.remove('contando');
+    }
+    requestAnimationFrame(passo);
+  }
+  if (datas){
+    datas.addEventListener('click', function(){ contar(true); });
+    if (!parado) setTimeout(function(){ contar(false); }, 500);
+  }
+
+  // título do documentário datilografado, com cursor piscando; repete ao passar o mouse
+  var doc = document.getElementById('capaDoc');
+  var linhas = doc ? doc.querySelectorAll('.tw-linha') : [];
+  var datilo = 0;
+  function datilografar(){
+    if (!linhas.length) return;
+    var vez = ++datilo, textos = [].map.call(linhas, function(l){ return l.querySelector('.tw-fantasma').textContent; });
+    var alvos = [].map.call(linhas, function(l){ return l.querySelector('.tw-texto'); });
+    var cursor = document.createElement('span'); cursor.className = 'tw-cursor';
+    alvos.forEach(function(a){ a.textContent = ''; });
+    doc.classList.remove('creditado');
+    var li = 0, ci = 0;
+    function tecla(){
+      if (vez !== datilo) return;
+      if (li >= textos.length){ alvos[alvos.length - 1].appendChild(cursor); setTimeout(function(){ if (vez === datilo) doc.classList.add('creditado'); }, 400); return; }
+      ci++;
+      alvos[li].textContent = textos[li].slice(0, ci);
+      alvos[li].appendChild(cursor);
+      var pausa = textos[li][ci - 1] === ' ' ? 120 : 55 + Math.random() * 70;
+      if (ci >= textos[li].length){ li++; ci = 0; pausa = 450; }
+      setTimeout(tecla, pausa);
+    }
+    setTimeout(tecla, 300);
+  }
+  if (linhas.length){
+    if (parado){
+      [].forEach.call(linhas, function(l){ l.querySelector('.tw-texto').textContent = l.querySelector('.tw-fantasma').textContent; });
+    } else {
+      setTimeout(datilografar, 700);
+      var tocouAgora = 0;
+      doc.addEventListener('mouseenter', function(){ if (Date.now() - tocouAgora > 4000){ tocouAgora = Date.now(); datilografar(); } });
+    }
+  }
+
   if (parado) return;
 
   // notas subindo, mais nas laterais do que no meio (o título fica limpo)
